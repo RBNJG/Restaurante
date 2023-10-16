@@ -9,7 +9,7 @@ class pedidoController{
 
         //Panel
 
-        //Footer
+        //Footerr
     }
 
     public function compra(){
