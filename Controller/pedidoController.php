@@ -1,4 +1,5 @@
 <?php
+include_once 'Model/ProductoDAO.php';
 
 // Creamos el controlador de pedidos
 
@@ -8,7 +9,7 @@ class pedidoController{
         //Cabecera
 
         //Panel
-
+        var_dump(ProductoDAO::getAllProducts());
         //Footer
     }
 
