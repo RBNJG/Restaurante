@@ -5,7 +5,7 @@ class DataBase{
         $connection = new mysqli($host,$user,$pwd,$db);
 
         if ($connection == false) {
-            die('DATABASE ERROR');
+            die('Error de conexión:' . $connection->connect_error);
         }else{
             return $connection;
         }

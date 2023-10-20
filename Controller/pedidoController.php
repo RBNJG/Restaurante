@@ -9,7 +9,11 @@ class pedidoController{
         //Cabecera
 
         //Panel
-        var_dump(ProductoDAO::getAllProducts());
+        $productos = ProductoDAO::getAllProducts();
+        
+        foreach ($productos as $producto) {
+            echo $producto ->getNombre_producto() . "<br>";
+        }
         //Footer
     }
 
