@@ -7,13 +7,10 @@ class pedidoController{
 
     public function index(){
         //Cabecera
-
+        include_once 'Views/header.php';
         //Panel
-        $productos = ProductoDAO::getAllProducts();
-        
-        foreach ($productos as $producto) {
-            echo $producto ->getNombre_producto() . "<br>";
-        }
+        include_once 'Views/panelPedido.php';
+
         //Footer
     }
 
