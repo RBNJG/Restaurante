@@ -1,5 +1,6 @@
 <?php
 include_once 'Model/ProductoDAO.php';
+include_once 'Model/CategoriaDAO.php';
 
 // Creamos el controlador de pedidos
 

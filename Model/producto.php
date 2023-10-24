@@ -10,9 +10,7 @@ class Producto
     private $coste_base;
 
 
-    public function __construct()
-    {
-    }
+    public function __construct(){}
 
 
     /* Hay que hacer un constructor vacío para poder crear objetos con la base de datos

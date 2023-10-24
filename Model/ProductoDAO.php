@@ -1,6 +1,6 @@
 <?php
 
-include_once 'config/dataBase.php';
+include_once 'config/DataBase.php';
 include_once 'Producto.php';
 
 class ProductoDAO
@@ -29,8 +29,6 @@ class ProductoDAO
             // Con fectch_object le decimos el objeto de la base de datos que queremos, y si los atributos 
             // son iguales que en la base de datos y el constructor está vacío, los crea automáticamente.
             while ($producto = $result->fetch_object('producto')) {
-                
-
                 $productos[] = $producto;
             }
 
