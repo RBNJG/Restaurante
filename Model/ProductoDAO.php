@@ -5,35 +5,27 @@ include_once 'Producto.php';
 
 class ProductoDAO
 {
-
+    // Función para obtener todos los productos de la base de datos
     public static function getAllProducts()
     {
         $connection = DataBase::connect();
 
+        // Preparar y ejecutar la consulta
+        $query = "SELECT * FROM producto ORDER BY categoria_id, coste_base";
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
 
-        if ($result = $connection->query("SELECT * FROM producto")) {
+        // Obtener el resultado
+        $result = $stmt->get_result();
 
-            // De esta manera crea manualmente los productos a partir de los set
-            /*while ($row = $result->fetch_assoc()) {
-                $producto = new Producto();
-                $producto->setProducto_id($row['producto_id'])
-                        ->setCategoria_id($row['categoria_id'])
-                        ->setNombre_producto($row['nombre_producto'])
-                        ->setDescripcion($row['descripcion'])
-                        ->setCoste_base($row['coste_base']);
 
-                $productos[] = $producto;
-            }*/
-
+        if ($result) {
             // Mientras haya productos en la base de datos, los voy creando y guardando en un array
             // Con fectch_object le decimos el objeto de la base de datos que queremos, y si los atributos 
             // son iguales que en la base de datos y el constructor está vacío, los crea automáticamente.
-            while ($producto = $result->fetch_object('producto')) {
+            while ($producto = $result->fetch_object('Producto')) {
                 $productos[] = $producto;
             }
-
-
-
 
             $result->free();
         } else {
@@ -42,5 +34,109 @@ class ProductoDAO
 
         $connection->close();
         return $productos;
+    }
+
+    // Función para obtener los datos de un producto en concreto pasando si id
+    public static function getProduct($id)
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "SELECT * FROM producto WHERE producto_id = ?";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("i", $id);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        $producto = null;
+
+        if ($result) {
+            $producto = $result->fetch_object('Producto');
+            $result->free();
+        } else {
+            echo "Error en la consulta: " . $connection->error;
+        }
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $producto;
+    }
+
+    // Función para modificar los atributos de un producto en la base de datos
+    public static function modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base)
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "UPDATE producto SET categoria_id = ?, nombre_producto = ?, descripcion = ?, coste_base = ? WHERE producto_id = ?";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("isssi", $categoria_id, $nombre_producto, $descripcion, $coste_base, $producto_id);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el número de filas afectadas
+        $affected_rows = $stmt->affected_rows;
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $affected_rows;
+    }
+
+    // Función para eliminar un producto en la base de datos pasando su id
+    public static function deleteProduct($id)
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "DELETE FROM producto WHERE producto_id = ?";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("i", $id);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el número de filas afectadas
+        $result = $stmt->affected_rows;
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $result;
     }
 }

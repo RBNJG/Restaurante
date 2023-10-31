@@ -1,7 +1,6 @@
 <?php
 
 $productos = ProductoDAO::getAllProducts();
-$categorias = CategoriaDAO::getAllCategories();
 
 ?>
 
@@ -28,7 +27,26 @@ $categorias = CategoriaDAO::getAllCategories();
         <?php
         foreach ($productos as $producto) {
             $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
-            echo "<tr><td>" . $producto->getNombre_producto() . "</td><td>" . $categoria . "</td><td>" . $producto->getDescripcion() . "</td><td>" . $producto->getCoste_base() . " €</td>" ."<td><button onclick=''>Añadir</button></td>" . " " . "<td><button onclick=''>Eliminar</button></td></tr>";
+        ?>
+            <tr>
+                <td><?= $producto->getNombre_producto() ?></td>
+                <td><?= $categoria ?></td>
+                <td><?= $producto->getDescripcion() ?></td>
+                <td><?= $producto->getCoste_base() ?> €</td>
+                <td>
+                    <form action=<?= url . "?controller=Producto&action=modificar" ?> method='post'>
+                        <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
+                        <button class="bet-button w3-black w3-section" type="submit">Modificar</button>
+                    </form>
+                </td>
+                <td>
+                    <form action=<?= url . "?controller=Producto&action=eliminar" ?> method='post'>
+                        <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
+                        <button class="bet-button w3-black w3-section" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        <?php
         }
         ?>
     </table>

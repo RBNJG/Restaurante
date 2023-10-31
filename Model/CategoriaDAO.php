@@ -5,26 +5,26 @@ include_once 'Categoria.php';
 
 class CategoriaDAO
 {
-
+    // Funcion para obtener todas las categorias de la base de datos
     public static function getAllCategories()
     {
         $connection = DataBase::connect();
 
+        // Preparar y ejecutar la consulta
+        $query = "SELECT * FROM categoria";
+        $stmt = $connection->prepare($query);
+        $stmt->execute();
 
-        if ($result = $connection->query("SELECT * FROM categoria")) {
+        // Obtener el resultado
+        $result = $stmt->get_result();
 
-
+        if ($result) {
             // Mientras haya productos en la base de datos, los voy creando y guardando en un array
             // Con fectch_object le decimos el objeto de la base de datos que queremos, y si los atributos 
             // son iguales que en la base de datos y el constructor está vacío, los crea automáticamente.
-            while ($categoria = $result->fetch_object('categoria')) {
-
-
+            while ($categoria = $result->fetch_object('Categoria')) {
                 $categorias[] = $categoria;
             }
-
-
-
 
             $result->free();
         } else {
@@ -35,10 +35,10 @@ class CategoriaDAO
         return $categorias;
     }
 
+    // Función para obtener el nombre de una categoría a través de su id
     public static function getCategoryName($id)
     {
         $connection = DataBase::connect();
-
 
         // Preparar y ejecutar la consulta
         $query = "SELECT nombre_categoria FROM categoria WHERE categoria_id = $id";
@@ -47,9 +47,12 @@ class CategoriaDAO
 
         // Obtener el resultado
         $result = $stmt->get_result();
-        $nombre_categoria = null;
+        //$nombre_categoria = null;
+
         if ($categoria = $result->fetch_object('categoria')) {
             $nombre_categoria = $categoria->getNombre_categoria();
+        } else {
+            echo "Error en la consulta: " . $connection->error;
         }
 
         // Cerrar la conexión

@@ -13,14 +13,6 @@ class Producto
     public function __construct(){}
 
 
-    /* Hay que hacer un constructor vacío para poder crear objetos con la base de datos
-    public function __construct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base)
-    {
-        $this->producto_id = $producto_id;
-        $this->categoria_id = $categoria_id;
-    }
-    */
-
     /**
      * Get the value of producto_id
      */ 
