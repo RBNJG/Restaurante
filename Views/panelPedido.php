@@ -15,41 +15,35 @@ $productos = ProductoDAO::getAllProducts();
 
 <body>
     <h2>Productos</h2>
-    <table>
-        <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Descripción</th>
-            <th>Precio</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <?php
-        foreach ($productos as $producto) {
-            $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
-        ?>
-            <tr>
-                <td><?= $producto->getNombre_producto() ?></td>
-                <td><?= $categoria ?></td>
-                <td><?= $producto->getDescripcion() ?></td>
-                <td><?= $producto->getCoste_base() ?> €</td>
-                <td>
+
+    <?php
+    foreach ($productos as $producto) {
+        $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
+    ?>
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h4 class="card-title"><?= $producto->getNombre_producto() ?></h4>
+                <h5><?= $categoria ?></h5>
+                <p class="card-text"><?= $producto->getDescripcion() ?></p>
+                <h6><?= $producto->getCoste_base() ?> €</h6>
+                <div class="d-inline-flex p-2 me-1">
                     <form action=<?= url . "?controller=Producto&action=modificar" ?> method='post'>
                         <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                        <button class="bet-button w3-black w3-section" type="submit">Modificar</button>
+                        <button class="btn btn-primary" type="submit">Modificar</button>
                     </form>
-                </td>
-                <td>
                     <form action=<?= url . "?controller=Producto&action=eliminar" ?> method='post'>
                         <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                        <button class="bet-button w3-black w3-section" type="submit">Eliminar</button>
+                        <button class="btn btn-secondary" type="submit">Eliminar</button>
                     </form>
-                </td>
-            </tr>
-        <?php
-        }
-        ?>
-    </table>
+                </div>
+            </div>
+        </div>
+
+    <?php
+    }
+    ?>
+
 </body>
 
 </html>
