@@ -13,7 +13,15 @@ class ProductoDAO
         // Preparar y ejecutar la consulta
         $query = "SELECT * FROM producto ORDER BY categoria_id, coste_base";
         $stmt = $connection->prepare($query);
-        $stmt->execute();
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
 
         // Obtener el resultado
         $result = $stmt->get_result();

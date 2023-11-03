@@ -8,6 +8,7 @@ class Producto
     private $nombre_producto;
     private $descripcion;
     private $coste_base;
+    private $imagen;
 
 
     public function __construct(){}
@@ -109,6 +110,26 @@ class Producto
     public function setCoste_base($coste_base)
     {
         $this->coste_base = $coste_base;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imagen
+     */ 
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set the value of imagen
+     *
+     * @return  self
+     */ 
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }
