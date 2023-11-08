@@ -30,7 +30,7 @@ $categorias = CategoriaDAO::getAllCategories();
                         <p class="text-center my-4 text-carousel">Disfruta de nuestras terrazas en compañía</p>
                     </div>
                     <div class="col-8 px-0">
-                        <picture class="">
+                        <picture>
                             <img src="assets/images/home/terraza_home.jpg" alt="terraza Leroy Merlin" class="img-fluid w-100">
                         </picture>
                     </div>
@@ -86,7 +86,9 @@ $categorias = CategoriaDAO::getAllCategories();
                                     ¿Listo para una experiencia culinaria única?
                                     ¡Ven y descubre sabores que te inspirarán a renovar no solo tu casa, sino también tu paladar!
                                 </p>
-                                <button class="mt-4 btn-g-w">Ver carta</button>
+                                <form action=<?= url . "?controller=Producto" ?> method='post'>
+                                    <button class="mt-4 btn-g-w" type="submit">Ver carta</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -97,18 +99,18 @@ $categorias = CategoriaDAO::getAllCategories();
             <div class="container px-0">
                 <h2 class="mt-6 mb-3 text-center text-h2">Categorias</h2>
                 <div class="row justify-content-center">
-                        <div class="d-flex justify-content-center">
-                            <button class="btn-c-h">Entrantes</button>
-                            <button class="btn-c-h">Ensaladas</button>
-                            <button class="btn-c-h">Arroces</button>
-                            <button class="btn-c-h">Brasa</button>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button class="btn-c-h">Carnes</button>
-                            <button class="btn-c-h">Pescados</button>
-                            <button class="btn-c-h">Bebidas</button>
-                            <button class="btn-c-h">Postres</button>
-                        </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn-c-h">Entrantes</button>
+                        <button class="btn-c-h">Ensaladas</button>
+                        <button class="btn-c-h">Arroces</button>
+                        <button class="btn-c-h">Brasa</button>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button class="btn-c-h">Carnes</button>
+                        <button class="btn-c-h">Pescados</button>
+                        <button class="btn-c-h">Bebidas</button>
+                        <button class="btn-c-h">Postres</button>
+                    </div>
                 </div>
             </div>
         </section>

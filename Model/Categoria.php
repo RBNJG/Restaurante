@@ -4,6 +4,7 @@ class Categoria{
 
     private $categoria_id;
     private $nombre_categoria;
+    private $imagen;
 
     public function __construct(){}
     
@@ -44,6 +45,26 @@ class Categoria{
     public function setNombre_categoria($nombre_categoria)
     {
         $this->nombre_categoria = $nombre_categoria;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of imagen
+     */ 
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set the value of imagen
+     *
+     * @return  self
+     */ 
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
 
         return $this;
     }
