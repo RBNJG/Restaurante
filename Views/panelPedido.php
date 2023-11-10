@@ -57,9 +57,9 @@ $contador = 0;
                     foreach ($categorias as $categoria) {
                     ?>
                         <div class="d-flex justify-content-start mt-2 align-items-center h-categoria">
-                            <div class="d-flex img-categoria <?php if ($categoria->getNombre_categoria() == "Pescados" or $categoria->getNombre_categoria() == "Bebidas") {
+                            <div class="img-categoria <?php if ($categoria->getNombre_categoria() == "Pescados" or $categoria->getNombre_categoria() == "Bebidas") {
                                                                     echo 'img-categoria-left';
-                                                                } ?>" style="background-image: url(<?= $categoria->getImagen() ?>)" ;></div>
+                                                                } ?>" style="background-image: url(<?= $categoria->getImagen() ?>);"></div>
                             <h5 class="ps-2 mb-0 px-auto text"> <?= $categoria->getNombre_categoria() ?></h5>
                         </div>
                     <?php
@@ -73,99 +73,77 @@ $contador = 0;
                         <hr class="linea-menos">
                 </div>
             </div>
-            <div class="col-9 ps-5 bg-secondary">
-                <div class="d-flex justify-content-start align-items-center">
-                    <p class="text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
-                    <select name="" id="" class="ms-3">
-                        <option value="">Los más vendidos</option>
-                        <option value="">Precio: de menor a mayor</option>
-                        <option value="">Precio: de mayor a menor</option>
-                    </select>
+            <div class="col-9 ps-5 pe-0">
+                <div class="row">
+                    <div class="d-flex justify-content-start align-items-center">
+                        <p class="text my-0"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
+                        <select name="" id="" class="ms-3 text select-filtro">
+                            <option value="">Los más vendidos</option>
+                            <option value="">Precio: de menor a mayor</option>
+                            <option value="">Precio: de mayor a menor</option>
+                        </select>
+                        <picture>
+                            <img src="assets/images/carta/info.svg" alt="info" class="ms-3">
+                        </picture>
+                    </div>
                 </div>
-            </div>
+                <?php
+                $contador = 0;
+                foreach ($productos as $producto) {
+                    $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
+                    if ($contador % 4 === 0 && $contador !== 0) {
+                        $contador = 0;
+                    }
+                    if ($contador == 0) {
+                ?>
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <h3 class="text-h2"><?= $categoria ?></h3>
+                            </div>
+                        </div>
+                        <div class="row mt-2 mb-2">
+                <?php
+                    }
+                ?>
+                            <div class="col-md-3">
+                                <div class="card h-carta">
+                                    <div class="img-carta" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
+                                    <div class="card-body">
+                                        <h4 class="card-title"><?= $producto->getNombre_producto() ?></h4>
+                                        <h5><?= $categoria ?></h5>
+                                        <p class="card-text"><?= $producto->getDescripcion() ?></p>
+                                        <h6><?= $producto->getCoste_base() ?> €</h6>
+                                    </div>
+                                    <div class="d-flex justify-content-center align-items-end boton_comprar">
+                                        <div class="d-flex justify-content-around">
+                                            <form action=<?= url . "?controller=Producto&action=modificar" ?> method='post'>
+                                                <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
+                                                <button class="btn btn-primary" type="submit">Modificar</button>
+                                            </form>
+
+                                            <form action=<?= url . "?controller=Producto&action=eliminar" ?> method='post'>
+                                                <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
+                                                <button class="btn btn-secondary" type="submit">Eliminar</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                <?php
+                    $contador++;
+
+                    if ($contador % 4 === 0) {
+                ?>
+                        </div>
+                <?php
+                        }
+                    }
+                ?>
         </div>
+    </div>
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="d-flex justify-content-center">
-        <div>
-            <h2>Productos</h2>
-            <div class="d-flex justify-content-around bg-primary">
-                <div class="container col-3 bg-secondary">
-                    <p>filtros</p>
-                </div>
-                <div class="container col-9 bg-success">
-
-                    <?php
-                    foreach ($productos as $producto) {
-                        $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
-                        if ($contador % 4 === 0 && $contador !== 0) {
-                    ?>
-                </div>
-            <?php
-                            $contador = 0;
-                        }
-                        if ($contador == 0) {
-            ?>
-                <h3><?= $categoria ?></h3>
-
-                <div class="row row-cols-2 row-cols-md-4 g-4">
-                <?php
-                        }
-                ?>
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="h-50 d-inline-block">
-                            <img src="<?= $producto->getImagen() ?>" class="card-img-top foto" alt="<?= $producto->getNombre_producto() ?>">
-                        </div>
-                        <div class="card-body">
-                            <h4 class="card-title"><?= $producto->getNombre_producto() ?></h4>
-                            <h5><?= $categoria ?></h5>
-                            <p class="card-text"><?= $producto->getDescripcion() ?></p>
-                            <h6><?= $producto->getCoste_base() ?> €</h6>
-                        </div>
-                        <div class="d-flex justify-content-center align-items-end boton_comprar">
-                            <div class="d-flex justify-content-around">
-                                <form action=<?= url . "?controller=Producto&action=modificar" ?> method='post'>
-                                    <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                                    <button class="btn btn-primary" type="submit">Modificar</button>
-                                </form>
-
-                                <form action=<?= url . "?controller=Producto&action=eliminar" ?> method='post'>
-                                    <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                                    <button class="btn btn-secondary" type="submit">Eliminar</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php
-                        $contador++;
-                    }
-            ?>
-
-                </div>
-            </div>
-        </div>
 </body>
 
 </html>
