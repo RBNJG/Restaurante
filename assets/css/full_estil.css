@@ -159,6 +159,7 @@ body {
 }
 
 .select-filtro {
+    width: 15rem;
     padding: 0.6rem;
     border: 1px solid #000000;
     border-radius: 5px;

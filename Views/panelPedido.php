@@ -76,7 +76,7 @@ $contador = 0;
             <div class="col-9 ps-5 pe-0">
                 <div class="row">
                     <div class="d-flex justify-content-start align-items-center">
-                        <p class="text my-0"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
+                        <p class="my-0 text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
                         <select name="" id="" class="ms-3 text select-filtro">
                             <option value="">Los más vendidos</option>
                             <option value="">Precio: de menor a mayor</option>
