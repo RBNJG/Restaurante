@@ -82,6 +82,14 @@ body {
     margin: 0;
 }
 
+a {
+    color: #000000;
+}
+
+a:hover {
+    color: #666666;
+}
+
 .fondo-carta {
     height: 6rem;
     background-image: url(../images/carta/baner_carta.jpg);
@@ -108,6 +116,10 @@ body {
     background-color: #EBF5DE;
 }
 
+.btn-g-w:active {
+    background-color: #C1DE9B;
+}
+
 .btn-c-h {
     font-family: 'leroy-merlin', sans-serif;
     font-weight: 400;
@@ -128,9 +140,25 @@ body {
     background-color: #D9D9D9;
 }
 
-.text {
+.btn-anadir-carrito {
     font-family: 'leroy-merlin', sans-serif;
-    font-weight: 400;
+    font-weight: 600;
+    color: #188803;
+    width: 100%;
+    background-color: #FFFFFF;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-color: var(--color-verde-boton);
+    border-style: solid;
+    border-radius: 4px;
+}
+
+.btn-anadir-carrito:hover {
+    background-color: #EBF5DE;
+}
+
+.btn-anadir-carrito:active {
+    background-color: #C1DE9B;
 }
 
 .semi-bold {
@@ -182,14 +210,26 @@ body {
 
 .img-carta {
     height: 40%;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     width: 100%;
 }
 
+.fondo-desplegable:hover {
+    background-color: #D9D9D9;
+}
+
+.subrayado {
+    text-decoration: underline;
+}
+
 .h-carta {
     height: 30rem;
+}
+
+.h-texto-carta {
+    height: 60%;
 }
 
 .img-categoria-left {
@@ -210,6 +250,15 @@ body {
     padding-right: 2rem;
 }
 
+.color-migas {
+    color: #333333;
+}
+
+.text {
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 400;
+}
+
 .text-carousel {
     font-family: var(--fuente-principal);
     font-weight: 600;
@@ -220,6 +269,11 @@ body {
     font-family: var(--fuente-principal);
     font-weight: 600;
     font-size: 2rem;
+}
+
+.text-opiniones {
+    font-size: 0.6rem;
+    color: #666666;
 }
 
 .text-h1 {
@@ -234,12 +288,74 @@ body {
     font-size: 1.5rem;
 }
 
+.color-hover {
+    color: #666666;
+}
+
+.text-precio {
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.text-cartel-descuento{
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #FFFFFF;
+}
+
+.text-precio-tachado{
+    text-decoration: line-through;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.text-envio-gratis{
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+
+.text-restablecer:hover {
+    color: #666666;
+}
+
+.text-categoria {
+    text-decoration: none;
+}
+
+.text-categoria:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+
 .sombra {
     box-shadow: 0px 2px 10px 0px rgb(0, 0, 0, 0.25);
 }
 
 .logo {
     height: 100px;
+}
+
+.cartel-descuento{
+    width: 4.5rem;
+    height: 1.6rem;
+    background-color: #C61112;
+}
+
+.color-descuento{
+    color: #C61112;
+}
+
+
+input[type="radio"] {
+    transform: scale(1.8);
+    -webkit-transform: scale(1.8);
+    -moz-transform: scale(1.8);
+    -ms-transform: scale(1.8);
+}
+
+
+input[type="radio"]:checked {
+    accent-color: #000000;
 }
 
 /*Media query*/

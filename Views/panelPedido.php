@@ -48,7 +48,7 @@ $contador = 0;
     <div class="container mt-5">
         <div class="row">
             <div class="col-3 px-0">
-                <div class="d-flex align-items-center justify-content-between ps-2 pe-3">
+                <div class="d-flex align-items-center justify-content-between ps-2 pe-3 py-3 fondo-desplegable">
                     <h3 class="text-h2">Categorías</h4>
                         <hr class="linea-menos">
                 </div>
@@ -58,22 +58,67 @@ $contador = 0;
                     ?>
                         <div class="d-flex justify-content-start mt-2 align-items-center h-categoria">
                             <div class="img-categoria <?php if ($categoria->getNombre_categoria() == "Pescados" or $categoria->getNombre_categoria() == "Bebidas") {
-                                                                    echo 'img-categoria-left';
-                                                                } ?>" style="background-image: url(<?= $categoria->getImagen() ?>);"></div>
-                            <h5 class="ps-2 mb-0 px-auto text"> <?= $categoria->getNombre_categoria() ?></h5>
+                                                            echo 'img-categoria-left';
+                                                        } ?>" style="background-image: url(<?= $categoria->getImagen() ?>);"></div>
+                            <a href="#<?= $categoria->getNombre_categoria() ?>" class="text-categoria">
+                                <h5 class="ps-2 mb-0 px-auto text text-categoria"> <?= $categoria->getNombre_categoria() ?></h5>
+                            </a>
                         </div>
                     <?php
                     }
                     ?>
                 </div>
-                <hr class="mt-4 linea-filtros">
+                <hr class="my-4 linea-filtros">
                 <h2 class="text-h1">Filtrar</h2>
-                <div class="d-flex align-items-center justify-content-between ps-2 pe-3 mt-4">
+                <div class="d-flex align-items-center justify-content-between ps-2 pe-3 mt-4 py-3 fondo-desplegable">
                     <h3 class="text-h2">Valoraciones de clientes</h4>
                         <hr class="linea-menos">
                 </div>
+                <div class="ps-2">
+                    <form action="">
+                        <div class="d-flex justify-content-start align-items-baseline ms-2 my-3">
+                            <input type="radio" name="estrellas" value="4">
+                            <picture class="d-flex align-items-center ms-3 me-2">
+                                <img src="assets/images/carta/4_estrellas.svg" alt="">
+                            </picture>
+                            <p class="mb-0 text">4 y más</p>
+                            <p class="mb-0 ms-2 text color-hover">(156)</p>
+                        </div>
+                        <div class="d-flex justify-content-start align-items-baseline ms-2 my-3">
+                            <input type="radio" name="estrellas" value="3">
+                            <picture class="d-flex align-items-center ms-3 me-2">
+                                <img src="assets/images/carta/3_estrellas.svg" alt="">
+                            </picture>
+                            <p class="mb-0 text">3 y más</p>
+                            <p class="mb-0 ms-2 text color-hover">(324)</p>
+                        </div>
+                    </form>
+                </div>
+                <a href="" class="ms-2 text">Restablecer</a>
+                <hr class="my-4 linea-filtros">
+                <div class="d-flex justify-content-start align-items-baseline ms-3 mt-3">
+                    <form action="">
+                        <input type="radio">
+                    </form>
+                    <p class="ms-3 mb-0 text">Envío gratuito a domicilio</p>
+                </div>
+                <hr class="my-4 linea-filtros">
+                <div class="d-flex justify-content-start align-items-baseline ms-3 mt-3">
+                    <form action="">
+                        <input type="radio">
+                    </form>
+                    <p class="ms-3 mb-0 text">Productos en oferta</p>
+                </div>
+                <hr class="my-4 linea-filtros">
+                <div class="d-flex justify-content-start align-items-baseline ms-3 mt-3">
+                    <form action="">
+                        <input type="radio">
+                    </form>
+                    <p class="ms-3 mb-0 text">Novedades</p>
+                </div>
+                <hr class="my-4 linea-filtros">
             </div>
-            <div class="col-9 ps-5 pe-0">
+            <div class="col-9 ps-5 pe-0 mt-2">
                 <div class="row">
                     <div class="d-flex justify-content-start align-items-center">
                         <p class="my-0 text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
@@ -96,51 +141,90 @@ $contador = 0;
                     }
                     if ($contador == 0) {
                 ?>
-                        <div class="row mt-4">
+                        <div class="row mt-4" id="<?= $categoria ?>">
                             <div class="col-12">
                                 <h3 class="text-h2"><?= $categoria ?></h3>
                             </div>
                         </div>
                         <div class="row mt-2 mb-2">
-                <?php
+                        <?php
                     }
-                ?>
-                            <div class="col-md-3">
-                                <div class="card h-carta">
+                        ?>
+                        <div class="col-md-3">
+                            <div class="h-carta">
+                                <div class="h-100">
                                     <div class="img-carta" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
-                                    <div class="card-body">
-                                        <h4 class="card-title"><?= $producto->getNombre_producto() ?></h4>
-                                        <h5><?= $categoria ?></h5>
-                                        <p class="card-text"><?= $producto->getDescripcion() ?></p>
-                                        <h6><?= $producto->getCoste_base() ?> €</h6>
-                                    </div>
-                                    <div class="d-flex justify-content-center align-items-end boton_comprar">
-                                        <div class="d-flex justify-content-around">
+                                    <div class="d-flex flex-column justify-content-between h-texto-carta">
+                                        <div class="">
+                                            <p class="mb-0 text subrayado"><?= $producto->getNombre_producto() ?></p>
+                                            <div class="d-flex justify-content-start align-items-center mb-3">
+                                                <picture>
+                                                    <img src="<?php if ($producto->getNombre_producto() == "Ensalada vegetal") {
+                                                                    echo 'assets/images/carta/3_estrellas.svg';
+                                                                } else {
+                                                                    echo 'assets/images/carta/4_estrellas.svg';
+                                                                } ?>" alt="calificación" class="pt-0">
+                                                </picture>
+                                                <p class="mb-0 mt-1 ms-2 text text-opiniones">15 opiniones</p>
+                                            </div>
+                                            <?php if ($producto->getNombre_producto() == "Croquetas de jamón") { ?>
+                                                <picture>
+                                                    <img src="assets/images/carta/precio_mas_bajo.svg" alt="precio más bajo" class="mb-2">
+                                                </picture>
+                                            <?php
+                                            }
+                                            if ($producto->getDescuento() == 0) {
+                                            ?>
+                                                <p class="text-precio"><?= $producto->getCoste_base() ?> €</p>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <div class="d-flex align-items-center justify-content-center mb-2 cartel-descuento">
+                                                    <p class="mb-0 text-cartel-descuento"><?php echo '- ' . round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2) ?> €</p>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <p class="mb-0 text text-precio-tachado"><?= $producto->getCoste_base() ?> €</p>
+                                                </div>
+                                                <div class="mb-1">
+                                                    <p class="mb-0 text-precio color-descuento"><?php echo number_format(round($producto->getCoste_base() * $producto->getDescuento(), 2), 2) ?> €</p>
+                                                </div>
+                                            <?php
+                                            }
+                                            if ($producto->getEnvio_gratis() == true) {
+                                            ?>
+                                                <div class="d-flex justify-content-start align-items-center">
+                                                    <picture>
+                                                        <img src="assets/images/carta/tick_envio.svg" alt="envío gratis">
+                                                    </picture>
+                                                    <p class="mb-0 ms-1 mt-1 text text-envio-gratis">Envío gratis</p>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+                                        <div class="">
                                             <form action=<?= url . "?controller=Producto&action=modificar" ?> method='post'>
                                                 <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                                                <button class="btn btn-primary" type="submit">Modificar</button>
+                                                <button class="btn-anadir-carrito" type="submit">Añadir al carrito</button>
                                             </form>
-
-                                            <form action=<?= url . "?controller=Producto&action=eliminar" ?> method='post'>
-                                                <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                                                <button class="btn btn-secondary" type="submit">Eliminar</button>
-                                            </form>
+                                            <hr class="w-100 mb-0 mt-4">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                <?php
-                    $contador++;
+                        </div>
+                        <?php
+                        $contador++;
 
-                    if ($contador % 4 === 0) {
-                ?>
+                        if ($contador % 4 === 0) {
+                        ?>
                         </div>
                 <?php
                         }
                     }
                 ?>
+            </div>
         </div>
-    </div>
     </div>
 
 

@@ -9,6 +9,8 @@ class Producto
     private $descripcion;
     private $coste_base;
     private $imagen;
+    private $descuento;
+    private $envio_gratis;
 
 
     public function __construct(){}
@@ -130,6 +132,46 @@ class Producto
     public function setImagen($imagen)
     {
         $this->imagen = $imagen;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of descuento
+     */ 
+    public function getDescuento()
+    {
+        return $this->descuento;
+    }
+
+    /**
+     * Set the value of descuento
+     *
+     * @return  self
+     */ 
+    public function setDescuento($descuento)
+    {
+        $this->descuento = $descuento;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of envio_gratis
+     */ 
+    public function getEnvio_gratis()
+    {
+        return $this->envio_gratis;
+    }
+
+    /**
+     * Set the value of envio_gratis
+     *
+     * @return  self
+     */ 
+    public function setEnvio_gratis($envio_gratis)
+    {
+        $this->envio_gratis = $envio_gratis;
 
         return $this;
     }
