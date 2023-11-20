@@ -165,7 +165,7 @@ $contador = 0;
                                                                     echo 'assets/images/carta/4_estrellas.svg';
                                                                 } ?>" alt="calificación" class="pt-0">
                                                 </picture>
-                                                <p class="mb-0 mt-1 ms-2 text text-opiniones">15 opiniones</p>
+                                                <p class="mb-0 mt-1 ms-2 text text-opiniones"><?= $producto->getOpiniones() ?> opiniones</p>
                                             </div>
                                             <?php if ($producto->getNombre_producto() == "Croquetas de jamón") { ?>
                                                 <picture>

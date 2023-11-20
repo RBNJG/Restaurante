@@ -11,6 +11,7 @@ class Producto
     private $imagen;
     private $descuento;
     private $envio_gratis;
+    private $opiniones;
 
 
     public function __construct(){}
@@ -172,6 +173,26 @@ class Producto
     public function setEnvio_gratis($envio_gratis)
     {
         $this->envio_gratis = $envio_gratis;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of opiniones
+     */ 
+    public function getOpiniones()
+    {
+        return $this->opiniones;
+    }
+
+    /**
+     * Set the value of opiniones
+     *
+     * @return  self
+     */ 
+    public function setOpiniones($opiniones)
+    {
+        $this->opiniones = $opiniones;
 
         return $this;
     }

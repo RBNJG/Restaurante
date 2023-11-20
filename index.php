@@ -1,5 +1,6 @@
 <?php
 include_once 'Controller/ProductoController.php';
+include_once 'Controller/CarritoController.php';
 include_once 'Controller/HomeController.php';
 include_once 'config/parameters.php';
 
