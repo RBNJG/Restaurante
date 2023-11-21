@@ -17,19 +17,19 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <img class="navbar-brand logo" href="#" src="assets/images/Logo_leroy_merlin.png" alt="Leroy Merlin">
+                <a href="<?= url . "?controller=Home" ?>">
+                    <img class="navbar-brand logo"  src="assets/images/Logo_leroy_merlin.png" alt="Leroy Merlin">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <li class="nav-item d-flex align-items-center me-2">
+                            <a href="<?= url . "?controller=Producto" ?>" class="text-menu">Carta</a>
                         </li>
                         <li class="nav-item d-flex align-items-center">
-                            <form action=<?= url . "?controller=Carrito" ?> method='post'>
-                                <button class="nav-link" type="submit">Carrito</button>
-                            </form>
+                            <a href="<?= url . "?controller=Carrito" ?>" class="text-menu">Carrito <?= count($_SESSION['carrito']) ?></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

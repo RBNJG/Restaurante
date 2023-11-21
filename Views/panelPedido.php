@@ -1,8 +1,5 @@
 <?php
 
-$productos = ProductoDAO::getAllProducts();
-$categorias = CategoriaDAO::getAllCategories();
-
 $contador = 0;
 
 ?>
@@ -69,7 +66,7 @@ $contador = 0;
                     ?>
                 </div>
                 <hr class="my-4 linea-filtros">
-                <h2 class="text-h1">Filtrar</h2>
+                <h2 class="text-filtro">Filtrar</h2>
                 <div class="d-flex align-items-center justify-content-between ps-2 pe-3 mt-4 py-3 fondo-desplegable">
                     <h3 class="text-h2">Valoraciones de clientes</h4>
                         <hr class="linea-menos">
@@ -203,7 +200,7 @@ $contador = 0;
                                             ?>
                                         </div>
                                         <div class="">
-                                            <form action=<?= url . "?controller=Producto&action=modificar" ?> method='post'>
+                                            <form action=<?= url . "?controller=Producto&action=anadir" ?> method='post'>
                                                 <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
                                                 <button class="btn-anadir-carrito" type="submit">Añadir al carrito</button>
                                             </form>
