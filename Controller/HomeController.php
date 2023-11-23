@@ -2,6 +2,7 @@
 include_once 'Model/ProductoDAO.php';
 include_once 'Model/CategoriaDAO.php';
 include_once 'Model/Carrito.php';
+include_once 'utils/Calculadora.php';
 
 // Creamos el controlador de la página home
 

@@ -90,7 +90,7 @@ a:hover {
     color: #666666;
 }
 
-.text-menu{
+.text-menu {
     text-decoration: none;
 }
 
@@ -228,12 +228,73 @@ a:hover {
     background-position: right 15px center;
 }
 
+.select-pagina {
+    width: 6rem;
+    padding-left: 0.6rem;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    height: 2rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url(../images/carta/flecha_select.svg);
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
+.sumar{
+    border-radius: 0 4px 4px 0;
+}
+
+.restar{
+    border-radius: 4px 0 0 4px;
+}
+
+.restar-off{
+    color: #666666;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    background-color: #CCCCCC;
+}
+
 .img-categoria {
     height: 2rem;
     width: 2rem;
     background-size: cover;
     background-position: center 50%;
     background-repeat: no-repeat;
+}
+
+.img-basura {
+    height: 1.5rem;
+    width: 1.5rem;
+    margin-bottom: 0.1rem;
+}
+
+.contenedor-basura {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 4px;
+    border: none;
+}
+
+.contenedor-basura:hover {
+    background-color: #D9D9D9;
+}
+
+.icono-redes{
+    height: 2rem;
+    width: 2rem;
+}
+
+button.sin-estilo {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    cursor: pointer;
 }
 
 .img-carta {
@@ -244,17 +305,17 @@ a:hover {
     width: 100%;
 }
 
-.img-carrito{
-    height: 9rem;
-    width: 9rem;
+.img-carrito {
+    height: 8rem;
+    width: 8rem;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     padding: 0;
 }
 
-.altura-carrito{
-    height: 14rem;
+.altura-carrito {
+    height: 9.5rem;
 }
 
 .fondo-desplegable:hover {
@@ -288,6 +349,10 @@ a:hover {
 
 .fondo-gris {
     background-color: #D9D9D9;
+}
+
+.fondo-footer{
+    background-color: #188803;
 }
 
 .borde-fino {
@@ -350,10 +415,29 @@ a:hover {
     font-size: 1.1rem;
 }
 
-.text-filtro{
+.text-carrito {
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+
+.text-filtro {
     font-family: var(--fuente-principal);
     font-weight: 600;
     font-size: 2rem;
+}
+
+.text-pago {
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.text-footer{
+    color: #FFFFFF;
+    font-family: var(--fuente-principal);
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .color-hover {

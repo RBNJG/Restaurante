@@ -14,8 +14,47 @@
 </head>
 
 <body>
-    <footer class="container-fluid bg-primary" style="margin-top: auto;">
-        <p>Footer</p>
+    <footer class="container-fluid d-flex flex-column justify-content-center alig-content-center fondo-footer">
+        <div class="d-flex justify-content-center mt-5 mb-5">
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/facebook.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/twitter.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/instagram.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/pinterest.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/youtube.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/linkedin.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+            <a href="">
+                <picture>
+                    <img src="assets/images/footer/tiktok.svg" alt="" class="mx-1 icono-redes">
+                </picture>
+            </a>
+        </div>
+        <div class="d-flex justify-content-center mb-4">
+            <p class="mb-0 text-footer">Copyright 2023 | Rubén Jordán</p>
+        </div>
     </footer>
 </body>
 

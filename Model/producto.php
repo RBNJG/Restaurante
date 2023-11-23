@@ -12,6 +12,7 @@ class Producto
     private $descuento;
     private $envio_gratis;
     private $opiniones;
+    private $estrellas; 
 
 
     public function __construct(){}
@@ -196,4 +197,26 @@ class Producto
 
         return $this;
     }
+
+    /**
+     * Get the value of estrellas
+     */ 
+    public function getEstrellas()
+    {
+        return $this->estrellas;
+    }
+
+    /**
+     * Set the value of estrellas
+     *
+     * @return  self
+     */ 
+    public function setEstrellas($estrellas)
+    {
+        $this->estrellas = $estrellas;
+
+        return $this;
+    }
+
+
 }

@@ -2,6 +2,7 @@
 include_once 'Model/ProductoDAO.php';
 include_once 'Model/CategoriaDAO.php';
 include_once 'Model/Carrito.php';
+include_once 'utils/Calculadora.php';
 
 // Creamos el controlador de pedidos
 
@@ -33,20 +34,30 @@ class ProductoController
 
     public function anadir()
     {
-        // Iniciar sesión si no se ha iniciado
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        session_start();
+
+        $producto_id = $_POST['producto_id'];
+        $producto_existente = false;
+
+        //Buscamos el producto en el carrito 
+        foreach ($_SESSION['carrito'] as $pedido) {
+            if ($pedido->getProducto()->getProducto_id() == $producto_id) {
+                //Si el producto ya está en el carrito, incrementa la cantidad
+                $pedido->setCantidad($pedido->getCantidad() + 1);
+                $producto_existente = true;
+
+                //Después de encontrar el producto salimos del bucle
+                break;
+            }
         }
 
-        // Inicializar 'carrito' como un array si aún no se ha hecho
-        if (!isset($_SESSION['carrito'])) {
-            $_SESSION['carrito'] = array();
+        //Si el producto no está en el carrito, añade un nuevo pedido
+        if (!$producto_existente) {
+            $pedido = new Carrito(ProductoDAO::getProduct($producto_id));
+            array_push($_SESSION['carrito'], $pedido);
         }
 
-        $pedido = new Carrito(ProductoDAO::getProduct($_POST['producto_id']));
-
-        array_push($_SESSION['carrito'], $pedido);
-
+        //Volvemos a la carta
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }

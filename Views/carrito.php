@@ -37,22 +37,54 @@ $carrito = $_SESSION['carrito'];
         } else {
         ?>
             <div class="row">
-                <div class="col-9 px-0">
+                <div class="col-9 px-0 mb-5">
                     <h3 class="text-h3 mb-3">Vendido por LEROY MERLIN</h3>
                     <?php
+                    $pos = 0;
                     foreach ($carrito as $producto) {
                     ?>
                         <div class="row">
-                            <div class="d-flex justify-content-start w-100 px-0 altura-carrito">
+                            <div class="d-flex justify-content-start w-100 ps-0 pe-2 altura-carrito">
                                 <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getProducto()->getImagen() ?>);"></div>
-                                <p>fsf</p>
+                                <div class="w-100 d-flex flex-column justify-content-around">
+                                    <div class="d-flex justify-content-between px-3">
+                                        <p class="mb-0 text"><?= $producto->getProducto()->getNombre_producto() ?></p>
+                                        <form action=<?= url . "?controller=Carrito&action=eliminar" ?> method='post'>
+                                            <input name="pos_producto" value="<?= $pos ?>" hidden />
+                                            <button type="submit" class="d-flex justify-content-center align-items-center contenedor-basura sin-estilo">
+                                                <picture>
+                                                    <img src="assets/images/carrito/basura.svg" alt="" class="img-basura">
+                                                </picture>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="d-flex justify-content-between px-3">
+                                        <div class="d-flex">
+                                            <?php
+                                            if ($producto->getCantidad() == 1) {
+                                            ?>
+                                                <button id="menos" class="restar-off text-h2"><hr class="linea-menos"></button>
+                                            <?php
+                                            } else {
+                                            ?>
+                                                <button id="menos" class="restar"><hr class="linea-menos"></button>
+                                            <?php
+                                            }
+                                            ?>
+                                            <input type="text" id="cantidad" class="mx-0 text" value="<?= $producto->getCantidad() ?>" readonly>
+                                            <button id="mas" class="sumar">+</button>
+                                        </div>
+                                        <p class="text-cheque"><?= Calculadora::totalProducto($producto) ?> €</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     <?php
+                        $pos++;
                     }
                     ?>
                 </div>
-                <div class="col-3 ps-4 mt-2">
+                <div class="col-3 ps-4 mt-2 mb-5">
                     <div class="d-flex justify-content-between align-items-center py-4 px-3 mb-3 cartel-cheque">
                         <h3 class="mb-0 text-cheque">Aplicar cheques club</h4>
                             <picture>
@@ -62,24 +94,24 @@ $carrito = $_SESSION['carrito'];
                     <hr class="w-100 mb-0 linea-carrito">
                     <div class="px-3 borde-fino">
                         <div class="d-flex justify-content-between pt-3">
-                            <p class="mb-2">Subtotal</p>
-                            <p class="mb-2">€</p>
+                            <p class="mb-2 text-cheque">Subtotal</p>
+                            <p class="mb-2 text-cheque"><?= Calculadora::subtotal($carrito) ?> €</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <p>Gastos de envío estimados</p>
-                            <p>€</p>
+                            <p class="text">Gastos de envío estimados</p>
+                            <p class="text"><?= Calculadora::costeEnvio($carrito) ?> €</p>
                         </div>
                     </div>
                     <div class="py-2 px-3 fondo-gris">
                         <div class="d-flex justify-content-between">
-                            <p>Total</p>
-                            <p>€</p>
+                            <p class="text-h2">Total</p>
+                            <p class="text-h2"><?= Calculadora::total($carrito) ?> €</p>
                         </div>
-                        <p>Impuestos incluidos</p>
-                        <button class="btn-compra">Continuar</button>
-                        <p>Pago 100% seguro</p>
+                        <p class="text">Impuestos incluidos</p>
+                        <button class="btn-compra mb-3">Continuar</button>
+                        <p class="mb-2 text-pago">Pago 100% seguro</p>
                         <picture>
-                            <img src="assets/images/carrito/pago.svg" alt="métodos de pago">
+                            <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3">
                         </picture>
                     </div>
                 </div>

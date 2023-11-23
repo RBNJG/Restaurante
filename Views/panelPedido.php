@@ -79,7 +79,7 @@ $contador = 0;
                                 <img src="assets/images/carta/4_estrellas.svg" alt="">
                             </picture>
                             <p class="mb-0 text">4 y más</p>
-                            <p class="mb-0 ms-2 text color-hover">(156)</p>
+                            <p class="mb-0 ms-2 text color-hover">()</p>
                         </div>
                         <div class="d-flex justify-content-start align-items-baseline ms-2 my-3">
                             <input type="radio" name="estrellas" value="3">
@@ -87,7 +87,7 @@ $contador = 0;
                                 <img src="assets/images/carta/3_estrellas.svg" alt="">
                             </picture>
                             <p class="mb-0 text">3 y más</p>
-                            <p class="mb-0 ms-2 text color-hover">(324)</p>
+                            <p class="mb-0 ms-2 text color-hover">()</p>
                         </div>
                     </form>
                 </div>
@@ -220,6 +220,19 @@ $contador = 0;
                         }
                     }
                 ?>
+                <div class="row mt-5 mb-4">
+                    <div class="d-flex justify-content-center">
+                        <picture>
+                            <img src="assets/images/carta/izquierda.svg" alt="página anterior">
+                        </picture>
+                        <select name="" id="" class="mx-3 text select-pagina">
+                            <option value="">1 de 1</option>
+                        </select>
+                        <picture>
+                            <img src="assets/images/carta/derecha.svg" alt="página siguiente">
+                        </picture>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
