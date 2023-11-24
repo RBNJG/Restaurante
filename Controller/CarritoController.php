@@ -40,4 +40,22 @@ class CarritoController
         exit;
     }
 
+    public function modificarCantidad(){
+        session_start();
+
+        if(isset($_POST['sumar'])){
+            $producto = $_SESSION['carrito'][$_POST['sumar']];
+
+            $producto->setCantidad($producto->getCantidad()+1);
+        }else if(isset($_POST['restar'])){
+            $producto = $_SESSION['carrito'][$_POST['restar']];
+
+            $producto->setCantidad($producto->getCantidad()-1);
+        }
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+
+        exit;
+    }
+
 }

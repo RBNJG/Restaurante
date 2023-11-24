@@ -185,6 +185,10 @@ a:hover {
     font-weight: 600;
 }
 
+.bold{
+    font-weight: 800;
+}
+
 .linea-menos {
     width: 15px;
     height: 2px;
@@ -242,19 +246,73 @@ a:hover {
     background-position: right 15px center;
 }
 
-.sumar{
+.select-cantidad {
+    width: 3rem;
+    padding-left: 0.6rem;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    height: 2rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url(../images/carta/flecha_select.svg);
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+}
+
+.sumar {
     border-radius: 0 4px 4px 0;
+    background-color: #ffffff;
+    border-color: #188803;
+    border-width: 2px;
+    border-style: solid;
+    height: 100%;
 }
 
-.restar{
+#cantidad {
+    text-align: center;
+    width: 3rem;
+    border-top: 0.5px solid #333333;
+    border-bottom: 0.5px solid #333333;
+    border-left: none;
+    border-right: none;
+}
+
+.restar-off,
+.restar,
+#cantidad,
+.sumar {
+    vertical-align: middle;
+}
+
+.restar {
     border-radius: 4px 0 0 4px;
+    background-color: #FFFFFF;
+    border-color: #188803;
+    border-width: 2px;
+    border-style: solid;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    height: 100%;
 }
 
-.restar-off{
+.sumar :hover {
+    background-color: #EBF5DE;
+}
+
+.restar:hover {
+    background-color: #EBF5DE;
+}
+
+.restar-off {
     color: #666666;
     border: none;
     border-radius: 4px 0 0 4px;
     background-color: #CCCCCC;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 .img-categoria {
@@ -282,7 +340,7 @@ a:hover {
     background-color: #D9D9D9;
 }
 
-.icono-redes{
+.icono-redes {
     height: 2rem;
     width: 2rem;
 }
@@ -318,6 +376,10 @@ button.sin-estilo {
     height: 9.5rem;
 }
 
+.altura-selector {
+    height: 2rem;
+}
+
 .fondo-desplegable:hover {
     background-color: #D9D9D9;
 }
@@ -351,7 +413,7 @@ button.sin-estilo {
     background-color: #D9D9D9;
 }
 
-.fondo-footer{
+.fondo-footer {
     background-color: #188803;
 }
 
@@ -433,7 +495,7 @@ button.sin-estilo {
     font-size: 0.9rem;
 }
 
-.text-footer{
+.text-footer {
     color: #FFFFFF;
     font-family: var(--fuente-principal);
     font-weight: 400;
@@ -458,6 +520,12 @@ button.sin-estilo {
 .text-precio-tachado {
     text-decoration: line-through;
     font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.text-precio-tachado-carrito {
+    text-decoration: line-through;
+    font-weight: 800;
     font-size: 0.9rem;
 }
 

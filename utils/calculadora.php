@@ -21,9 +21,9 @@ class Calculadora{
     public static function totalProducto($producto){
         $total = 0;
 
-        $total = $producto->getProducto()->getCoste_base() * $producto->getCantidad();
+        $total = round($producto->getProducto()->getCoste_base() * $producto->getCantidad(),2);
 
-        return $total;
+        return number_format($total,2);
     }
 
     /**

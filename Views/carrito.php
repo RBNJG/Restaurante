@@ -59,22 +59,60 @@ $carrito = $_SESSION['carrito'];
                                         </form>
                                     </div>
                                     <div class="d-flex justify-content-between px-3">
-                                        <div class="d-flex">
+                                        <div class="d-flex align-self-center altura-selector">
                                             <?php
                                             if ($producto->getCantidad() == 1) {
                                             ?>
-                                                <button id="menos" class="restar-off text-h2"><hr class="linea-menos"></button>
+                                                <button id="" class="restar-off" disabled>
+                                                    <picture class="d-flex align-items-center">
+                                                        <img src="assets/images/carrito/menos.svg" alt="">
+                                                    </picture>
+                                                </button>
                                             <?php
                                             } else {
                                             ?>
-                                                <button id="menos" class="restar"><hr class="linea-menos"></button>
+                                                <form action=<?= url . "?controller=Carrito&action=modificarCantidad" ?> method='post'>
+                                                    <input name="restar" value="<?= $pos ?>" hidden />
+                                                    <button class="restar" type="submit">
+                                                        <picture class="d-flex align-items-center">
+                                                            <img src="assets/images/carrito/menos.svg" alt="">
+                                                        </picture>
+                                                    </button>
+                                                </form>
                                             <?php
                                             }
                                             ?>
                                             <input type="text" id="cantidad" class="mx-0 text" value="<?= $producto->getCantidad() ?>" readonly>
-                                            <button id="mas" class="sumar">+</button>
+                                            <form action=<?= url . "?controller=Carrito&action=modificarCantidad" ?> method='post'>
+                                                <input name="sumar" value="<?= $pos ?>" hidden />
+                                                <button class="sumar" type="submit">
+                                                    <picture class="d-flex align-items-center">
+                                                        <img src="assets/images/carrito/mas.svg" alt="">
+                                                    </picture>
+                                                </button>
+                                            </form>
                                         </div>
-                                        <p class="text-cheque"><?= Calculadora::totalProducto($producto) ?> €</p>
+                                        <?php
+                                        if ($producto->getProducto()->getDescuento() == 0) {
+                                        ?>
+                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto) ?> €</p>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <div>
+                                                <div class="d-flex justify-content-end">
+                                                    <div class="d-flex align-items-center justify-content-center cartel-descuento">
+                                                        <p class="mb-0 text-cartel-descuento"><?php echo '- ' . round($producto->getProducto()->getCoste_base() - ($producto->getProducto()->getCoste_base() * $producto->getProducto()->getDescuento()), 2) ?> €</p>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-baseline">
+                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= $producto->getProducto()->getCoste_base() ?> €</p>
+                                                    <p class="mb-0 text text-precio color-descuento"><?php echo number_format(round($producto->getProducto()->getCoste_base() * $producto->getProducto()->getDescuento(), 2), 2) ?> €</p>
+                                                </div>
+                                            </div>
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
