@@ -95,19 +95,19 @@ $carrito = $_SESSION['carrito'];
                                         <?php
                                         if ($producto->getProducto()->getDescuento() == 0) {
                                         ?>
-                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto) ?> €</p>
+                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto,0) ?> €</p>
                                         <?php
                                         } else {
                                         ?>
                                             <div>
                                                 <div class="d-flex justify-content-end">
                                                     <div class="d-flex align-items-center justify-content-center cartel-descuento">
-                                                        <p class="mb-0 text-cartel-descuento"><?php echo '- ' . round($producto->getProducto()->getCoste_base() - ($producto->getProducto()->getCoste_base() * $producto->getProducto()->getDescuento()), 2) ?> €</p>
+                                                        <p class="mb-0 text-cartel-descuento">- <?= number_format(Calculadora::descuento($producto) * $producto->getCantidad(),2) ?> €</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-baseline">
-                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= $producto->getProducto()->getCoste_base() ?> €</p>
-                                                    <p class="mb-0 text text-precio color-descuento"><?php echo number_format(round($producto->getProducto()->getCoste_base() * $producto->getProducto()->getDescuento(), 2), 2) ?> €</p>
+                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto,1) ?> €</p>
+                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto,0)?> €</p>
                                                 </div>
                                             </div>
                                         <?php

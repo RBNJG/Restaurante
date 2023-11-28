@@ -24,7 +24,7 @@ $contador = 0;
         <div class="container px-0">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item text"><a href=<?= url . "?controller=Home" ?>>Home</a></li>
+                    <li class="breadcrumb-item"><a href=<?= url . "?controller=Home" ?> class="text-migas">Home</a></li>
                     <li class="breadcrumb-item active text" aria-current="page">Carta</li>
                 </ol>
             </nav>
@@ -177,7 +177,7 @@ $contador = 0;
                                             } else {
                                             ?>
                                                 <div class="d-flex align-items-center justify-content-center mb-2 cartel-descuento">
-                                                    <p class="mb-0 text text-cartel-descuento"><?php echo '- ' . round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2) ?> €</p>
+                                                    <p class="mb-0 text text-cartel-descuento"><?php echo '- ' . number_format(round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2),2) ?> €</p>
                                                 </div>
                                                 <div class="mb-1">
                                                     <p class="mb-0 text text-precio-tachado"><?= $producto->getCoste_base() ?> €</p>

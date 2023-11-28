@@ -1,11 +1,14 @@
 <?php
-include_once 'config/parameters.php';
+
+$carrito = $_SESSION['carrito'];
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="description" content="Descripció web">
     <meta name="keywords" content="Paraules clau">
     <meta name="author" content="Autor">
@@ -17,12 +20,7 @@ include_once 'config/parameters.php';
 </head>
 
 <body>
-    <p>Producto modificado correctamente</p>
-    <script>
-        setTimeout(function() {
-            window.location.href = "<?= url?>";
-        }, 2000);
-    </script>
+    
 </body>
 
 </html>

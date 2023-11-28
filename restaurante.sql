@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2023 a las 20:16:03
+-- Tiempo de generación: 27-11-2023 a las 20:08:48
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -148,46 +148,47 @@ CREATE TABLE `producto` (
   `imagen` varchar(255) NOT NULL,
   `descuento` decimal(10,2) NOT NULL,
   `envio_gratis` tinyint(1) NOT NULL,
-  `opiniones` int(11) NOT NULL
+  `opiniones` int(11) NOT NULL,
+  `estrellas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`producto_id`, `categoria_id`, `nombre_producto`, `descripcion`, `coste_base`, `imagen`, `descuento`, `envio_gratis`, `opiniones`) VALUES
-(3, 1, 'Croquetas de jamón', 'Croquetas caseras de jamón.', 7.99, 'assets/images/carta/croquetas_jamon.jpg', 0.00, 1, 8),
-(4, 1, 'Calamares rebozados', 'Calamares a la romana acompañados de salsa de ajo.', 13.50, 'assets/images/carta/calamares.png', 0.00, 1, 4),
-(5, 1, 'Tostadas con salmón', 'Tostadas integrales con salmón, aguacate y rúcula.', 12.50, 'assets/images/carta/tostadas_salmon.png', 0.00, 0, 12),
-(6, 1, 'Jamón ibérico', 'Plato de jamón ibérico de 5 bellotas.', 13.75, 'assets/images/carta/jamon.png', 0.00, 1, 6),
-(7, 2, 'Ensalada vegetal', 'Ensalada de brotes tiernes, tomate, cebolla y apio.', 8.10, 'assets/images/carta/ensalada_vegetal.png', 0.90, 1, 9),
-(8, 2, 'Ensalada César', 'Ensalada César con pollo y nuestra rica salsa.', 9.90, 'assets/images/carta/ensalada_cesar.png', 0.90, 0, 4),
-(9, 2, 'Ensalada de pasta y atún', 'Ensalada fresca de pasta y atún con tomates cherry.', 9.05, 'assets/images/carta/ensalada_pasta.png', 0.90, 1, 12),
-(10, 2, 'Ensalada de patata', 'Ensalada de patata con mayonesa y taquitos de bacon.', 9.00, 'assets/images/carta/ensalada_patata.png', 0.90, 1, 3),
-(11, 3, 'Paella', 'Paella de marisco con limones para poner al gusto.', 13.00, 'assets/images/carta/paella.png', 0.00, 1, 8),
-(12, 3, 'Arroz negro', 'Arroz negro con sepia y calamares.', 12.00, 'assets/images/carta/arroz_negro.png', 0.00, 0, 11),
-(13, 3, 'Risotto de setas', 'Risotto de setas con champiñones a la plancha.', 10.75, 'assets/images/carta/risotto.png', 0.00, 0, 5),
-(14, 3, 'Arroz a la cubana', 'Arroz con tomate, un huevo frito y un plátano frito.', 10.75, 'assets/images/carta/arroz_cubana.png', 0.00, 1, 9),
-(15, 4, 'Entrecot a la brasa', 'Entrecot a la brasa acompañado de champiñones salteados y espárragos a la brasa.', 18.50, 'assets/images/carta/entrecot_brasa.png', 0.00, 1, 13),
-(16, 4, 'Butifarras a la brasa', 'Butifarras de Olot cocinadas a la brasa.', 11.50, 'assets/images/carta/butifarra_brasa.png', 0.00, 1, 4),
-(17, 4, 'Pollo a la brasa', 'Medio pollo a la brasa.', 10.75, 'assets/images/carta/pollo_brasa.png', 0.00, 1, 7),
-(18, 4, 'Dorada a la brasa', 'Dorada fresca a la brasa.', 10.75, 'assets/images/carta/dorada_brasa.png', 0.00, 1, 10),
-(19, 5, 'Cerdo frito y verduras', 'Cerdo frito acompañado de patatas al horno y ensalada con tomate.', 11.30, 'assets/images/carta/cerdo_frito.png', 0.00, 0, 14),
-(20, 5, 'Estofado de ternera', 'Estofado de ternera cómo lo hacía tu abuela, bien rico y tierno.', 10.75, 'assets/images/carta/estofado.png', 0.00, 1, 8),
-(21, 5, 'Milanesa con patatas', 'Milanesa de ternera acompañada de patatas fritas, ensalada y limón para echar a gusto.', 10.75, 'assets/images/carta/milanesa.png', 0.00, 1, 4),
-(22, 5, 'Pollo al ajillo con patatas', 'Pollo con salsa al ajillo y patatas fritas.', 10.75, 'assets/images/carta/pollo_ajillo.png', 0.00, 1, 7),
-(23, 6, 'Fish and chips', 'Merluza rebozada acompañada de patatas fritas y salsa de guacamole.', 10.50, 'assets/images/carta/fish_chips.png', 0.00, 0, 9),
-(24, 6, 'Bacalao al pil pil', 'Bacalao al horno con salsa pil pil en bandeja de barro.', 13.50, 'assets/images/carta/bacalao_pil_pil.png', 0.00, 1, 2),
-(25, 6, 'Sepia a la plancha', 'Sepia fresca a la plancha acompañada de ensalada.', 12.80, 'assets/images/carta/sepia_plancha.png', 0.00, 1, 7),
-(26, 6, 'Salmón al horno', 'Salmón al horno acompañado de cuscús y limón.', 15.75, 'assets/images/carta/salmon.png', 0.00, 1, 11),
-(27, 7, 'Agua Font Vella 1.5L', 'Botella de agua Font Vella de 1,5 litros.', 2.50, 'assets/images/carta/agua.png', 0.00, 1, 0),
-(28, 7, 'Estrella-Damm 0.33cl', 'Lata de Estrella-Damm de 0,33cl.', 2.50, 'assets/images/carta/estrella.png', 0.00, 1, 0),
-(29, 7, 'Coca-Cola 0.33cl', 'Lata de Coca-Cola de 0,33cl.', 2.50, 'assets/images/carta/coca_cola.png', 0.00, 1, 0),
-(30, 7, 'Dehesa de Luna', '', 9.00, 'assets/images/carta/vino.png', 0.00, 0, 0),
-(31, 8, 'Crema catalana', 'Tarrina de crema catalana con azúcar quemado por encima.', 5.75, 'assets/images/carta/crema_catalana.png', 0.00, 0, 0),
-(32, 8, 'Yogurt con frutos rojos', 'Yogurt natural con frutos rojos y nueces.', 4.50, 'assets/images/carta/yogurt.png', 0.00, 0, 0),
-(33, 8, 'Tiramisú', 'Tiramisú con cacao espolvoreado.', 6.00, 'assets/images/carta/tiramisu.png', 0.00, 0, 0),
-(34, 8, 'Arroz con leche', 'Arroz con leche con canela.', 5.00, 'assets/images/carta/arroz_leche.png', 0.00, 0, 0);
+INSERT INTO `producto` (`producto_id`, `categoria_id`, `nombre_producto`, `descripcion`, `coste_base`, `imagen`, `descuento`, `envio_gratis`, `opiniones`, `estrellas`) VALUES
+(3, 1, 'Croquetas de jamón', 'Croquetas caseras de jamón.', 7.99, 'assets/images/carta/croquetas_jamon.jpg', 0.00, 1, 8, 4),
+(4, 1, 'Calamares rebozados', 'Calamares a la romana acompañados de salsa de ajo.', 13.50, 'assets/images/carta/calamares.png', 0.00, 1, 4, 4),
+(5, 1, 'Tostadas con salmón', 'Tostadas integrales con salmón, aguacate y rúcula.', 12.50, 'assets/images/carta/tostadas_salmon.png', 0.00, 0, 12, 4),
+(6, 1, 'Jamón ibérico', 'Plato de jamón ibérico de 5 bellotas.', 13.75, 'assets/images/carta/jamon.png', 0.00, 1, 6, 4),
+(7, 2, 'Ensalada vegetal', 'Ensalada de brotes tiernes, tomate, cebolla y apio.', 8.10, 'assets/images/carta/ensalada_vegetal.png', 0.90, 1, 9, 3),
+(8, 2, 'Ensalada César', 'Ensalada César con pollo y nuestra rica salsa.', 9.90, 'assets/images/carta/ensalada_cesar.png', 0.90, 0, 4, 4),
+(9, 2, 'Ensalada de pasta y atún', 'Ensalada fresca de pasta y atún con tomates cherry.', 9.05, 'assets/images/carta/ensalada_pasta.png', 0.90, 1, 12, 4),
+(10, 2, 'Ensalada de patata', 'Ensalada de patata con mayonesa y taquitos de bacon.', 9.00, 'assets/images/carta/ensalada_patata.png', 0.90, 1, 3, 4),
+(11, 3, 'Paella', 'Paella de marisco con limones para poner al gusto.', 13.00, 'assets/images/carta/paella.png', 0.00, 1, 8, 4),
+(12, 3, 'Arroz negro', 'Arroz negro con sepia y calamares.', 12.00, 'assets/images/carta/arroz_negro.png', 0.00, 0, 11, 4),
+(13, 3, 'Risotto de setas', 'Risotto de setas con champiñones a la plancha.', 10.75, 'assets/images/carta/risotto.png', 0.00, 0, 5, 4),
+(14, 3, 'Arroz a la cubana', 'Arroz con tomate, un huevo frito y un plátano frito.', 10.75, 'assets/images/carta/arroz_cubana.png', 0.00, 1, 9, 4),
+(15, 4, 'Entrecot a la brasa', 'Entrecot a la brasa acompañado de champiñones salteados y espárragos a la brasa.', 18.50, 'assets/images/carta/entrecot_brasa.png', 0.00, 1, 13, 4),
+(16, 4, 'Butifarras a la brasa', 'Butifarras de Olot cocinadas a la brasa.', 11.50, 'assets/images/carta/butifarra_brasa.png', 0.00, 1, 4, 4),
+(17, 4, 'Pollo a la brasa', 'Medio pollo a la brasa.', 10.75, 'assets/images/carta/pollo_brasa.png', 0.00, 1, 7, 4),
+(18, 4, 'Dorada a la brasa', 'Dorada fresca a la brasa.', 10.75, 'assets/images/carta/dorada_brasa.png', 0.00, 1, 10, 4),
+(19, 5, 'Cerdo frito y verduras', 'Cerdo frito acompañado de patatas al horno y ensalada con tomate.', 11.30, 'assets/images/carta/cerdo_frito.png', 0.00, 0, 14, 4),
+(20, 5, 'Estofado de ternera', 'Estofado de ternera cómo lo hacía tu abuela, bien rico y tierno.', 10.75, 'assets/images/carta/estofado.png', 0.00, 1, 8, 4),
+(21, 5, 'Milanesa con patatas', 'Milanesa de ternera acompañada de patatas fritas, ensalada y limón para echar a gusto.', 10.75, 'assets/images/carta/milanesa.png', 0.00, 1, 4, 4),
+(22, 5, 'Pollo al ajillo con patatas', 'Pollo con salsa al ajillo y patatas fritas.', 10.75, 'assets/images/carta/pollo_ajillo.png', 0.00, 1, 7, 4),
+(23, 6, 'Fish and chips', 'Merluza rebozada acompañada de patatas fritas y salsa de guacamole.', 10.50, 'assets/images/carta/fish_chips.png', 0.00, 0, 9, 3),
+(24, 6, 'Bacalao al pil pil', 'Bacalao al horno con salsa pil pil en bandeja de barro.', 13.50, 'assets/images/carta/bacalao_pil_pil.png', 0.00, 1, 2, 4),
+(25, 6, 'Sepia a la plancha', '', 12.80, 'assets/images/carta/sepia_plancha.png', 0.00, 1, 7, 4),
+(26, 6, 'Salmón al horno', 'Salmón al horno acompañado de cuscús y limón.', 15.75, 'assets/images/carta/salmon.png', 0.00, 1, 11, 4),
+(27, 7, 'Agua Font Vella 1.5L', 'Botella de agua Font Vella de 1,5 litros.', 2.50, 'assets/images/carta/agua.png', 0.00, 1, 2, 4),
+(28, 7, 'Estrella-Damm 0.33cl', 'Lata de Estrella-Damm de 0,33cl.', 2.50, 'assets/images/carta/estrella.png', 0.00, 1, 2, 4),
+(29, 7, 'Coca-Cola 0.33cl', 'Lata de Coca-Cola de 0,33cl.', 2.50, 'assets/images/carta/coca_cola.png', 0.00, 1, 3, 4),
+(30, 7, 'Dehesa de Luna', '', 9.00, 'assets/images/carta/vino.png', 0.00, 1, 5, 4),
+(31, 8, 'Crema catalana', 'Tarrina de crema catalana con azúcar quemado por encima.', 5.75, 'assets/images/carta/crema_catalana.png', 0.00, 1, 9, 4),
+(32, 8, 'Yogurt con frutos rojos', 'Yogurt natural con frutos rojos y nueces.', 4.50, 'assets/images/carta/yogurt.png', 0.00, 1, 12, 4),
+(33, 8, 'Tiramisú', 'Tiramisú con cacao espolvoreado.', 6.00, 'assets/images/carta/tiramisu.png', 0.00, 1, 4, 4),
+(34, 8, 'Arroz con leche', 'Arroz con leche con canela.', 5.00, 'assets/images/carta/arroz_leche.png', 0.00, 1, 11, 4);
 
 -- --------------------------------------------------------
 

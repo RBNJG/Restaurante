@@ -90,8 +90,20 @@ a:hover {
     color: #666666;
 }
 
+.text-carrito-header:hover {
+    color: #FFFFFF;
+}
+
+.text-user-header:hover {
+    color: #000000;
+}
+
 .text-menu {
     text-decoration: none;
+}
+
+.text-menu:hover {
+    color: #000000;
 }
 
 .fondo-carta {
@@ -185,7 +197,7 @@ a:hover {
     font-weight: 600;
 }
 
-.bold{
+.bold {
     font-weight: 800;
 }
 
@@ -306,6 +318,14 @@ a:hover {
     background-color: #EBF5DE;
 }
 
+.restar:active {
+    background-color: #C1DE9B;
+}
+
+.sumar:active {
+    background-color: #C1DE9B;
+}
+
 .restar-off {
     color: #666666;
     border: none;
@@ -355,12 +375,39 @@ button.sin-estilo {
     cursor: pointer;
 }
 
+.background-gris {
+    background-color: #D9D9D9;
+}
+
+.background-verde {
+    background-color: #006902;
+}
+
 .img-carta {
     height: 40%;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
     width: 100%;
+}
+
+.logo-carrito {
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+    background-image: url(../images/header/carrito.svg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.logo-user {
+    height: 2rem;
+    width: 2rem;
+    background-image: url(../images/header/user.svg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .img-carrito {
@@ -436,6 +483,16 @@ button.sin-estilo {
     font-weight: 400;
 }
 
+.text-migas {
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 400;
+    color: #333333;
+}
+
+.text-migas:hover {
+    color: #333333;
+}
+
 .text-carousel {
     font-family: var(--fuente-principal);
     font-weight: 600;
@@ -502,6 +559,38 @@ button.sin-estilo {
     font-size: 1rem;
 }
 
+.buscador-header {
+    width: 35rem;
+    height: 3rem;
+    margin-left: 8rem;
+    border-radius: 3px;
+    border: 0.3px solid #000000;
+    background-color: #FFFFFF;
+}
+
+input.buscador {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.text-carrito-header {
+    color: #FFFFFF;
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.text-user-header {
+    color: #000000;
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
 .color-hover {
     color: #666666;
 }
@@ -552,7 +641,23 @@ button.sin-estilo {
 }
 
 .logo {
-    height: 100px;
+    height: 4.5rem;
+    width: 7.5rem;
+    background-image: url(../images/header/Logo_leroy_merlin.svg);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.logo-enlace {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.linea-header {
+    color: #666666;
+    width: 100%;
 }
 
 .cartel-descuento {

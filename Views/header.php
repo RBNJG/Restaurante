@@ -15,30 +15,49 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg py-0">
             <div class="container-fluid">
-                <a href="<?= url . "?controller=Home" ?>">
-                    <img class="navbar-brand logo"  src="assets/images/Logo_leroy_merlin.png" alt="Leroy Merlin">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item d-flex align-items-center me-2">
-                            <a href="<?= url . "?controller=Producto" ?>" class="text-menu">Carta</a>
-                        </li>
-                        <li class="nav-item d-flex align-items-center">
-                            <a href="<?= url . "?controller=Carrito" ?>" class="text-menu">Carrito <?= Calculadora::cantidadCarrito($_SESSION['carrito']) ?></a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                <div class="logo">
+                    <a href="<?= url . "?controller=Home" ?>" class="logo-enlace"></a>
+                </div>
+                <div class="w-100 mb-0 ms-3">
+                    <!-- Para el triangulo gris probar con ::before en CSS -->
+                    <div class="w-100 d-flex justify-content-between align-items-center mb-2 background-gris">
+                        <div class="d-flex align-items-center my-2 px-2 buscador-header">
+                            <form class="d-flex justify-content-between w-100" role="search">
+                                <input class="w-100 buscador text" type="search" placeholder="Buscar un producto, una marca..." aria-label="Search">
+                                <button type="submit" class="sin-estilo">
+                                    <img src="assets/images/header/lupa.svg" alt="">
+                                </button>
+                            </form>
+                        </div>
+                        <div class="d-flex">
+                            <a href="<?= url . "?controller=Login" ?>" class="text-user-header">
+                                <div class="d-flex flex-column align-items-center justify-content-center py-2 px-2">
+                                    <div class="mb-1 logo-user"></div>
+                                    Iniciar sesión
+                                </div>
+                            </a>
+                            <a href="<?= url . "?controller=Carrito" ?>" class="text-carrito-header">
+                                <div class="d-flex flex-column align-items-center justify-content-center py-2 px-2 background-verde">
+                                    <div class="mb-1 logo-carrito"></div>
+                                    Carrito <?= Calculadora::cantidadCarrito($_SESSION['carrito']) ?>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-start my-0 my-3">
+                        <a href="<?= url . "?controller=Producto" ?>" class="text-menu">
+                            <div class="d-flex align-items-center ms-3">
+                                <img src="assets/images/header/carta.svg" alt="" class="me-2">
+                                <p class="mb-0">Carta</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
+        <hr class="my-0 linea-header">
     </header>
 </body>
 
