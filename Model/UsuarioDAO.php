@@ -84,13 +84,13 @@ class UsuarioDAO
         return $usuario;
     }
 
-    // Función para modificar los atributos de un producto en la base de datos
-    public static function modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base)
+    // Función para comprobar si el usuario ya tiene cuenta a través del email
+    public static function getUserByMail($mail)
     {
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "UPDATE producto SET categoria_id = ?, nombre_producto = ?, descripcion = ?, coste_base = ? WHERE producto_id = ?";
+        $query = "SELECT * FROM usuario WHERE email = ?";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -99,7 +99,48 @@ class UsuarioDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("isssi", $categoria_id, $nombre_producto, $descripcion, $coste_base, $producto_id);
+        $stmt->bind_param("s", $mail);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        $usuario = null;
+
+        if ($result && $result->num_rows > 0) {
+            $usuario = $result->fetch_object('Usuario');
+            $result->free();
+        }
+        
+        //Cerramos la conexión
+        $stmt->close();
+        $connection->close();
+        
+        return $usuario;
+    }
+
+    //Función para registrar a un nuevo usuario
+    public static function newUser($nombre,$apellidos,$direccion,$email,$telefono,$password,$rol)
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "INSERT INTO usuario (rol_id,nombre,apellidos,direccion,email,telefono,password) VALUES (?,?,?,?,?,?,?)";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        //Encriptamos la contraseña para guardarla en la base de datos
+        $cryptedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        // Enlazar los parámetros
+        $stmt->bind_param("issssis", $rol, $nombre, $apellidos, $direccion, $email,$telefono,$cryptedPassword);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
@@ -116,38 +157,8 @@ class UsuarioDAO
         return $affected_rows;
     }
 
-    // Función para eliminar un producto en la base de datos pasando su id
-    public static function deleteProduct($id)
-    {
-        $connection = DataBase::connect();
+    public static function getPassword(){
 
-        // Preparar la consulta
-        $query = "DELETE FROM producto WHERE producto_id = ?";
-        $stmt = $connection->prepare($query);
-
-        // Comprobar si la preparación de la sentencia ha sido correcta
-        if (!$stmt) {
-            die("Error de preparación: " . $connection->error);
-        }
-
-        // Enlazar los parámetros
-        $stmt->bind_param("i", $id);
-
-        // Ejecutar la consulta
-        if (!$stmt->execute()) {
-            die("Error al ejecutar la consulta: " . $stmt->error);
-        }
-
-        // Obtener el número de filas afectadas
-        $result = $stmt->affected_rows;
-
-        // Cerrar la conexión
-        $stmt->close();
-        $connection->close();
-
-        return $result;
     }
-
-
     
 }

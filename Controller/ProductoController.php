@@ -32,6 +32,7 @@ class ProductoController
         include_once 'Views/footer.php';
     }
 
+    //Función para añadir un producto al carrito
     public function anadir()
     {
         session_start();
@@ -62,6 +63,7 @@ class ProductoController
         exit;
     }
 
+    //Función para eliminar un producto
     public function eliminar()
     {
         echo 'Producto eliminado';
@@ -72,11 +74,13 @@ class ProductoController
         header("Location:" . url);
     }
 
+    //Función que nos lleva a la página de modificación de un producto
     public function modificar()
     {
         include_once 'Views/modificarProducto.php';
     }
 
+    //Función que guarda los cambios realizados en un producto
     public function guardarCambios()
     {
 

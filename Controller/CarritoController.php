@@ -27,6 +27,7 @@ class CarritoController
         include_once 'Views/footer.php';
     }
 
+    //Función para eliminar un producto o conjunto de productos del carrito
     public function eliminar(){
         session_start();
 
@@ -40,6 +41,7 @@ class CarritoController
         exit;
     }
 
+    //Función para aumentar o disminuir la cantidad de un producto del carrito
     public function modificarCantidad(){
         session_start();
 

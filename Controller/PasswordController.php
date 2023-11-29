@@ -7,7 +7,7 @@ include_once 'Model/UsuarioDAO.php';
 
 // Creamos el controlador del login
 
-class LoginController
+class PasswordController
 {
 
     public function index()
@@ -23,29 +23,15 @@ class LoginController
         //Cabecera
         include_once 'Views/header.php';
         //Panel
-        include_once 'Views/login.php';
+        include_once 'Views/password.php';
         //Footer
         include_once 'Views/footer.php';
     }
 
-    //Función para comprovar si ya existe el usuario en la base de datos
-    public function verificarMail()
-    {
-        session_start();
-
-        $mail = $_POST['mail'];
-        echo $mail;
+    public function verificar(){
 
         
-        if (UsuarioDAO::getUserByMail($mail) == null) {
-            $_SESSION['mail'] = $mail;
-            header("Location:" . url . "?controller=Registro");
-            
-        } else {
-            $_SESSION['mail'] = $mail;
-            header("Location:" . url . "?controller=Password");
-        }
-        
+
     }
 
 }

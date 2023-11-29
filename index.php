@@ -3,6 +3,8 @@ include_once 'Controller/ProductoController.php';
 include_once 'Controller/CarritoController.php';
 include_once 'Controller/HomeController.php';
 include_once 'Controller/LoginController.php';
+include_once 'Controller/RegistroController.php';
+include_once 'Controller/PasswordController.php';
 include_once 'config/parameters.php';
 
 if (!isset($_GET['controller'])) {
