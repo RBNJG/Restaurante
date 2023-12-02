@@ -33,8 +33,16 @@ $carrito = $_SESSION['carrito'];
                 <p>Contraseña </p>
                 <p>- Obligatorio</p>
             </div>
-            <form action=<?= url . "?controller=Login&action=verificarMail" ?> method='post' class="d-flex flex-column">
-                <input name="mail" type="email" class="mb-4">
+            <form action=<?= url . "?controller=Password&action=verificar" ?> method='post' class="d-flex flex-column">
+                <input name="password" type="password" class="mb-4">
+                <?php
+                if (isset($_SESSION['errorpassword'])) {
+                ?>
+                    <p><?= $_SESSION['errorpassword'] ?></p>
+                <?php
+                    unset($_SESSION['errorpassword']);
+                }
+                ?>
                 <button type="submit" class="mb-5">Continuar</button>
             </form>
         </div>

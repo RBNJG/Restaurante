@@ -38,7 +38,7 @@ $carrito = $_SESSION['carrito'];
         <input type="tel" id="telefono" name="telefono" required><br>
 
         <label for="contrasena">Contraseña:</label><br>
-        <input type="password" id="contrasena" name="contrasena" required><br>
+        <input type="password" id="contrasena" name="password" required><br>
 
         <input type="submit" value="Registrar">
     </form>

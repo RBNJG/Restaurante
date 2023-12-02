@@ -136,11 +136,8 @@ class UsuarioDAO
             die("Error de preparación: " . $connection->error);
         }
 
-        //Encriptamos la contraseña para guardarla en la base de datos
-        $cryptedPassword = password_hash($password, PASSWORD_DEFAULT);
-
         // Enlazar los parámetros
-        $stmt->bind_param("issssis", $rol, $nombre, $apellidos, $direccion, $email,$telefono,$cryptedPassword);
+        $stmt->bind_param("issssis", $rol, $nombre, $apellidos, $direccion, $email,$telefono,$password);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
@@ -155,10 +152,6 @@ class UsuarioDAO
         $connection->close();
 
         return $affected_rows;
-    }
-
-    public static function getPassword(){
-
     }
     
 }

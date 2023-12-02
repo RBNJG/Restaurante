@@ -32,10 +32,20 @@
                             </form>
                         </div>
                         <div class="d-flex">
-                            <a href="<?= url . "?controller=Login" ?>" class="text-user-header">
+                            <a href="<?php if(!isset($_SESSION['usuario_id'])){echo url . "?controller=Login";}else{echo url . "?controller=Panel";} ?>" class="text-user-header">
                                 <div class="d-flex flex-column align-items-center justify-content-center py-2 px-2">
                                     <div class="mb-1 logo-user"></div>
-                                    Iniciar sesión
+                                    <?php
+                                    if (!isset($_SESSION['usuario_id'])) {
+                                    ?>
+                                        Iniciar sesión
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getNombre() . " " . UsuarioDAO::getUser($_SESSION['usuario_id'])->getApellidos() ?>
+                                    <?php
+                                    }
+                                    ?>
                                 </div>
                             </a>
                             <a href="<?= url . "?controller=Carrito" ?>" class="text-carrito-header">

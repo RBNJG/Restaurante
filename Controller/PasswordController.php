@@ -28,10 +28,24 @@ class PasswordController
         include_once 'Views/footer.php';
     }
 
-    public function verificar(){
+    public function verificar()
+    {
+        session_start();
 
+        $password = $_POST['password'];
+
+        $user = UsuarioDAO::getUserByMail($_SESSION['mail']);
+
+        $hashedPassword = $user->getPassword();
+
+       
+        if (password_verify($password, $hashedPassword)) {
+            $_SESSION['usuario_id'] = $user->getUsuario_id();
+            header("Location:" . url . "?controller=Home");
+        } else {
+            $_SESSION['errorpassword'] = "Lo sentimos, la contraseña no és válida.";
+            header("Location:" . url . "?controller=Password");
+        }
         
-
     }
-
 }

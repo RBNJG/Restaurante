@@ -36,9 +36,14 @@ class RegistroController
         $telefono = $_POST['telefono'];
         $password = $_POST['password'];
 
+        //Encriptamos la contraseña para guardarla en la base de datos
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         $_SESSION['mail'] = $email;
 
-        UsuarioDAO::newUser($nombre,$apellidos,$direccion,$email,$telefono,$password,2);
+        UsuarioDAO::newUser($nombre,$apellidos,$direccion,$email,$telefono,$hashedPassword,2);
+
+        //echo "Contraseña: " . $hashedPassword;
 
         header("Location:" . url . "?controller=Login");
         exit;
