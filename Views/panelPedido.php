@@ -79,7 +79,7 @@ $contador = 0;
                                 <img src="assets/images/carta/4_estrellas.svg" alt="">
                             </picture>
                             <p class="mb-0 text">4 y más</p>
-                            <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos,4) ?>)</p>
+                            <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 4) ?>)</p>
                         </div>
                         <div class="d-flex justify-content-start align-items-baseline ms-2 my-3">
                             <input type="radio" name="estrellas" value="3">
@@ -87,7 +87,7 @@ $contador = 0;
                                 <img src="assets/images/carta/3_estrellas.svg" alt="">
                             </picture>
                             <p class="mb-0 text">3 y más</p>
-                            <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos,3) ?>)</p>
+                            <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 3) ?>)</p>
                         </div>
                     </form>
                 </div>
@@ -177,7 +177,7 @@ $contador = 0;
                                             } else {
                                             ?>
                                                 <div class="d-flex align-items-center justify-content-center mb-2 cartel-descuento">
-                                                    <p class="mb-0 text text-cartel-descuento"><?php echo '- ' . number_format(round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2),2) ?> €</p>
+                                                    <p class="mb-0 text text-cartel-descuento"><?php echo '- ' . number_format(round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2), 2) ?> €</p>
                                                 </div>
                                                 <div class="mb-1">
                                                     <p class="mb-0 text text-precio-tachado"><?= $producto->getCoste_base() ?> €</p>
@@ -220,19 +220,7 @@ $contador = 0;
                         }
                     }
                 ?>
-                <div class="row mt-5 mb-4">
-                    <div class="d-flex justify-content-center">
-                        <picture>
-                            <img src="assets/images/carta/izquierda.svg" alt="página anterior">
-                        </picture>
-                        <select name="" id="" class="mx-3 text select-pagina">
-                            <option value="">1 de 1</option>
-                        </select>
-                        <picture>
-                            <img src="assets/images/carta/derecha.svg" alt="página siguiente">
-                        </picture>
-                    </div>
-                </div>
+                <div class="mb-5"></div>
             </div>
         </div>
     </div>

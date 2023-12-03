@@ -153,5 +153,35 @@ class UsuarioDAO
 
         return $affected_rows;
     }
+
+    public static function modifyUser($nombre,$apellidos,$direccion,$email,$telefono,$id){
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "UPDATE usuario SET nombre = ?, apellidos = ?, direccion = ?, email = ?, telefono = ? WHERE usuario_id = ?";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("ssssii",  $nombre, $apellidos, $direccion, $email,$telefono,$id);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el número de filas afectadas
+        $affected_rows = $stmt->affected_rows;
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $affected_rows;
+    }
     
 }
