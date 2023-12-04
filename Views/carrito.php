@@ -95,19 +95,19 @@ $carrito = $_SESSION['carrito'];
                                         <?php
                                         if ($producto->getProducto()->getDescuento() == 0) {
                                         ?>
-                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto,0) ?> €</p>
+                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto, 0) ?> €</p>
                                         <?php
                                         } else {
                                         ?>
                                             <div>
                                                 <div class="d-flex justify-content-end">
                                                     <div class="d-flex align-items-center justify-content-center cartel-descuento">
-                                                        <p class="mb-0 text-cartel-descuento">- <?= number_format(Calculadora::descuento($producto) * $producto->getCantidad(),2) ?> €</p>
+                                                        <p class="mb-0 text-cartel-descuento">- <?= number_format(Calculadora::descuento($producto) * $producto->getCantidad(), 2) ?> €</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-baseline">
-                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto,1) ?> €</p>
-                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto,0)?> €</p>
+                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto, 1) ?> €</p>
+                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto, 0) ?> €</p>
                                                 </div>
                                             </div>
                                         <?php
@@ -146,7 +146,14 @@ $carrito = $_SESSION['carrito'];
                             <p class="text-h2"><?= Calculadora::total($carrito) ?> €</p>
                         </div>
                         <p class="text">Impuestos incluidos</p>
-                        <button class="btn-compra mb-3">Continuar</button>
+                        <form action=<?php if (!isset($_SESSION['usuario_id'])) {
+                                            echo url . "?controller=Login";
+                                        } else {
+                                            echo url . "?controller=Carrito&action=compra";
+                                        } ?> method='post'>
+                            <input name="carrito" value="<?= $_SESSION['carrito'] ?>" hidden>
+                            <button class="btn-compra mb-3">Continuar</button>
+                        </form>
                         <p class="mb-2 text-pago">Pago 100% seguro</p>
                         <picture>
                             <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3">

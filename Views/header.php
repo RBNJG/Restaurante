@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-start my-0 my-3">
-                        <a href="<?= url . "?controller=Producto" ?>" class="text-menu">
+                        <a href="<?= url . "?controller=Carta" ?>" class="text-menu">
                             <div class="d-flex align-items-center ms-3">
                                 <img src="assets/images/header/carta.svg" alt="" class="me-2">
                                 <p class="mb-0">Carta</p>

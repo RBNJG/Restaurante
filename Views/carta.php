@@ -200,7 +200,7 @@ $contador = 0;
                                             ?>
                                         </div>
                                         <div class="">
-                                            <form action=<?= url . "?controller=Producto&action=anadir" ?> method='post'>
+                                            <form action=<?= url . "?controller=Carta&action=anadir" ?> method='post'>
                                                 <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
                                                 <button class="btn-anadir-carrito" type="submit">Añadir al carrito</button>
                                             </form>

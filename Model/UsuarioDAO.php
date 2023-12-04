@@ -29,7 +29,7 @@ class UsuarioDAO
 
         if ($result) {
             // Mientras haya productos en la base de datos, los voy creando y guardando en un array
-            // Con fectch_object le decimos el objeto de la base de datos que queremos, y si los atributos 
+            // Con fetch_object le decimos el objeto de la base de datos que queremos, y si los atributos 
             // son iguales que en la base de datos y el constructor está vacío, los crea automáticamente.
             while ($usuario = $result->fetch_object('Usuario')) {
                 $usuarios[] = $usuario;
@@ -154,6 +154,7 @@ class UsuarioDAO
         return $affected_rows;
     }
 
+    //Función para modificar los datos de un usuario
     public static function modifyUser($nombre,$apellidos,$direccion,$email,$telefono,$id){
         $connection = DataBase::connect();
 

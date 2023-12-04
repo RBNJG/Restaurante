@@ -42,21 +42,21 @@ $categorias = CategoriaDAO::getAllCategories();
                 <h2 class="mt-6 mb-4 pt-2 pb-2 text-center text-h2">Nuestras ofertas en carta</h2>
                 <div class="row d-flex justify-content-between">
                     <div class="col-4 d-flex justify-content-start">
-                        <a href="<?= url . "?controller=Producto" ?>">
+                        <a href="<?= url . "?controller=Carta" ?>">
                             <picture>
                                 <img src="assets/images/home/Ensaladas.png" alt="Oferta ensaladas" class="img-fluid">
                             </picture>
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="<?= url . "?controller=Producto" ?>">
+                        <a href="<?= url . "?controller=Carta" ?>">
                             <picture>
                                 <img src="assets/images/home/Pasta.png" alt="Spaghettis baratos" class="img-fluid">
                             </picture>
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
-                        <a href="<?= url . "?controller=Producto" ?>">
+                        <a href="<?= url . "?controller=Carta" ?>">
                             <picture>
                                 <img src="assets/images/home/Oferta entrecot.png" alt="Oferta en brasa" class="img-fluid">
                             </picture>
@@ -86,7 +86,7 @@ $categorias = CategoriaDAO::getAllCategories();
                                     ¿Listo para una experiencia culinaria única?
                                     ¡Ven y descubre sabores que te inspirarán a renovar no solo tu casa, sino también tu paladar!
                                 </p>
-                                <form action=<?= url . "?controller=Producto" ?> method='post'>
+                                <form action=<?= url . "?controller=Carta" ?> method='post'>
                                     <button class="mt-4 btn-g-w" type="submit">Ver carta</button>
                                 </form>
                             </div>

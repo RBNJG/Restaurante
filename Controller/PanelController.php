@@ -12,14 +12,6 @@ class PanelController
 
     public function index()
     {
-        //Iniciamos sesión
-        session_start();
-
-        //Creamos el array dónde se guardan los productos seleccionados
-        if (!isset($_SESSION['carrito'])) {
-            $_SESSION['carrito'] = array();
-        }
-
         //Cabecera
         include_once 'Views/header.php';
         //Panel
@@ -46,6 +38,24 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    public function verPedidos()
+    {
+        //Iniciamos sesión
+        session_start();
+
+        //Creamos el array dónde se guardan los productos seleccionados
+        if (!isset($_SESSION['carrito'])) {
+            $_SESSION['carrito'] = array();
+        }
+
+        //Cabecera
+        include_once 'Views/header.php';
+        //Panel
+        include_once 'Views/panelPedidos.php';
+        //Footer
+        include_once 'Views/footer.php';
+    }
+
     public function desconectar()
     {
         session_start();
@@ -55,6 +65,8 @@ class PanelController
 
         //Destruimos la sesión
         session_destroy();
+
+        setcookie('usuario','', time() - (3600 * 48));
 
         //Redirigimos al usuario a Home
         header("Location: " . url);

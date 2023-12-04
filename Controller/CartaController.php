@@ -6,20 +6,11 @@ include_once 'utils/Calculadora.php';
 
 // Creamos el controlador de pedidos
 
-class ProductoController
+class CartaController
 {
 
     public function index()
     {
-        //Iniciamos sesión
-        session_start();
-
-        //Creamos el array dónde se guardan los productos seleccionados
-        if (!isset($_SESSION['carrito'])) {
-            $_SESSION['carrito'] = array();
-        }
-
-
         //Obtenemos los productos y categorias para mostrar en carta
         $productos = ProductoDAO::getAllProducts();
         $categorias = CategoriaDAO::getAllCategories();
@@ -27,7 +18,7 @@ class ProductoController
         //Cabecera
         include_once 'Views/header.php';
         //Panel
-        include_once 'Views/panelPedido.php';
+        include_once 'Views/carta.php';
         //Footer
         include_once 'Views/footer.php';
     }
@@ -52,11 +43,23 @@ class ProductoController
             }
         }
 
-        //Si el producto no está en el carrito, añade un nuevo pedido
+        //Si el producto no está en el carrito lo añade
         if (!$producto_existente) {
             $pedido = new Carrito(ProductoDAO::getProduct($producto_id));
             array_push($_SESSION['carrito'], $pedido);
         }
+
+        $carritoParaJson = array_map(function ($pedido) {
+            return [
+                'producto_id' => $pedido->getProducto()->getProducto_id(),
+                'cantidad' => $pedido->getCantidad(),
+            ];
+        }, $_SESSION['carrito']);
+
+        $cookiesCarrito = json_encode($carritoParaJson);
+
+        //Guardamos el carrito en las cookies
+        setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
 
         //Volvemos a la carta
         header('Location: ' . $_SERVER['HTTP_REFERER']);

@@ -12,14 +12,6 @@ class PasswordController
 
     public function index()
     {
-        //Iniciamos sesión
-        session_start();
-
-        //Creamos el array dónde se guardan los productos seleccionados
-        if (!isset($_SESSION['carrito'])) {
-            $_SESSION['carrito'] = array();
-        }
-
         //Cabecera
         include_once 'Views/header.php';
         //Panel
@@ -41,6 +33,12 @@ class PasswordController
        
         if (password_verify($password, $hashedPassword)) {
             $_SESSION['usuario_id'] = $user->getUsuario_id();
+    
+            $cookiesUsuario = json_encode($_SESSION['usuario_id']);
+    
+            //Guardamos el carrito en las cookies
+            setcookie('usuario', $cookiesUsuario, time() + (3600 * 48));
+            
             header("Location:" . url . "?controller=Home");
         } else {
             $_SESSION['errorpassword'] = "Lo sentimos, la contraseña no és válida.";
