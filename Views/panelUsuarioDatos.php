@@ -21,8 +21,8 @@ $carrito = $_SESSION['carrito'];
 
 <body>
     <h1>Panel usuario</h1>
-    <a href="">Modificar mis datos</a>
-    <a href="">Ver pedidos</a>
+    <a href="<?= url . "?controller=Panel&action=modificarDatos" ?>">Modificar mis datos</a>
+    <a href="<?= url . "?controller=Panel&action=verPedidos" ?>">Ver pedidos</a>
     <a href="<?= url . "?controller=Panel&action=desconectar" ?>">Desconectar</a>
 
     <form action=<?= url . "?controller=Panel&action=guardarCambios" ?> method="post">

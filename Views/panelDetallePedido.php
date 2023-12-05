@@ -21,16 +21,23 @@
         <a href="<?= url . "?controller=Panel&action=desconectar" ?>">Desconectar</a>
     </div>
     <div>
-        <?php
-        foreach ($pedidosUser as $pedido) {
-        ?>
-            <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
-                <p>Fecha : <?= $pedido->getFecha() ?></p>
-                <p>Coste total : <?= $pedido->getCoste_total() ?> €</p>
-                <p>Estado : <?= $pedido->getEstado() ?></p>
-                <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
-                <button class="btn-compra mb-3" type="submit">Ver detalles</button>
+        <div>
+            <p>Fecha : <?= $pedido->getFecha() ?></p>
+            <p>Coste total : <?= $pedido->getCoste_total() ?> €</p>
+            <p>Estado : <?= $pedido->getEstado() ?></p>
+        </div>
+        <form action=<?= url . "?controller=Panel&action=repetirPedido" ?> method='post'>
+                <input name="repetirpedido" value="<?= $pedido->getPedido_id() ?>" hidden>
+                <button class="mb-3" type="submit">Repetir pedido</button>
             </form>
+        <?php
+        foreach ($detallesPedido as $detalle) {
+        ?>
+            <div>
+                <p>Producto : <?= ProductoDAO::getProduct($detalle->getProducto_id())->getNombre_producto() ?></p>
+                <p>Cantidad : <?= $detalle->getCantidad_producto() ?></p>
+                <p>Precio : <?= $detalle->getSubtotal() ?> €</p>
+            </div>
         <?php
         }
         ?>

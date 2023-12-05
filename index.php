@@ -14,7 +14,7 @@ include_once 'config/parameters.php';
 session_start();
 
 // Verificar si existe una cookie del carrito
-if (isset($_COOKIE['carrito'])) {
+if (isset($_COOKIE['carrito']) && !isset($_SESSION['carrito'])) {
     $datosCarrito = json_decode($_COOKIE['carrito'], true);
 
     // Reconstruir el carrito basado en los datos de la cookie

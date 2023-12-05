@@ -1,9 +1,3 @@
-<?php
-
-$carrito = $_SESSION['carrito'];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,10 +14,15 @@ $carrito = $_SESSION['carrito'];
 </head>
 
 <body>
-    <h1>Panel usuario</h1>
-    <a href="<?= url . "?controller=Panel&action=modificarDatos" ?>">Modificar mis datos</a>
-    <a href="<?= url . "?controller=Panel&action=verPedidos" ?>">Ver pedidos</a>
-    <a href="<?= url . "?controller=Panel&action=desconectar" ?>">Desconectar</a>
+    <div class="d-flex flex-column align-items-center">
+        <div class="d-flex flex-column align-items-center">
+            <h2 class="text-h1">Pedido realizado con éxito</h2>
+            <hr class="linea-carrito">
+            <form action=<?= url . "?controller=Home" ?> method='post' class="d-flex flex-column">
+                <button type="submit" class="mb-5 btn-compra">Continuar</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

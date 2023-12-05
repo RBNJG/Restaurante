@@ -1,10 +1,10 @@
 <?php
 
-class DetallesPedido{
+class DetallePedido{
 
-    private $detalles_pedido_id;
+    private $detalle_pedido_id;
     private $pedido_id;
-    private $producto;
+    private $producto_id;
     private $modificacion_id;
     private $cantidad_producto;
     private $subtotal;
@@ -12,21 +12,21 @@ class DetallesPedido{
     public function __construct(){}
 
     /**
-     * Get the value of detalles_pedido_id
+     * Get the value of detalle_pedido_id
      */ 
-    public function getDetalles_pedido_id()
+    public function getDetalle_pedido_id()
     {
-        return $this->detalles_pedido_id;
+        return $this->detalle_pedido_id;
     }
 
     /**
-     * Set the value of detalles_pedido_id
+     * Set the value of detalle_pedido_id
      *
      * @return  self
      */ 
-    public function setDetalles_pedido_id($detalles_pedido_id)
+    public function setDetalle_pedido_id($detalle_pedido_id)
     {
-        $this->detalles_pedido_id = $detalles_pedido_id;
+        $this->detalle_pedido_id = $detalle_pedido_id;
 
         return $this;
     }
@@ -54,9 +54,9 @@ class DetallesPedido{
     /**
      * Get the value of producto
      */ 
-    public function getProducto()
+    public function getProducto_id()
     {
-        return $this->producto;
+        return $this->producto_id;
     }
 
     /**
@@ -64,9 +64,9 @@ class DetallesPedido{
      *
      * @return  self
      */ 
-    public function setProducto($producto)
+    public function setProducto_id($producto_id)
     {
-        $this->producto = $producto;
+        $this->producto_id = $producto_id;
 
         return $this;
     }

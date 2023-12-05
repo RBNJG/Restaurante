@@ -1,6 +1,8 @@
 <?php
 include_once 'Model/ProductoDAO.php';
 include_once 'Model/CategoriaDAO.php';
+include_once 'Model/PedidoDAO.php';
+include_once 'Model/DetallePedidoDAO.php';
 include_once 'Model/Carrito.php';
 include_once 'utils/Calculadora.php';
 
@@ -15,6 +17,16 @@ class CarritoController
         include_once 'Views/header.php';
         //Panel
         include_once 'Views/carrito.php';
+        //Footer
+        include_once 'Views/footer.php';
+    }
+
+    public function pedidoRealizado()
+    {
+        //Cabecera
+        include_once 'Views/header.php';
+        //Panel
+        include_once 'Views/pedidoRealizado.php';
         //Footer
         include_once 'Views/footer.php';
     }
@@ -53,7 +65,30 @@ class CarritoController
     }
 
     public function compra(){
-        echo "compra";
+
+        $fechaActual = new DateTime();
+        $fechaActualString = $fechaActual->format("Y-m-d H:i:s");
+
+
+        $carrito = $_SESSION['carrito'];
+        
+        $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,Calculadora::total($carrito),"En preparación.");
+
+        foreach($carrito as $producto){
+
+            $productoId = $producto->getProducto()->getProducto_id();
+            $cantidadProducto = $producto->getCantidad();
+            $subtotal = Calculadora::totalProducto($producto, 0);
+
+            DetallePedidoDAO::newDetallePedido($pedidoId,$productoId,null,$cantidadProducto,$subtotal);
+        }
+
+        unset($_SESSION['carrito']);
+        setcookie('carrito', '', time() - (3600 * 48));
+
+        header("Location:" . url . "?controller=Carrito&action=pedidoRealizado");
+        
+        exit;
     }
 
 }

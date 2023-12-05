@@ -32,7 +32,7 @@ class DetallePedidoDAO{
         $result = $stmt->get_result();
 
         if ($result) {
-            while ($detalles = $result->fetch_object('Pedido')) {
+            while ($detalles = $result->fetch_object('DetallePedido')) {
                 $detallesPedido[] = $detalles;
             }
 
@@ -54,7 +54,7 @@ class DetallePedidoDAO{
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "INSERT INTO pedido (usuario_id,fecha,coste_total,estado) VALUES (?,?,?,?)";
+        $query = "INSERT INTO detalles_pedido (pedido_id,producto_id,modificacion_id,cantidad_producto,subtotal) VALUES (?,?,?,?,?)";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -63,7 +63,7 @@ class DetallePedidoDAO{
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("isds", $usuario_id, $fecha, $coste_total, $estado);
+        $stmt->bind_param("iiiid", $pedido_id, $producto_id, $modificacion_id, $cantidad_producto,$subtotal);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
