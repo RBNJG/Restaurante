@@ -20,10 +20,30 @@ $carrito = $_SESSION['carrito'];
 </head>
 
 <body>
-    <h1>Panel usuario</h1>
-    <a href="<?= url . "?controller=Panel&action=modificarDatos" ?>">Modificar mis datos</a>
-    <a href="<?= url . "?controller=Panel&action=verPedidos" ?>">Ver pedidos</a>
-    <a href="<?= url . "?controller=Panel&action=desconectar" ?>">Desconectar</a>
+    <div class="container-flex fondo-panel">
+        <div class="container pt-3">
+            <div class="row">
+                <div class="col-3">
+                    <div class="fondo-blanco">
+                        <div class="d-flex justify-content-start align-items-center mb-3">
+                            <div class="circulo-user"></div>
+                            <div class="ms-3">
+                                <p class="mb-0"><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
+                                <p class="mb-0"><?= $usuario->getRol_id() ?></p>
+                            </div>
+                        </div>
+
+                        <a href="<?= url . "?controller=Panel&action=modificarDatos" ?>">Modificar mis datos</a>
+                        <a href="<?= url . "?controller=Panel&action=verPedidos" ?>">Ver pedidos</a>
+                        <a href="<?= url . "?controller=Panel&action=desconectar" ?>">Desconectar</a>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <p>cosas</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

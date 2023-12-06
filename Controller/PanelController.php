@@ -14,6 +14,8 @@ class PanelController
 
     public function index()
     {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+
         //Cabecera
         include_once 'Views/header.php';
         //Panel
@@ -65,11 +67,11 @@ class PanelController
 
         $detallesPedido = DetallePedidoDAO::getDetallePedido($pedido);
 
-        
-
         //Buscamos el producto en el carrito 
         foreach ($detallesPedido as $productoDetalle) {
+
             $producto_existente = false;
+
             foreach ($_SESSION['carrito'] as $producto) {
                 if ($productoDetalle->getProducto_id() == $producto->getProducto()->getProducto_id()) {
                     //Si el producto ya está en el carrito, incrementa la cantidad
@@ -89,8 +91,7 @@ class PanelController
             }
         }
 
-
-
+        //Preparamos el carrito para las cookies
         $carritoParaJson = array_map(function ($pedido) {
             return [
                 'producto_id' => $pedido->getProducto()->getProducto_id(),
@@ -103,7 +104,7 @@ class PanelController
         //Guardamos el carrito en las cookies
         setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
 
-        //Volvemos a la carta
+        //Redirigimos al carrito
         header('Location: ' . url . "?controller=Carrito");
         exit;
     }
