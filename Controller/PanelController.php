@@ -26,6 +26,7 @@ class PanelController
 
     public function modificarDatos()
     {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
 
         //Cabecera
         include_once 'Views/header.php';
@@ -37,6 +38,7 @@ class PanelController
 
     public function verPedidos()
     {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
         $pedidosUser = PedidoDAO::getPedidos($_SESSION['usuario_id']);
 
         //Cabecera
@@ -49,6 +51,7 @@ class PanelController
 
     public function detallePedido()
     {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
         $pedidoId = $_POST['pedido'];
         $pedido = PedidoDAO::getPedido($pedidoId);
         $detallesPedido = DetallePedidoDAO::getDetallePedido($pedidoId);
