@@ -55,6 +55,8 @@ class PanelController
         $pedidoId = $_POST['pedido'];
         $pedido = PedidoDAO::getPedido($pedidoId);
         $detallesPedido = DetallePedidoDAO::getDetallePedido($pedidoId);
+        $fechaString = $pedido->getFecha();
+        $fecha = new DateTime($fechaString);
 
         //Cabecera
         include_once 'Views/header.php';

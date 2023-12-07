@@ -23,7 +23,17 @@
                             <div class="circulo-user"></div>
                             <div class="ms-3">
                                 <p class="mb-0 text text-panel-user"><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
-                                <p class="mb-0 text"><?php switch($usuario->getRol_id()){case 1: echo 'Administrador'; break; case 2: echo 'Usuario'; break; case 3: echo 'Desarrollador'; break;}  ?></p>
+                                <p class="mb-0 text"><?php switch ($usuario->getRol_id()) {
+                                                            case 1:
+                                                                echo 'Administrador';
+                                                                break;
+                                                            case 2:
+                                                                echo 'Usuario';
+                                                                break;
+                                                            case 3:
+                                                                echo 'Desarrollador';
+                                                                break;
+                                                        }  ?></p>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-2">
@@ -72,23 +82,39 @@
                     </div>
                 </div>
                 <div class="col-9">
-                    <div>
+                    <div class="mb-4 grupo-panel fondo-blanco">
                         <div>
-                            <p>Fecha : <?= $pedido->getFecha() ?></p>
-                            <p>Coste total : <?= $pedido->getCoste_total() ?> €</p>
-                            <p>Estado : <?= $pedido->getEstado() ?></p>
+                            <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y"); ?></p>
+                                    <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
+                                    <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
+                                </div>
+                                <div class="d-flex align-items-center me-4">
+                                    <form action=<?= url . "?controller=Panel&action=repetirPedido" ?> method='post'>
+                                        <input name="repetirpedido" value="<?= $pedido->getPedido_id() ?>" hidden>
+                                        <button class="px-3 mb-3 btn-compra" type="submit">Repetir pedido</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <hr class="align-self-center linea-panel">
                         </div>
-                        <form action=<?= url . "?controller=Panel&action=repetirPedido" ?> method='post'>
-                            <input name="repetirpedido" value="<?= $pedido->getPedido_id() ?>" hidden>
-                            <button class="mb-3" type="submit">Repetir pedido</button>
-                        </form>
                         <?php
                         foreach ($detallesPedido as $detalle) {
+                            $producto = ProductoDAO::getProduct($detalle->getProducto_id());
                         ?>
-                            <div>
-                                <p>Producto : <?= ProductoDAO::getProduct($detalle->getProducto_id())->getNombre_producto() ?></p>
-                                <p>Cantidad : <?= $detalle->getCantidad_producto() ?></p>
-                                <p>Precio : <?= $detalle->getSubtotal() ?> €</p>
+                            <div class="d-flex justify-content-between">
+                                <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
+                                <div class="w-100 px-3 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p class="text"><?= $producto->getNombre_producto() ?></p>
+                                        <p class="text">Cantidad : <?= $detalle->getCantidad_producto() ?></p>
+                                    </div>
+                                    <div class="me-3">
+                                        <p class="text">Subtotal : <?= $detalle->getSubtotal() ?> €</p>
+                                    </div>
+                                </div>
                             </div>
                         <?php
                         }

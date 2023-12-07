@@ -23,7 +23,17 @@
                             <div class="circulo-user"></div>
                             <div class="ms-3">
                                 <p class="mb-0 text text-panel-user"><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
-                                <p class="mb-0 text"><?php switch($usuario->getRol_id()){case 1: echo 'Administrador'; break; case 2: echo 'Usuario'; break; case 3: echo 'Desarrollador'; break;}  ?></p>
+                                <p class="mb-0 text"><?php switch ($usuario->getRol_id()) {
+                                                            case 1:
+                                                                echo 'Administrador';
+                                                                break;
+                                                            case 2:
+                                                                echo 'Usuario';
+                                                                break;
+                                                            case 3:
+                                                                echo 'Desarrollador';
+                                                                break;
+                                                        }  ?></p>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-2">
@@ -72,17 +82,29 @@
                     </div>
                 </div>
                 <div class="col-9">
-                    <div>
+                    <div class="mb-4 grupo-panel fondo-blanco">
                         <?php
                         foreach ($pedidosUser as $pedido) {
+                            $fechaString = $pedido->getFecha();
+                            $fecha = new DateTime($fechaString);
                         ?>
-                            <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
-                                <p>Fecha : <?= $pedido->getFecha() ?></p>
-                                <p>Coste total : <?= $pedido->getCoste_total() ?> €</p>
-                                <p>Estado : <?= $pedido->getEstado() ?></p>
-                                <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
-                                <button class="btn-compra mb-3" type="submit">Ver detalles</button>
-                            </form>
+                            <div class="">
+                                <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
+                                    <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y"); ?></p>
+                                            <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
+                                            <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
+                                        </div>
+                                        <div class="d-flex align-items-center me-4">
+                                            <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
+                                            <button class="px-3 mb-3 btn-compra" type="submit">Ver detalles</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr class="align-self-center linea-panel">
                         <?php
                         }
                         ?>
