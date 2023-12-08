@@ -26,16 +26,16 @@ $carrito = $_SESSION['carrito'];
             <hr class="linea-carrito">
         </div>
         <div>
-            <p>Introduce tu email para iniciar sesión o registrarte</p>
+            <p class="text color-verde">Introduce tu email para iniciar sesión o registrarte</p>
         </div>
-        <div>
-            <div class="d-flex">
-                <p>Correo electrónico </p>
-                <p>- Obligatorio</p>
+        <div class="password-container">
+            <div class="d-flex align-items-center">
+                <p class="me-1 mb-2 text text-password-big color-migas">Correo electrónico</p>
+                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
             </div>
             <form action=<?= url . "?controller=Login&action=verificarMail" ?> method='post' class="d-flex flex-column">
-                <input name="mail" type="email" class="mb-4">
-                <button type="submit" class="mb-5">Continuar</button>
+                <input name="mail" type="email" class="mb-4 p-3 input-password">
+                <button type="submit" class="mb-5 btn-compra">Continuar</button>
             </form>
         </div>
     </div>

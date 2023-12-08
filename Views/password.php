@@ -26,15 +26,15 @@ $carrito = $_SESSION['carrito'];
             <hr class="linea-carrito">
         </div>
         <div>
-            <p><?= $_SESSION['mail'] ?></p>
+            <p class="text text-password-big color-hover"><?= $_SESSION['mail'] ?></p>
         </div>
-        <div>
-            <div class="d-flex">
-                <p>Contraseña </p>
-                <p>- Obligatorio</p>
+        <div class="password-container">
+            <div class="d-flex align-items-center">
+                <p class="me-1 mb-2 text text-password-big color-migas">Contraseña</p>
+                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
             </div>
             <form action=<?= url . "?controller=Password&action=verificar" ?> method='post' class="d-flex flex-column">
-                <input name="password" type="password" class="mb-4">
+                <input name="password" type="password" class="mb-4 p-3 input-password">
                 <?php
                 if (isset($_SESSION['errorpassword'])) {
                 ?>
@@ -43,7 +43,7 @@ $carrito = $_SESSION['carrito'];
                     unset($_SESSION['errorpassword']);
                 }
                 ?>
-                <button type="submit" class="mb-5">Continuar</button>
+                <button type="submit" class="mb-5 btn-compra">Conectarme</button>
             </form>
         </div>
     </div>
