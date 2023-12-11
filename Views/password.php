@@ -20,7 +20,7 @@ $carrito = $_SESSION['carrito'];
 </head>
 
 <body>
-    <div class="d-flex flex-column align-items-center">
+    <div class="mt-2 d-flex flex-column align-items-center rellenar">
         <div class="d-flex flex-column align-items-center">
             <h2 class="text-h1">Iniciar sesión</h2>
             <hr class="linea-carrito">
@@ -38,7 +38,9 @@ $carrito = $_SESSION['carrito'];
                 <?php
                 if (isset($_SESSION['errorpassword'])) {
                 ?>
-                    <p><?= $_SESSION['errorpassword'] ?></p>
+                    <div class="d-flex justify-content-center mb-3">
+                        <p class="text color-descuento"><?= $_SESSION['errorpassword'] ?></p>
+                    </div>
                 <?php
                     unset($_SESSION['errorpassword']);
                 }

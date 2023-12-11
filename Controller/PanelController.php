@@ -15,6 +15,7 @@ class PanelController
     public function index()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+        $pedidosUser = PedidoDAO::getPedidos($_SESSION['usuario_id']);
 
         //Cabecera
         include_once 'Views/header.php';
@@ -32,6 +33,34 @@ class PanelController
         include_once 'Views/header.php';
         //Panel
         include_once 'Views/panelUsuarioDatos.php';
+        //Footer
+        include_once 'Views/footer.php';
+    }
+
+    public function listadoProductos()
+    {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+        $productos = ProductoDAO::getAllProducts();
+
+        //Cabecera
+        include_once 'Views/header.php';
+        //Panel
+        include_once 'Views/panelProductos.php';
+        //Footer
+        include_once 'Views/footer.php';
+    }
+
+    public function modificarProducto()
+    {
+        $id = $_POST['producto_id'];
+        $categorias = CategoriaDAO::getAllCategories();
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+        $producto = ProductoDAO::getProduct($id);
+
+        //Cabecera
+        include_once 'Views/header.php';
+        //Panel
+        include_once 'Views/panelModProducto.php';
         //Footer
         include_once 'Views/footer.php';
     }
@@ -145,5 +174,20 @@ class PanelController
 
         header("Location: " . url . "?controller=Panel");
         exit;
+    }
+
+    //Función que guarda los cambios realizados en un producto
+    public function guardarCambiosProducto()
+    {
+
+        $producto_id = $_POST['producto_id'];
+        $nombre_producto = $_POST['nombre_producto'];
+        $descripcion = $_POST['descripcion'];
+        $categoria_id = $_POST['categoria_id'];
+        $coste_base = $_POST['coste_base'];
+
+        ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base);
+
+        header("Location:" . url . "?controller=Panel");
     }
 }

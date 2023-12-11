@@ -77,24 +77,5 @@ class CartaController
         header("Location:" . url);
     }
 
-    //Función que nos lleva a la página de modificación de un producto
-    public function modificar()
-    {
-        include_once 'Views/modificarProducto.php';
-    }
-
-    //Función que guarda los cambios realizados en un producto
-    public function guardarCambios()
-    {
-
-        $producto_id = $_POST['producto_id'];
-        $nombre_producto = $_POST['nombre_producto'];
-        $descripcion = $_POST['descripcion'];
-        $categoria_id = $_POST['categoria_id'];
-        $coste_base = $_POST['coste_base'];
-
-        ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base);
-
-        include_once 'Views/productoModificado.php';
-    }
+    
 }

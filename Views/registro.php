@@ -20,48 +20,78 @@ $carrito = $_SESSION['carrito'];
 </head>
 
 <body>
-    <div class="d-flex justify-content-center">
+    <div class="mt-2 d-flex justify-content-center">
         <div class="w-50">
-            <div class="d-flex flex-column align-items-center">
+            <div class="mb-2 d-flex flex-column align-items-center">
                 <h2 class="text-h1">Crear una cuenta</h2>
                 <hr class="linea-carrito">
             </div>
             <form action=<?= url . "?controller=Registro&action=registrarUsuario" ?> method="post">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mb-4">
                     <div class="w-50 me-3 d-flex flex-column">
-                        <label for="nombre">Nombre:</label><br>
-                        <input type="text" id="nombre" name="nombre" class="input-password" required><br>
+                        <label for="nombre" class="mb-1">
+                            <div class="d-flex align-items-center">
+                                <p class="me-1 mb-2 text text-password-big color-migas">Nombre</p>
+                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                            </div>
+                        </label>
+                        <input type="text" id="nombre" name="nombre" class="p-3 input-password" required>
                     </div>
 
                     <div class="w-50 ms-3 d-flex flex-column">
-                        <label for="apellidos">Apellidos:</label><br>
-                        <input type="text" id="apellidos" name="apellidos" class="input-password" required><br>
+                        <label for="apellidos" class="mb-1">
+                            <div class="d-flex align-items-center">
+                                <p class="me-1 mb-2 text text-password-big color-migas">Apellidos</p>
+                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                            </div>
+                        </label>
+                        <input type="text" id="apellidos" name="apellidos" class="p-3 input-password" required>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-start mb-4">
                     <div class="w-50 pe-3 d-flex flex-column">
-                        <label for="direccion">Dirección:</label><br>
-                        <input type="text" id="direccion" name="direccion" class="input-password" required><br>
+                        <label for="direccion" class="mb-1">
+                            <div class="d-flex align-items-center">
+                                <p class="me-1 mb-2 text text-password-big color-migas">Dirección</p>
+                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                            </div>
+                        </label>
+                        <input type="text" id="direccion" name="direccion" class="p-3 input-password" required>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between mb-4">
                     <div class="w-50 me-3 d-flex flex-column">
-                        <label for="email">Email:</label><br>
-                        <input type="email" id="email" name="email" value="<?= $_SESSION['mail'] ?>" class="input-password" required><br>
+                        <label for="email" class="mb-1">
+                            <div class="d-flex align-items-center">
+                                <p class="me-1 mb-2 text text-password-big color-migas">Email</p>
+                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                            </div>
+                        </label>
+                        <input type="email" id="email" name="email" value="<?= $_SESSION['mail'] ?>" class="p-3 input-password" required>
                     </div>
 
                     <div class="w-50 ms-3 d-flex flex-column">
-                        <label for="telefono">Teléfono:</label><br>
-                        <input type="tel" id="telefono" name="telefono" class="input-password" required><br>
+                        <label for="telefono" class="mb-1">
+                            <div class="d-flex align-items-center">
+                                <p class="me-1 mb-2 text text-password-big color-migas">Teléfono</p>
+                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                            </div>
+                        </label>
+                        <input type="tel" id="telefono" name="telefono" class="p-3 input-password" required>
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-start">
+                <div class="d-flex justify-content-start mb-5">
                     <div class="w-50 pe-3 d-flex flex-column">
-                        <label for="contrasena">Contraseña:</label><br>
-                        <input type="password" id="contrasena" name="password" class="input-password" required><br>
+                        <label for="contrasena" class="mb-1">
+                            <div class="d-flex align-items-center">
+                                <p class="me-1 mb-2 text text-password-big color-migas">Contraseña</p>
+                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                            </div>
+                        </label>
+                        <input type="password" id="contrasena" name="password" class="p-3 input-password" required>
                     </div>
                 </div>
 

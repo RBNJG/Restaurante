@@ -20,7 +20,7 @@ $carrito = $_SESSION['carrito'];
 </head>
 
 <body>
-    <div class="d-flex flex-column align-items-center">
+    <div class="mt-2 d-flex flex-column align-items-center rellenar">
         <div class="d-flex flex-column align-items-center">
             <h2 class="text-h1">¡Te damos la bienvenida!</h2>
             <hr class="linea-carrito">

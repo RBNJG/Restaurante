@@ -17,7 +17,7 @@
     <div class="container-flex fondo-panel">
         <div class="container pt-4">
             <div class="row">
-                <div class="col-3">
+            <div class="col-3">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <div class="d-flex justify-content-start align-items-center mb-3">
                             <div class="circulo-user"></div>
@@ -39,26 +39,55 @@
                         <div class="d-flex flex-column mb-2">
                             <hr class="mb-0 align-self-center linea-panel">
                             <a href="<?= url . "?controller=Panel" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
+                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
                                     <div class="casa-user"></div>
                                     <div class="ms-2">
-                                        <p class="mb-0 text">Inicio</p>
+                                        <p class="mb-0 text text-panel-seleccionado">Inicio</p>
                                     </div>
                                 </div>
                             </a>
                         </div>
-                        <div class="d-flex flex-column">
-                            <p class="ms-2 mb-0 text text-panel-seccion">Compras</p>
-                            <hr class="mb-0 mt-2 align-self-center linea-panel">
-                            <a href="<?= url . "?controller=Panel&action=verPedidos" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
+                        <?php
+                        if ($usuario->getRol_id() == 1) {
+                        ?>
+                            <div class="d-flex flex-column">
+                                <p class="ms-2 mb-0 text text-panel-seccion">Gestión</p>
+                                <hr class="mb-0 mt-2 align-self-center linea-panel">
+                                <a href="<?= url . "?controller=Panel&action=listadoProductos" ?>" class="text-menu">
+                                <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
+                                    <div class="comida-admin"></div>
+                                    <div class="ms-2">
+                                        <p class="mb-0 text">Modificar productos</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="<?= url . "?controller=Panel&action=desconectar" ?>" class="text-menu">
+                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
                                     <div class="pedido-user"></div>
                                     <div class="ms-2">
-                                        <p class="mb-0 text text-panel-seleccionado">Pedidos</p>
+                                        <p class="mb-0 text">Modificar pedidos</p>
                                     </div>
                                 </div>
                             </a>
-                        </div>
+                            </div>
+                        <?php
+                        } else {
+                        ?>
+                            <div class="d-flex flex-column">
+                                <p class="ms-2 mb-0 text text-panel-seccion">Compras</p>
+                                <hr class="mb-0 mt-2 align-self-center linea-panel">
+                                <a href="<?= url . "?controller=Panel&action=verPedidos" ?>" class="text-menu">
+                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
+                                        <div class="pedido-user"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Pedidos</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php
+                        }
+                        ?>
                         <div class="d-flex flex-column">
                             <p class="ms-2 mb-0 text text-panel-seccion">Cuenta</p>
                             <hr class="mb-0 mt-2 align-self-center linea-panel">
@@ -108,11 +137,11 @@
                                 <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
                                 <div class="w-100 px-3 d-flex justify-content-between align-items-center">
                                     <div>
-                                        <p class="text"><?= $producto->getNombre_producto() ?></p>
-                                        <p class="text">Cantidad : <?= $detalle->getCantidad_producto() ?></p>
+                                        <p class="text"><b><?= $producto->getNombre_producto() ?></b></p>
+                                        <p class="text"><b>Cantidad : </b><?= $detalle->getCantidad_producto() ?></p>
                                     </div>
                                     <div class="me-3">
-                                        <p class="text">Subtotal : <?= $detalle->getSubtotal() ?> €</p>
+                                        <p class="text"><b>Subtotal : </b><?= $detalle->getSubtotal() ?> €</p>
                                     </div>
                                 </div>
                             </div>

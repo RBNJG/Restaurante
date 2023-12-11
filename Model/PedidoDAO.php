@@ -72,6 +72,7 @@ class PedidoDAO
 
         // Obtener el resultado
         $result = $stmt->get_result();
+        $pedidos = null;
 
         if ($result) {
             while ($pedido = $result->fetch_object('Pedido')) {

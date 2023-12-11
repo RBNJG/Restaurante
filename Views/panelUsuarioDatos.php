@@ -29,7 +29,17 @@ $carrito = $_SESSION['carrito'];
                             <div class="circulo-user"></div>
                             <div class="ms-3">
                                 <p class="mb-0 text text-panel-user"><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
-                                <p class="mb-0 text"><?php switch($usuario->getRol_id()){case 1: echo 'Administrador'; break; case 2: echo 'Usuario'; break; case 3: echo 'Desarrollador'; break;}  ?></p>
+                                <p class="mb-0 text"><?php switch ($usuario->getRol_id()) {
+                                                            case 1:
+                                                                echo 'Administrador';
+                                                                break;
+                                                            case 2:
+                                                                echo 'Usuario';
+                                                                break;
+                                                            case 3:
+                                                                echo 'Desarrollador';
+                                                                break;
+                                                        }  ?></p>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-2">
@@ -43,18 +53,47 @@ $carrito = $_SESSION['carrito'];
                                 </div>
                             </a>
                         </div>
-                        <div class="d-flex flex-column">
-                            <p class="ms-2 mb-0 text text-panel-seccion">Compras</p>
-                            <hr class="mb-0 mt-2 align-self-center linea-panel">
-                            <a href="<?= url . "?controller=Panel&action=verPedidos" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
-                                    <div class="pedido-user"></div>
-                                    <div class="ms-2">
-                                        <p class="mb-0 text">Pedidos</p>
+                        <?php
+                        if ($usuario->getRol_id() == 1) {
+                        ?>
+                            <div class="d-flex flex-column">
+                                <p class="ms-2 mb-0 text text-panel-seccion">Gestión</p>
+                                <hr class="mb-0 mt-2 align-self-center linea-panel">
+                                <a href="<?= url . "?controller=Panel&action=listadoProductos" ?>" class="text-menu">
+                                    <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
+                                        <div class="comida-admin"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Modificar productos</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                                <a href="<?= url . "?controller=Panel&action=desconectar" ?>" class="text-menu">
+                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
+                                        <div class="pedido-user"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Modificar pedidos</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php
+                        } else {
+                        ?>
+                            <div class="d-flex flex-column">
+                                <p class="ms-2 mb-0 text text-panel-seccion">Compras</p>
+                                <hr class="mb-0 mt-2 align-self-center linea-panel">
+                                <a href="<?= url . "?controller=Panel&action=verPedidos" ?>" class="text-menu">
+                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
+                                        <div class="pedido-user"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Pedidos</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <?php
+                        }
+                        ?>
                         <div class="d-flex flex-column">
                             <p class="ms-2 mb-0 text text-panel-seccion">Cuenta</p>
                             <hr class="mb-0 mt-2 align-self-center linea-panel">
@@ -78,24 +117,69 @@ $carrito = $_SESSION['carrito'];
                     </div>
                 </div>
                 <div class="col-9">
-                    <form action=<?= url . "?controller=Panel&action=guardarCambios" ?> method="post">
-                        <label for="nombre">Nombre:</label><br>
-                        <input type="text" id="nombre" name="nombre" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getNombre() ?>" required><br>
+                    <div class="mb-4 p-4 grupo-panel fondo-blanco">
+                        <form action=<?= url . "?controller=Panel&action=guardarCambios" ?> method="post">
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="w-50 me-3 d-flex flex-column">
+                                    <label for="nombre" class="mb-1">
+                                        <div class="d-flex align-items-center">
+                                            <p class="me-1 mb-2 text text-password-big color-migas">Nombre</p>
+                                            <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                                        </div>
+                                    </label>
+                                    <input type="text" id="nombre" name="nombre" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getNombre() ?>" class="p-3 input-password" required>
+                                </div>
 
-                        <label for="apellidos">Apellidos:</label><br>
-                        <input type="text" id="apellidos" name="apellidos" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getApellidos() ?>" required><br>
+                                <div class="w-50 ms-3 d-flex flex-column">
+                                    <label for="apellidos" class="mb-1">
+                                        <div class="d-flex align-items-center">
+                                            <p class="me-1 mb-2 text text-password-big color-migas">Apellidos</p>
+                                            <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                                        </div>
+                                    </label>
+                                    <input type="text" id="apellidos" name="apellidos" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getApellidos() ?>" class="p-3 input-password" required>
+                                </div>
+                            </div>
 
-                        <label for="direccion">Dirección:</label><br>
-                        <input type="text" id="direccion" name="direccion" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getDireccion() ?>" required><br>
+                            <div class="d-flex justify-content-start mb-4">
+                                <div class="w-50 pe-3 d-flex flex-column">
+                                    <label for="direccion" class="mb-1">
+                                        <div class="d-flex align-items-center">
+                                            <p class="me-1 mb-2 text text-password-big color-migas">Dirección</p>
+                                            <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                                        </div>
+                                    </label>
+                                    <input type="text" id="direccion" name="direccion" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getDireccion() ?>" class="p-3 input-password" required>
+                                </div>
+                            </div>
 
-                        <label for="email">Email:</label><br>
-                        <input type="email" id="email" name="email" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getEmail() ?>" required><br>
+                            <div class="d-flex justify-content-between mb-4">
+                                <div class="w-50 me-3 d-flex flex-column">
+                                    <label for="email" class="mb-1">
+                                        <div class="d-flex align-items-center">
+                                            <p class="me-1 mb-2 text text-password-big color-migas">Email</p>
+                                            <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                                        </div>
+                                    </label>
+                                    <input type="email" id="email" name="email" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getEmail() ?>" class="p-3 input-password" required>
+                                </div>
 
-                        <label for="telefono">Teléfono:</label><br>
-                        <input type="tel" id="telefono" name="telefono" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getTelefono() ?>" required><br>
+                                <div class="w-50 ms-3 d-flex flex-column">
+                                    <label for="telefono" class="mb-1">
+                                        <div class="d-flex align-items-center">
+                                            <p class="me-1 mb-2 text text-password-big color-migas">Teléfono</p>
+                                            <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                                        </div>
+                                    </label>
+                                    <input type="tel" id="telefono" name="telefono" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getTelefono() ?>" class="p-3 input-password" required>
+                                </div>
+                            </div>
 
-                        <input type="submit" value="Guardar cambios">
-                    </form>
+                            <div class="w-100 d-flex justify-content-center">
+                                <button type="submit" class="w-50 align-self-center mb-2 btn-compra">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
