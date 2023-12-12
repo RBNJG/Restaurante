@@ -6,6 +6,45 @@ include_once 'Pedido.php';
 class PedidoDAO
 {
 
+    public static function getAllPedidos()
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "SELECT * FROM pedido ORDER BY fecha DESC";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        $pedidos = null;
+
+        if ($result) {
+            while ($pedido = $result->fetch_object('Pedido')) {
+                $pedidos[] = $pedido;
+            }
+
+            $result->free();
+        } else {
+            echo "Error en la consulta: " . $connection->error;
+        }
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $pedidos;
+    }
+
     //Función para obtener un pedido desde su id
     public static function getPedido($id)
     {

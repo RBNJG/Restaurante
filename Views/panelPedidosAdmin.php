@@ -1,9 +1,3 @@
-<?php
-
-$carrito = $_SESSION['carrito'];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,10 +39,10 @@ $carrito = $_SESSION['carrito'];
                         <div class="d-flex flex-column mb-2">
                             <hr class="mb-0 align-self-center linea-panel">
                             <a href="<?= url . "?controller=Panel" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
+                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
                                     <div class="casa-user"></div>
                                     <div class="ms-2">
-                                        <p class="mb-0 text text-panel-seleccionado">Inicio</p>
+                                        <p class="mb-0 text">Inicio</p>
                                     </div>
                                 </div>
                             </a>
@@ -60,21 +54,21 @@ $carrito = $_SESSION['carrito'];
                                 <p class="ms-2 mb-0 text text-panel-seccion">Gestión</p>
                                 <hr class="mb-0 mt-2 align-self-center linea-panel">
                                 <a href="<?= url . "?controller=Panel&action=listadoProductos" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
-                                    <div class="comida-admin"></div>
-                                    <div class="ms-2">
-                                        <p class="mb-0 text">Modificar productos</p>
+                                    <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
+                                        <div class="comida-admin"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Modificar productos</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            <a href="<?= url . "?controller=Panel&action=revisarPedidos" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
-                                    <div class="pedido-user"></div>
-                                    <div class="ms-2">
-                                        <p class="mb-0 text">Modificar pedidos</p>
+                                </a>
+                                <a href="<?= url . "?controller=Panel&action=revisarPedidos" ?>" class="text-menu">
+                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
+                                        <div class="pedido-user"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text text-panel-seleccionado">Modificar pedidos</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
                             </div>
                         <?php
                         } else {
@@ -117,36 +111,44 @@ $carrito = $_SESSION['carrito'];
                     </div>
                 </div>
                 <div class="col-9">
-                    <div class="grupo-panel fondo-blanco">
-                        <?php
-                        if ($pedidosUser == null) {
+                    <div class="mb-4 grupo-panel fondo-blanco">
+                    <?php
+                        if ($pedidos == null) {
                         ?>
-                            <h2 class="text text-h2">Todavía no has realizado ningún pedido</h2>
+                        <h2 class="text text-h2">No hay pedidos realizados</h2>
                         <?php
                         } else {
-                            $fechaString = $pedidosUser[0]->getFecha();
-                            $fecha = new DateTime($fechaString);
-
+                            $ultimo = end($pedidos);
+                            foreach ($pedidos as $pedido) {
+                                $usuario = UsuarioDAO::getUser($pedido->getUsuario_id());
+                                $fechaString = $pedido->getFecha();
+                                $fecha = new DateTime($fechaString);
                         ?>
-                            <h2 class="text text-h2">Último pedido</h2>
-                            <hr class="align-self-center linea-panel">
-                            <div class="">
-                                <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
-                                    <p class="text-h2">PEDIDO Nº <?= $pedidosUser[0]->getPedido_id() ?></p>
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y"); ?></p>
-                                            <p class="text"><b>Coste total : </b><?= $pedidosUser[0]->getCoste_total() ?> €</p>
-                                            <p class="text"><b>Estado : </b><?= $pedidosUser[0]->getEstado() ?></p>
+                                <div class="">
+                                    <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
+                                        <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="text"><b>Usuario : </b><?=  $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
+                                                <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y") ?></p>
+                                                <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
+                                                <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
+                                            </div>
+                                            <div class="d-flex align-items-center me-4">
+                                                <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
+                                                <button class="px-3 mb-3 btn-compra" type="submit">Modificar</button>
+                                            </div>
                                         </div>
-                                        <div class="d-flex align-items-center me-4">
-                                            <input name="pedido" value="<?= $pedidosUser[0]->getPedido_id() ?>" hidden>
-                                            <button class="px-3 mb-3 btn-compra" type="submit">Ver detalles</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
+                                    </form>
+                                </div>
+
+                                <?php
+                                if ($pedido !== $ultimo) {
+                                ?>
+                                    <hr class="align-self-center linea-panel">
                         <?php
+                                }
+                            }
                         }
                         ?>
                     </div>
@@ -154,6 +156,9 @@ $carrito = $_SESSION['carrito'];
             </div>
         </div>
     </div>
+
+
+
 </body>
 
 </html>

@@ -39,10 +39,10 @@
                         <div class="d-flex flex-column mb-2">
                             <hr class="mb-0 align-self-center linea-panel">
                             <a href="<?= url . "?controller=Panel" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
+                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
                                     <div class="casa-user"></div>
                                     <div class="ms-2">
-                                        <p class="mb-0 text text-panel-seleccionado">Inicio</p>
+                                        <p class="mb-0 text">Inicio</p>
                                     </div>
                                 </div>
                             </a>
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="<?= url . "?controller=Panel&action=desconectar" ?>" class="text-menu">
+                            <a href="<?= url . "?controller=Panel&action=revisarPedidos" ?>" class="text-menu">
                                 <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
                                     <div class="pedido-user"></div>
                                     <div class="ms-2">
@@ -77,10 +77,10 @@
                                 <p class="ms-2 mb-0 text text-panel-seccion">Compras</p>
                                 <hr class="mb-0 mt-2 align-self-center linea-panel">
                                 <a href="<?= url . "?controller=Panel&action=verPedidos" ?>" class="text-menu">
-                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
+                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
                                         <div class="pedido-user"></div>
                                         <div class="ms-2">
-                                            <p class="mb-0 text">Pedidos</p>
+                                            <p class="mb-0 text text-panel-seleccionado">Pedidos</p>
                                         </div>
                                     </div>
                                 </a>

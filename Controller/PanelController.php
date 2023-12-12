@@ -95,6 +95,19 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    public function revisarPedidos()
+    {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+        $pedidos = PedidoDAO::getAllPedidos();
+
+        //Cabecera
+        include_once 'Views/header.php';
+        //Panel
+        include_once 'Views/panelPedidosAdmin.php';
+        //Footer
+        include_once 'Views/footer.php';
+    }
+
     public function repetirPedido()
     {
         $pedido = $_POST['repetirpedido'];

@@ -67,7 +67,7 @@ $carrito = $_SESSION['carrito'];
                                         </div>
                                     </div>
                                 </a>
-                                <a href="<?= url . "?controller=Panel&action=desconectar" ?>" class="text-menu">
+                                <a href="<?= url . "?controller=Panel&action=revisarPedidos" ?>" class="text-menu">
                                     <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
                                         <div class="pedido-user"></div>
                                         <div class="ms-2">
