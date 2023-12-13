@@ -108,6 +108,20 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    public function modificarPedido()
+    {
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+        $pedido = PedidoDAO::getPedido($_POST['pedido']);
+        $detallesPedido = DetallePedidoDAO::getDetallePedido($pedido->getPedido_id());
+
+        //Cabecera
+        include_once 'Views/header.php';
+        //Panel
+        include_once 'Views/panelModPedido.php';
+        //Footer
+        include_once 'Views/footer.php';
+    }
+
     public function repetirPedido()
     {
         $pedido = $_POST['repetirpedido'];

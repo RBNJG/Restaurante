@@ -125,7 +125,7 @@
                                 $fecha = new DateTime($fechaString);
                         ?>
                                 <div class="">
-                                    <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
+                                    <form action=<?= url . "?controller=Panel&action=modificarPedido" ?> method='post'>
                                         <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
                                         <div class="d-flex justify-content-between">
                                             <div>

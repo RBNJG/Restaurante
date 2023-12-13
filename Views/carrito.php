@@ -95,7 +95,7 @@ $carrito = $_SESSION['carrito'];
                                         <?php
                                         if ($producto->getProducto()->getDescuento() == 0) {
                                         ?>
-                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto, 0) ?> €</p>
+                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto,0, 0) ?> €</p>
                                         <?php
                                         } else {
                                         ?>
@@ -106,8 +106,8 @@ $carrito = $_SESSION['carrito'];
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-baseline">
-                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto, 1) ?> €</p>
-                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto, 0) ?> €</p>
+                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto,0, 1) ?> €</p>
+                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto,0, 0) ?> €</p>
                                                 </div>
                                             </div>
                                         <?php
