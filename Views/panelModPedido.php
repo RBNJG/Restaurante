@@ -57,7 +57,7 @@
                                     <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
                                         <div class="comida-admin"></div>
                                         <div class="ms-2">
-                                            <p class="mb-0 text">Modificar productos</p>
+                                            <p class="mb-0 text">Gestionar productos</p>
                                         </div>
                                     </div>
                                 </a>
@@ -65,7 +65,7 @@
                                     <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-seleccionado">
                                         <div class="pedido-user"></div>
                                         <div class="ms-2">
-                                            <p class="mb-0 text text-panel-seleccionado">Modificar pedidos</p>
+                                            <p class="mb-0 text text-panel-seleccionado">Gestionar pedidos</p>
                                         </div>
                                     </div>
                                 </a>
@@ -139,16 +139,17 @@
                         </div>
                         <?php
                         $ultimo = end($detallesPedido);
+                        $pos = 0;
                         foreach ($detallesPedido as $detalle) {
-                            $producto = ProductoDAO::getProduct($detalle->getProducto_id());                        
-                            ?>
+                            $producto = ProductoDAO::getProduct($detalle->getProducto_id());
+                        ?>
                             <div class="row">
                                 <div class="d-flex justify-content-start w-100 ps-0 pe-2 altura-carrito">
                                     <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
                                     <div class="w-100 d-flex flex-column justify-content-around">
                                         <div class="d-flex justify-content-between px-3">
                                             <p class="mb-0 text"><?= $producto->getNombre_producto() ?></p>
-                                            <form action=<?= url . "?controller=Carrito&action=eliminar" ?> method='post'>
+                                            <form action=<?= url . "?controller=Panel&action=eliminarProductoPedido" ?> method='post'>
                                                 <input name="pos_producto" value="<?= $pos ?>" hidden />
                                                 <button type="submit" class="d-flex justify-content-center align-items-center contenedor-basura sin-estilo">
                                                     <picture>
@@ -160,7 +161,7 @@
                                         <div class="d-flex justify-content-between px-3">
                                             <div class="d-flex align-self-center altura-selector">
                                                 <?php
-                                                if ($detalle->getCantidad_producto() == 0) {
+                                                if ($detalle->getCantidad_producto() == 1) {
                                                 ?>
                                                     <button id="" class="restar-off" disabled>
                                                         <picture class="d-flex align-items-center">
@@ -170,7 +171,7 @@
                                                 <?php
                                                 } else {
                                                 ?>
-                                                    <form action=<?= url . "?controller=Carrito&action=modificarCantidad" ?> method='post'>
+                                                    <form action=<?= url . "?controller=Panel&action=modificarCantidad" ?> method='post'>
                                                         <input name="restar" value="<?= $pos ?>" hidden />
                                                         <button class="restar" type="submit">
                                                             <picture class="d-flex align-items-center">
@@ -182,7 +183,7 @@
                                                 }
                                                 ?>
                                                 <input type="text" id="cantidad" class="mx-0 text" value="<?= $detalle->getCantidad_producto() ?>" readonly>
-                                                <form action=<?= url . "?controller=Carrito&action=modificarCantidad" ?> method='post'>
+                                                <form action=<?= url . "?controller=Panel&action=modificarCantidad" ?> method='post'>
                                                     <input name="sumar" value="<?= $pos ?>" hidden />
                                                     <button class="sumar" type="submit">
                                                         <picture class="d-flex align-items-center">
@@ -194,7 +195,7 @@
                                             <?php
                                             if ($producto->getDescuento() == 0) {
                                             ?>
-                                                <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto,$detalle->getCantidad_producto(), 0) ?> €</p>
+                                                <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto, $detalle->getCantidad_producto(), 0) ?> €</p>
                                             <?php
                                             } else {
                                             ?>
@@ -205,8 +206,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="d-flex align-items-baseline">
-                                                        <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto,$detalle->getCantidad_producto(), 1) ?> €</p>
-                                                        <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto,$detalle->getCantidad_producto(), 0) ?> €</p>
+                                                        <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto, $detalle->getCantidad_producto(), 1) ?> €</p>
+                                                        <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto, $detalle->getCantidad_producto(), 0) ?> €</p>
                                                     </div>
                                                 </div>
                                             <?php
@@ -222,6 +223,7 @@
                                 <hr class="align-self-center linea-panel">
                         <?php
                             }
+                            $pos++;
                         }
                         ?>
                     </div>

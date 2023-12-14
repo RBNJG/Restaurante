@@ -78,7 +78,7 @@ class CarritoController
 
             $productoId = $producto->getProducto()->getProducto_id();
             $cantidadProducto = $producto->getCantidad();
-            $subtotal = Calculadora::totalProducto($producto, 0);
+            $subtotal = Calculadora::totalProducto($producto,0, 0);
 
             DetallePedidoDAO::newDetallePedido($pedidoId,$productoId,null,$cantidadProducto,$subtotal);
         }

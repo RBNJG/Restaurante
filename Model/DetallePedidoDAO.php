@@ -3,7 +3,8 @@
 include_once 'config/DataBase.php';
 include_once 'DetallePedido.php';
 
-class DetallePedidoDAO{
+class DetallePedidoDAO
+{
 
     //Función para obtener los detalles de un pedido
     public static function getDetallePedido($id)
@@ -48,7 +49,46 @@ class DetallePedidoDAO{
         return $detallesPedido;
     }
 
-    public static function newDetallePedido($pedido_id,$producto_id,$modificacion_id,$cantidad_producto,$subtotal)
+    public static function getDetalle($id)
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "SELECT * FROM detalles_pedido WHERE detalle_pedido_id = ?";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("i", $id);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el resultado
+        $result = $stmt->get_result();
+        $detalle = null;
+
+        if ($result) {
+            $detalle = $result->fetch_object('DetallePedido');
+            $result->free();
+        } else {
+            echo "Error en la consulta: " . $connection->error;
+        }
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $detalle;
+    }
+
+    public static function newDetallePedido($pedido_id, $producto_id, $modificacion_id, $cantidad_producto, $subtotal)
     {
 
         $connection = DataBase::connect();
@@ -63,7 +103,7 @@ class DetallePedidoDAO{
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("iiiid", $pedido_id, $producto_id, $modificacion_id, $cantidad_producto,$subtotal);
+        $stmt->bind_param("iiiid", $pedido_id, $producto_id, $modificacion_id, $cantidad_producto, $subtotal);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
@@ -79,5 +119,4 @@ class DetallePedidoDAO{
 
         return $affected_rows;
     }
-
 }

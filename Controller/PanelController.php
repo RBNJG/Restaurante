@@ -111,8 +111,20 @@ class PanelController
     public function modificarPedido()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
-        $pedido = PedidoDAO::getPedido($_POST['pedido']);
-        $detallesPedido = DetallePedidoDAO::getDetallePedido($pedido->getPedido_id());
+        if (!isset($_POST['pedido'])) {
+            $pedido = PedidoDAO::getPedido($_SESSION['pedidoActual']);
+        } else {
+            $pedido = PedidoDAO::getPedido($_POST['pedido']);
+        }
+
+        if (!isset($_SESSION['pedidoActual']) || $_SESSION['pedidoActual'] != $pedido->getPedido_id()) {
+            $_SESSION['pedidoActual'] = $pedido->getPedido_id();
+            $_SESSION['detallesPedido'] = DetallePedidoDAO::getDetallePedido($pedido->getPedido_id());
+        }
+        
+
+        $detallesPedido = $_SESSION['detallesPedido'];
+
 
         //Cabecera
         include_once 'Views/header.php';
@@ -170,20 +182,33 @@ class PanelController
         exit;
     }
 
-    public function desconectar()
+    public function eliminarProductoPedido()
     {
-        session_start();
+        //Eliminamos el producto del array del pedido
+        unset($_SESSION['detallesPedido'][$_POST['pos_producto']]);
 
-        //Eliminamos las variables de sesión
-        $_SESSION = array();
+        //Reordenamos el array
+        $_SESSION['detallesPedido'] = array_values($_SESSION['detallesPedido']);
 
-        //Destruimos la sesión
-        session_destroy();
+        header("Location:" . $_SERVER['HTTP_REFERER']);
 
-        setcookie('usuario', '', time() - (3600 * 48));
+        exit;
+    }
 
-        //Redirigimos al usuario a Home
-        header("Location: " . url);
+    public function modificarCantidad()
+    {
+        if (isset($_POST['sumar'])) {
+            $producto = $_SESSION['detallesPedido'][$_POST['sumar']];
+
+            $producto->setCantidad_producto($producto->getCantidad_producto() + 1);
+        } else if (isset($_POST['restar'])) {
+            $producto = $_SESSION['detallesPedido'][$_POST['restar']];
+
+            $producto->setCantidad_producto($producto->getCantidad_producto() - 1);
+        }
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+
         exit;
     }
 
@@ -216,5 +241,24 @@ class PanelController
         ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base);
 
         header("Location:" . url . "?controller=Panel");
+
+        exit;
+    }
+
+    public function desconectar()
+    {
+        session_start();
+
+        //Eliminamos las variables de sesión
+        $_SESSION = array();
+
+        //Destruimos la sesión
+        session_destroy();
+
+        setcookie('usuario', '', time() - (3600 * 48));
+
+        //Redirigimos al usuario a Home
+        header("Location: " . url);
+        exit;
     }
 }

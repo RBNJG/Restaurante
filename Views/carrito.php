@@ -26,7 +26,7 @@ $carrito = $_SESSION['carrito'];
             <hr class="linea-carrito">
         </div>
     </div>
-    <div class="container">
+    <div class="container rellenar">
         <?php
         if (count($_SESSION['carrito']) == 0) {
         ?>

@@ -63,7 +63,7 @@ $carrito = $_SESSION['carrito'];
                                 <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
                                     <div class="comida-admin"></div>
                                     <div class="ms-2">
-                                        <p class="mb-0 text">Modificar productos</p>
+                                        <p class="mb-0 text">Gestionar productos</p>
                                     </div>
                                 </div>
                             </a>
@@ -71,7 +71,7 @@ $carrito = $_SESSION['carrito'];
                                 <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
                                     <div class="pedido-user"></div>
                                     <div class="ms-2">
-                                        <p class="mb-0 text">Modificar pedidos</p>
+                                        <p class="mb-0 text">Gestionar pedidos</p>
                                     </div>
                                 </div>
                             </a>
