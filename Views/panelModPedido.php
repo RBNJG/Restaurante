@@ -118,7 +118,7 @@
                         $fecha = new DateTime($fechaString);
                         ?>
                         <div class="">
-                            <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
+                            <form action=<?= url . "?controller=Panel&action=guardarCambiosPedido" ?> method='post'>
                                 <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
                                 <div class="d-flex justify-content-between">
                                     <div>
@@ -131,6 +131,8 @@
                                         <p class="text"><b>Total : </b><?= Calculadora::total($detallesPedido) ?> €</p>
                                     </div>
                                     <div class="d-flex align-items-center me-4">
+                                        <input name="coste" value="<?= Calculadora::total($detallesPedido) ?>" hidden>
+                                        <input name="estado" value="<?= $pedido->getEstado() ?>" hidden>
                                         <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
                                         <button class="px-3 mb-3 btn-compra" type="submit">Guardar cambios</button>
                                     </div>

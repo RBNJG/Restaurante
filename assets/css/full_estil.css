@@ -382,6 +382,22 @@ button.sin-estilo {
     background-color: #006902;
 }
 
+.btn-eliminar {
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+    width: 100%;
+    background-color: #C61112;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-style: hidden;
+    border-radius: 4px;
+}
+
+.btn-eliminar:hover {
+    background-color: #a90f0f;
+}
+
 .sumar {
     border-radius: 0 4px 4px 0;
     background-color: #ffffff;

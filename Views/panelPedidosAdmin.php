@@ -112,34 +112,42 @@
                 </div>
                 <div class="col-9">
                     <div class="mb-4 grupo-panel fondo-blanco">
-                    <?php
+                        <?php
                         if ($pedidos == null) {
                         ?>
-                        <h2 class="text text-h2">No hay pedidos realizados</h2>
-                        <?php
+                            <h2 class="text text-h2">No hay pedidos realizados</h2>
+                            <?php
                         } else {
                             $ultimo = end($pedidos);
                             foreach ($pedidos as $pedido) {
                                 $usuario = UsuarioDAO::getUser($pedido->getUsuario_id());
                                 $fechaString = $pedido->getFecha();
                                 $fecha = new DateTime($fechaString);
-                        ?>
+                            ?>
                                 <div class="">
-                                    <form action=<?= url . "?controller=Panel&action=modificarPedido" ?> method='post'>
-                                        <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
-                                        <div class="d-flex justify-content-between">
-                                            <div>
-                                                <p class="text"><b>Usuario : </b><?=  $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
-                                                <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y") ?></p>
-                                                <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
-                                                <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
-                                            </div>
-                                            <div class="d-flex align-items-center me-4">
-                                                <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
-                                                <button class="px-3 mb-3 btn-compra" type="submit">Modificar</button>
-                                            </div>
+                                    <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <p class="text"><b>Usuario : </b><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
+                                            <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y") ?></p>
+                                            <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
+                                            <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
                                         </div>
-                                    </form>
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <form action=<?= url . "?controller=Panel&action=eliminarPedido" ?> method='post'>
+                                                <div class="d-flex align-items-center me-4">
+                                                    <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
+                                                    <button class="px-3 mb-3 btn-eliminar" type="submit">Eliminar</button>
+                                                </div>
+                                            </form>
+                                            <form action=<?= url . "?controller=Panel&action=modificarPedido" ?> method='post'>
+                                                <div class="d-flex align-items-center me-4">
+                                                    <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
+                                                    <button class="px-3 mb-3 btn-compra" type="submit">Modificar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <?php

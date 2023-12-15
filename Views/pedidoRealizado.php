@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="d-flex flex-column align-items-center">
+    <div class="d-flex flex-column align-items-center mt-2 rellenar">
         <div class="d-flex flex-column align-items-center">
             <h2 class="text-h1">Pedido realizado con éxito</h2>
             <hr class="linea-carrito">

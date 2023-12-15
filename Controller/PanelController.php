@@ -11,7 +11,7 @@ include_once 'Model/DetallePedidoDAO.php';
 
 class PanelController
 {
-
+    // Muestra la página principal del panel de usuario
     public function index()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
@@ -25,6 +25,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Muestra los datos del usuario para modificar
     public function modificarDatos()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
@@ -37,6 +38,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Muestra el listado de productos actuales al administrador
     public function listadoProductos()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
@@ -50,6 +52,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Muestra los datos de un producto a modificar por el administrador
     public function modificarProducto()
     {
         $id = $_POST['producto_id'];
@@ -65,6 +68,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Muestra la lista de pedidos de un usuario
     public function verPedidos()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
@@ -78,6 +82,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Muestra un pedido en detalle al usuario
     public function detallePedido()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
@@ -95,6 +100,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Muestra el listado de todos los pedidos al administrador
     public function revisarPedidos()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
@@ -108,9 +114,23 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Función para eliminar un pedido y sus detalles
+    public function eliminarPedido()
+    {
+        DetallePedidoDAO::deleteDetalleByPedido($_POST['pedido']);
+        PedidoDAO::deletePedido($_POST['pedido']);
+
+        header("Location:" . $_SERVER['HTTP_REFERER']);
+
+        exit;
+    }
+
+    // Muestra la pantalla para modificar un pedido, solamente accesible para administradores
     public function modificarPedido()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+
+        // Si no accedemos desde la lista de pedidos usamos la variable de sesión para seguir modificando el pedido
         if (!isset($_POST['pedido'])) {
             $pedido = PedidoDAO::getPedido($_SESSION['pedidoActual']);
         } else {
@@ -121,10 +141,8 @@ class PanelController
             $_SESSION['pedidoActual'] = $pedido->getPedido_id();
             $_SESSION['detallesPedido'] = DetallePedidoDAO::getDetallePedido($pedido->getPedido_id());
         }
-        
 
         $detallesPedido = $_SESSION['detallesPedido'];
-
 
         //Cabecera
         include_once 'Views/header.php';
@@ -134,6 +152,7 @@ class PanelController
         include_once 'Views/footer.php';
     }
 
+    // Función para añadir al carrito todos los productos y en la misma cantidad que en pedidos anteriores
     public function repetirPedido()
     {
         $pedido = $_POST['repetirpedido'];
@@ -182,6 +201,7 @@ class PanelController
         exit;
     }
 
+    // Función para eliminar un producto de los detalles de un pedido
     public function eliminarProductoPedido()
     {
         //Eliminamos el producto del array del pedido
@@ -195,6 +215,7 @@ class PanelController
         exit;
     }
 
+    // Función para modificar la cantidad de un producto de un pedido
     public function modificarCantidad()
     {
         if (isset($_POST['sumar'])) {
@@ -212,6 +233,7 @@ class PanelController
         exit;
     }
 
+    // Función para guardar la modificación de datos del usuario
     public function guardarCambios()
     {
         session_start();
@@ -239,6 +261,37 @@ class PanelController
         $coste_base = $_POST['coste_base'];
 
         ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base);
+
+        header("Location:" . url . "?controller=Panel");
+
+        exit;
+    }
+
+    public function guardarCambiosPedido()
+    {
+        $detalles = $_SESSION['detallesPedido'];
+
+        // Modificamos los detalles del pedido y creamos un array con los id de los detalles
+        foreach ($detalles as $detalle) {
+            $producto = ProductoDAO::getProduct($detalle->getProducto_id());
+            $subtotal = Calculadora::totalProducto($producto,$detalle->getCantidad_producto(), 0);
+            DetallePedidoDAO::modifyDetallePedido($detalle->getDetalle_pedido_id(),$detalle->getCantidad_producto(),$subtotal);
+            $idDetalles [] = $detalle->getDetalle_pedido_id();
+        }
+
+        // Borraremos todos los detalles del pedido que no tengan la id del array de ids que hemos creado anteriormente
+        DetallePedidoDAO::deleteDetalle($idDetalles,$_POST['pedido']);
+
+        $coste_total = $_POST['coste'];
+        $estado = $_POST['estado'];
+        $pedido_id = $_POST['pedido'];
+
+        // Finalmente modificamos los datos del pedido
+        PedidoDAO::modifyPedido($coste_total,$estado,$pedido_id);
+
+        // Liberamos las variables de sesión una vez realizados los cambios
+        unset($_SESSION['detallesPedido']);
+        unset($_SESSION['pedidoActual']);
 
         header("Location:" . url . "?controller=Panel");
 
