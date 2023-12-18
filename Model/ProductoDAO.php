@@ -85,12 +85,12 @@ class ProductoDAO
     }
 
     // Función para modificar los atributos de un producto en la base de datos
-    public static function modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base)
+    public static function modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base,$imagen)
     {
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "UPDATE producto SET categoria_id = ?, nombre_producto = ?, descripcion = ?, coste_base = ? WHERE producto_id = ?";
+        $query = "UPDATE producto SET categoria_id = ?, nombre_producto = ?, descripcion = ?, coste_base = ?, imagen = ? WHERE producto_id = ?";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -99,7 +99,7 @@ class ProductoDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("isssi", $categoria_id, $nombre_producto, $descripcion, $coste_base, $producto_id);
+        $stmt->bind_param("issssi", $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $producto_id);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
@@ -148,6 +148,36 @@ class ProductoDAO
         return $result;
     }
 
+    // Función para modificar los atributos de un producto en la base de datos
+    public static function newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base,$imagen)
+    {
+        $connection = DataBase::connect();
 
+        // Preparar la consulta
+        $query = "INSERT INTO producto (categoria_id, nombre_producto, descripcion, coste_base, imagen) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("issss", $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen);
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el número de filas afectadas
+        $affected_rows = $stmt->affected_rows;
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $affected_rows;
+    }
     
 }

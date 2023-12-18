@@ -158,10 +158,16 @@ $categorias = CategoriaDAO::getAllCategories();
                                 <input type="decimal" name="coste_base" value="<?=  $producto->getCoste_base() ?>" class="p-3 input-password" required>
                             </div>
 
+                            <div class="w-50 me-3 mb-4 d-flex flex-column">
+                                <label for="imagen" class="mb-1">
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Ruta imagen</p>
+                                </label>
+                                <input type="text" name="imagen" value="<?=  $producto->getImagen() ?>" class="p-3 input-password" required>
+                            </div>
+
                             <div class="w-100 d-flex justify-content-start">
                                 <button type="submit" class="w-25 align-self-center mb-2 btn-compra">Guardar cambios</button>
                             </div>
-
                         </form>
                     </div>
                 </div>

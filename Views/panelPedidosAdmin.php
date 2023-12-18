@@ -125,7 +125,7 @@
                                 $fecha = new DateTime($fechaString);
                             ?>
                                 <div class="">
-                                    <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
+                                    <p class="text-h2 mb-4">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <p class="text"><b>Usuario : </b><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>

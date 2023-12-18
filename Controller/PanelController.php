@@ -43,6 +43,7 @@ class PanelController
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
         $productos = ProductoDAO::getAllProducts();
+        $categorias = CategoriaDAO::getAllCategories();
 
         //Cabecera
         include_once 'Views/header.php';
@@ -119,6 +120,18 @@ class PanelController
     {
         DetallePedidoDAO::deleteDetalleByPedido($_POST['pedido']);
         PedidoDAO::deletePedido($_POST['pedido']);
+
+        header("Location:" . $_SERVER['HTTP_REFERER']);
+
+        exit;
+    }
+
+    //Función para eliminar un producto
+    public function eliminarProducto()
+    {
+
+        $producto_id = $_POST['producto_id'];
+        ProductoDAO::deleteProduct($producto_id);
 
         header("Location:" . $_SERVER['HTTP_REFERER']);
 
@@ -253,16 +266,31 @@ class PanelController
     //Función que guarda los cambios realizados en un producto
     public function guardarCambiosProducto()
     {
-
         $producto_id = $_POST['producto_id'];
         $nombre_producto = $_POST['nombre_producto'];
         $descripcion = $_POST['descripcion'];
         $categoria_id = $_POST['categoria_id'];
         $coste_base = $_POST['coste_base'];
+        $imagen = $_POST['imagen'];
 
-        ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base);
+        ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen);
 
         header("Location:" . url . "?controller=Panel");
+
+        exit;
+    }
+
+    public function nuevoProducto()
+    {
+        $nombre_producto = $_POST['nombre_producto'];
+        $descripcion = $_POST['descripcion'];
+        $categoria_id = $_POST['categoria_id'];
+        $coste_base = $_POST['coste_base'];
+        $imagen = $_POST['imagen'];
+
+        ProductoDAO::newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen);
+
+        header("Location:" . $_SERVER['HTTP_REFERER']);
 
         exit;
     }
@@ -274,26 +302,26 @@ class PanelController
         // Modificamos los detalles del pedido y creamos un array con los id de los detalles
         foreach ($detalles as $detalle) {
             $producto = ProductoDAO::getProduct($detalle->getProducto_id());
-            $subtotal = Calculadora::totalProducto($producto,$detalle->getCantidad_producto(), 0);
-            DetallePedidoDAO::modifyDetallePedido($detalle->getDetalle_pedido_id(),$detalle->getCantidad_producto(),$subtotal);
-            $idDetalles [] = $detalle->getDetalle_pedido_id();
+            $subtotal = Calculadora::totalProducto($producto, $detalle->getCantidad_producto(), 0);
+            DetallePedidoDAO::modifyDetallePedido($detalle->getDetalle_pedido_id(), $detalle->getCantidad_producto(), $subtotal);
+            $idDetalles[] = $detalle->getDetalle_pedido_id();
         }
 
         // Borraremos todos los detalles del pedido que no tengan la id del array de ids que hemos creado anteriormente
-        DetallePedidoDAO::deleteDetalle($idDetalles,$_POST['pedido']);
+        DetallePedidoDAO::deleteDetalle($idDetalles, $_POST['pedido']);
 
         $coste_total = $_POST['coste'];
         $estado = $_POST['estado'];
         $pedido_id = $_POST['pedido'];
 
         // Finalmente modificamos los datos del pedido
-        PedidoDAO::modifyPedido($coste_total,$estado,$pedido_id);
+        PedidoDAO::modifyPedido($coste_total, $estado, $pedido_id);
 
         // Liberamos las variables de sesión una vez realizados los cambios
         unset($_SESSION['detallesPedido']);
         unset($_SESSION['pedidoActual']);
 
-        header("Location:" . url . "?controller=Panel");
+        header("Location:" . url . "?controller=Panel&action=revisarPedidos");
 
         exit;
     }

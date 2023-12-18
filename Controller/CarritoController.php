@@ -72,7 +72,7 @@ class CarritoController
 
         $carrito = $_SESSION['carrito'];
         
-        $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,Calculadora::total($carrito),"En preparación.");
+        $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,Calculadora::total($carrito),"En preparación");
 
         foreach($carrito as $producto){
 

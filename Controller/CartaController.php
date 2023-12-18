@@ -66,16 +66,4 @@ class CartaController
         exit;
     }
 
-    //Función para eliminar un producto
-    public function eliminar()
-    {
-        echo 'Producto eliminado';
-
-        //$producto_id = $_POST['producto_id'];
-        //ProductoDAO::deleteProduct($producto_id);
-
-        header("Location:" . url);
-    }
-
-    
 }

@@ -118,23 +118,84 @@ $carrito = $_SESSION['carrito'];
                 </div>
                 <div class="col-9">
                     <div class="mb-4 grupo-panel fondo-blanco">
+                        <h2 class="mb-3 text text-h2">Nuevo producto</h2>
+                        <form action=<?= url . "?controller=Panel&action=nuevoProducto" ?> method="post">
+                            <input type="hidden" name="producto_id" value="">
+
+                            <div class="w-50 me-3 mb-4 d-flex flex-column">
+                                <label for="nombre" class="mb-1">
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Nombre producto</p>
+                                </label>
+                                <input type="text" name="nombre_producto" value="" class="p-3 input-password" required>
+                            </div>
+
+                            <div class="w-50 me-3 mb-4 d-flex flex-column">
+                                <label for="nombre" class="mb-1">
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Descripción producto</p>
+                                </label>
+                                <textarea name="descripcion" class="p-3 input-password" rows="5" cols="50"></textarea>
+                            </div>
+
+                            <div class="w-50 me-3 mb-4 d-flex flex-column">
+                                <label for="categoria" class="mb-1">
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Categoría</p>
+                                </label>
+                                <select name="categoria_id" class="text select-filtro">
+                                    <?php foreach ($categorias as $categoria) { ?>
+                                        <option value="<?= $categoria->getCategoria_id() ?>"> <?= $categoria->getNombre_categoria() ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="w-25 me-3 mb-4 d-flex flex-column">
+                                <label for="coste_base" class="mb-1">
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Precio</p>
+                                </label>
+                                <input type="decimal" name="coste_base" value="" class="p-3 input-password" required>
+                            </div>
+
+                            <div class="w-50 me-3 mb-4 d-flex flex-column">
+                                <label for="imagen" class="mb-1">
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Ruta imagen</p>
+                                </label>
+                                <input type="text" name="imagen" value="" class="p-3 input-password" required>
+                            </div>
+
+                            <div class="w-100 d-flex justify-content-start">
+                                <button type="submit" class="w-25 align-self-center mb-2 btn-compra">Crear producto</button>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="mb-4 grupo-panel fondo-blanco">
                         <h2 class="mb-3 text text-h2">Listado de productos</h2>
                         <?php
                         $ultimo = end($productos);
                         foreach ($productos as $producto) {
                         ?>
-                            <form action=<?= url . "?controller=Panel&action=modificarProducto" ?> method='post'>
-                                <div class="d-flex justify-content-between">
-                                    <div class="d-flex justify-content-start align-items-center">
-                                        <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
-                                        <p class="mb-0 ms-3 text bold"><?= $producto->getNombre_producto() ?></p>
-                                    </div>
-                                    <div class="d-flex align-items-center me-4">
-                                        <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden>
-                                        <button class="px-3 mb-3 btn-compra" type="submit">Modificar</button>
-                                    </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-start align-items-center">
+                                    <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
+                                    <p class="mb-0 ms-3 text bold"><?= $producto->getNombre_producto() ?></p>
                                 </div>
-                            </form>
+                                <div class="d-flex flex-column justify-content-between">
+                                    <form action=<?= url . "?controller=Panel&action=eliminarProducto" ?> method='post'>
+                                        <div class="d-flex align-items-center me-4">
+                                            <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden>
+                                            <button class="px-3 mb-3 mt-1 btn-eliminar" type="submit">Eliminar</button>
+                                        </div>
+                                    </form>
+                                    <form action=<?= url . "?controller=Panel&action=modificarProducto" ?> method='post'>
+                                        <div class="d-flex align-items-center me-4">
+                                            <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden>
+                                            <button class="px-3 mb-1 btn-compra" type="submit">Modificar</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
                             <?php
                             if ($producto !== $ultimo) {
                             ?>

@@ -117,22 +117,27 @@
                         $fechaString = $pedido->getFecha();
                         $fecha = new DateTime($fechaString);
                         ?>
-                        <div class="">
+                        <div class="mb-4">
                             <form action=<?= url . "?controller=Panel&action=guardarCambiosPedido" ?> method='post'>
                                 <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         <p class="text"><b>Usuario : </b><?= $usuario->getNombre() . " " . $usuario->getApellidos() ?></p>
                                         <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y") ?></p>
-                                        <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
-                                        <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
                                         <p class="text"><b>Coste envio : </b><?= Calculadora::costeEnvio($detallesPedido) ?> €</p>
                                         <p class="text"><b>Subtotal : </b><?= Calculadora::subtotal($detallesPedido) ?> €</p>
-                                        <p class="text"><b>Total : </b><?= Calculadora::total($detallesPedido) ?> €</p>
+                                        <p class="text"><b>Coste total : </b><?= Calculadora::total($detallesPedido) ?> €</p>
+                                        <div class="d-flex justify-content-start align-items-center">
+                                            <p class="pt-2 text"><b>Estado : </b></p>
+                                            <select name="estado" id="estado" class="ms-3 py-1 text select-filtro">
+                                                <option value="En preparación" <?php echo ($pedido->getEstado() == 'En preparación') ? 'selected' : ''; ?>>En preparación</option>
+                                                <option value="Enviado" <?php echo ($pedido->getEstado() == 'Enviado') ? 'selected' : ''; ?>>Enviado</option>
+                                                <option value="Entregado" <?php echo ($pedido->getEstado() == 'Entregado') ? 'selected' : ''; ?>>Entregado</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="d-flex align-items-center me-4">
                                         <input name="coste" value="<?= Calculadora::total($detallesPedido) ?>" hidden>
-                                        <input name="estado" value="<?= $pedido->getEstado() ?>" hidden>
                                         <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>
                                         <button class="px-3 mb-3 btn-compra" type="submit">Guardar cambios</button>
                                     </div>
