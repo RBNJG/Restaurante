@@ -1,6 +1,7 @@
 <?php
 
 $contador = 0;
+$categoria = "";
 
 ?>
 
@@ -71,49 +72,64 @@ $contador = 0;
                     <h3 class="text-h2">Valoraciones de clientes</h4>
                         <hr class="linea-menos">
                 </div>
-                <div class="ps-2">
-                    <form action="">
-                        <div class="d-flex justify-content-start align-items-baseline ms-2 my-3">
-                            <input type="radio" name="estrellas" value="4">
+                <form action="" class="d-flex flex-column">
+                    <div class="ps-2">
+                        <div class="d-flex justify-content-start align-items-baseline my-3">
+                            <input type="checkbox" name="4estrellas" value="4">
                             <picture class="d-flex align-items-center ms-3 me-2">
                                 <img src="assets/images/carta/4_estrellas.svg" alt="">
                             </picture>
                             <p class="mb-0 text">4 y más</p>
                             <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 4) ?>)</p>
                         </div>
-                        <div class="d-flex justify-content-start align-items-baseline ms-2 my-3">
-                            <input type="radio" name="estrellas" value="3">
+                        <div class="d-flex justify-content-start align-items-baseline my-3">
+                            <input type="checkbox" name="3estrellas" value="3">
                             <picture class="d-flex align-items-center ms-3 me-2">
                                 <img src="assets/images/carta/3_estrellas.svg" alt="">
                             </picture>
                             <p class="mb-0 text">3 y más</p>
                             <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 3) ?>)</p>
                         </div>
-                    </form>
-                </div>
-                <a href="" class="ms-2 text">Restablecer</a>
-                <hr class="my-4 linea-filtros">
-                <div class="d-flex justify-content-start align-items-baseline ms-3 mt-3">
-                    <form action="">
-                        <input type="radio">
-                    </form>
-                    <p class="ms-3 mb-0 text">Envío gratuito a domicilio</p>
-                </div>
-                <hr class="my-4 linea-filtros">
-                <div class="d-flex justify-content-start align-items-baseline ms-3 mt-3">
-                    <form action="">
-                        <input type="radio">
-                    </form>
-                    <p class="ms-3 mb-0 text">Productos en oferta</p>
-                </div>
-                <hr class="my-4 linea-filtros">
-                <div class="d-flex justify-content-start align-items-baseline ms-3 mt-3">
-                    <form action="">
-                        <input type="radio">
-                    </form>
-                    <p class="ms-3 mb-0 text">Novedades</p>
-                </div>
-                <hr class="my-4 linea-filtros">
+                    </div>
+
+                    <hr class="my-4 linea-filtros">
+                    <div class="d-flex align-items-center justify-content-between ps-2 pe-3 py-3 fondo-desplegable">
+                        <h3 class="text-h2">Precio</h4>
+                            <hr class="linea-menos">
+                    </div>
+                    <div class="p-0 mb-3">
+                        <div class="d-flex justify-content-start align-items-baseline ms-2 mt-3">
+                            <div class="input-precio">
+                                <input type="number" min="1" max="100" maxlength="5" class="precio" name="minimo">
+                                <span>€</span>
+                            </div>
+                            <p class="mb-0 mx-3 text">-</p>
+                            <div class="input-precio">
+                                <input type="number" min="1" max="100" maxlength="5" class="precio" name="maximo">
+                                <span>€</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 linea-filtros">
+                    <div class="d-flex justify-content-start align-items-baseline ms-3">
+                        <div>
+                            <input type="checkbox">
+                        </div>
+                        <p class="ms-3 mb-0 text">Envío gratuito a domicilio</p>
+                    </div>
+                    <hr class="my-4 linea-filtros">
+                    <div class="d-flex justify-content-start align-items-baseline ms-3">
+                        <div>
+                            <input type="checkbox">
+                        </div>
+                        <p class="ms-3 mb-0 text">Productos en oferta</p>
+                    </div>
+                    <hr class="my-4 linea-filtros">
+
+                    <button type="submit" class="mt-4 align-self-center w-75 btn-compra">Aplicar</button>
+                    <a href="" class="mt-3 align-self-center text">Restablecer</a>
+                </form>
             </div>
             <div class="col-9 ps-5 pe-0 mt-2">
                 <div class="row">
@@ -132,11 +148,10 @@ $contador = 0;
                 <?php
                 $contador = 0;
                 foreach ($productos as $producto) {
-                    $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
-                    if ($contador % 4 === 0 && $contador !== 0) {
+                    $categoriaActual = CategoriaDAO::getCategoryName($producto->getCategoria_id());
+                    if ($categoria != $categoriaActual) {
                         $contador = 0;
-                    }
-                    if ($contador == 0) {
+                        $categoria = $categoriaActual;
                 ?>
                         <div class="row mt-4" id="<?= $categoria ?>">
                             <div class="col-12">
@@ -156,10 +171,12 @@ $contador = 0;
                                             <p class="mb-0 text subrayado"><?= $producto->getNombre_producto() ?></p>
                                             <div class="d-flex justify-content-start align-items-center mb-3">
                                                 <picture>
-                                                    <img src="<?php if ($producto->getNombre_producto() == "Ensalada vegetal") {
+                                                    <img src="<?php if ($producto->getEstrellas() == 3) {
                                                                     echo 'assets/images/carta/3_estrellas.svg';
-                                                                } else {
+                                                                } else if ($producto->getEstrellas() == 4) {
                                                                     echo 'assets/images/carta/4_estrellas.svg';
+                                                                } else if ($producto->getEstrellas() == 0) {
+                                                                    echo 'assets/images/carta/0_estrellas.svg';
                                                                 } ?>" alt="calificación" class="pt-0">
                                                 </picture>
                                                 <p class="mb-0 mt-1 ms-2 text text-opiniones"><?= $producto->getOpiniones() ?> opiniones</p>

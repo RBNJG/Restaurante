@@ -156,6 +156,13 @@ $carrito = $_SESSION['carrito'];
                                 <input type="decimal" name="coste_base" value="" class="p-3 input-password" required>
                             </div>
 
+                            <div class="w-25 me-3 mb-4 d-flex justify-content-start align-items-center">
+                                <label for="envio_gratis" class="mb-1">
+                                    <p class="me-1 mb-0 text text-password-big color-migas">Envío gratis</p>
+                                </label>
+                                <input type="checkbox" name="envio_gratis" value="1" class="ms-3 checkbox">
+                            </div>
+
                             <div class="w-50 me-3 mb-4 d-flex flex-column">
                                 <label for="imagen" class="mb-1">
                                     <p class="me-1 mb-2 text text-password-big color-migas">Ruta imagen</p>

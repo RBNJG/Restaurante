@@ -85,12 +85,12 @@ class ProductoDAO
     }
 
     // Función para modificar los atributos de un producto en la base de datos
-    public static function modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base,$imagen)
+    public static function modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $envio_gratis)
     {
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "UPDATE producto SET categoria_id = ?, nombre_producto = ?, descripcion = ?, coste_base = ?, imagen = ? WHERE producto_id = ?";
+        $query = "UPDATE producto SET categoria_id = ?, nombre_producto = ?, descripcion = ?, coste_base = ?, imagen = ?, envio_gratis = ? WHERE producto_id = ?";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -99,7 +99,7 @@ class ProductoDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("issssi", $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $producto_id);
+        $stmt->bind_param("issssii", $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $envio_gratis, $producto_id);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
@@ -149,12 +149,12 @@ class ProductoDAO
     }
 
     // Función para modificar los atributos de un producto en la base de datos
-    public static function newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base,$imagen)
+    public static function newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base,$imagen, $envio_gratis)
     {
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "INSERT INTO producto (categoria_id, nombre_producto, descripcion, coste_base, imagen) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO producto (categoria_id, nombre_producto, descripcion, coste_base, imagen, envio_gratis) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -163,7 +163,7 @@ class ProductoDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("issss", $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen);
+        $stmt->bind_param("issssi", $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $envio_gratis);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {

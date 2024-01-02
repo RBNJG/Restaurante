@@ -273,9 +273,15 @@ class PanelController
         $coste_base = $_POST['coste_base'];
         $imagen = $_POST['imagen'];
 
-        ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen);
+        if($_POST['envio_gratis'] == 1){
+            $envio_gratis = 1;
+        }else{
+            $envio_gratis = 0;
+        }
 
-        header("Location:" . url . "?controller=Panel");
+        ProductoDAO::modifyProduct($producto_id, $categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $envio_gratis);
+
+        header("Location:" . url . "?controller=Panel&action=listadoProductos");
 
         exit;
     }
@@ -287,8 +293,14 @@ class PanelController
         $categoria_id = $_POST['categoria_id'];
         $coste_base = $_POST['coste_base'];
         $imagen = $_POST['imagen'];
+        
+        if($_POST['envio_gratis'] == 1){
+            $envio_gratis = 1;
+        }else{
+            $envio_gratis = 0;
+        }
 
-        ProductoDAO::newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen);
+        ProductoDAO::newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $envio_gratis);
 
         header("Location:" . $_SERVER['HTTP_REFERER']);
 
