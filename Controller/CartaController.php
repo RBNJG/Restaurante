@@ -11,8 +11,31 @@ class CartaController
 
     public function index()
     {
-        //Obtenemos los productos y categorias para mostrar en carta
-        $productos = ProductoDAO::getAllProducts();
+        if (isset($_POST['filtro'])) {
+            //Asignamos a variables los valores del formulario
+            $estrellas4 = isset($_POST['4estrellas']);
+            $estrellas3 = isset($_POST['3estrellas']);
+            $precioMin = isset($_POST['minimo']) ? $_POST['minimo'] : null;
+            $precioMax = isset($_POST['maximo']) ? $_POST['maximo'] : null;
+            $envio = isset($_POST['envio']);
+            $descuento = isset($_POST['descuento']);
+
+            //Obtenemos los productos filtrados para mostrar en carta
+            $productos = ProductoDAO::getProductsWithFilter($estrellas4, $estrellas3, $precioMin, $precioMax, $envio, $descuento);
+        } else {
+            //Asignamos a variables valores nulos
+            $estrellas4 = null;
+            $estrellas3 = null;
+            $precioMin = null;
+            $precioMax = null;
+            $envio = null;
+            $descuento = null;
+
+            //Obtenemos los productos para mostrar en carta
+            $productos = ProductoDAO::getAllProducts();
+        }
+
+        //Obtenemos las categorias
         $categorias = CategoriaDAO::getAllCategories();
 
         //Cabecera
@@ -22,7 +45,7 @@ class CartaController
         //Footer
         include_once 'Views/footer.php';
     }
-
+    
     //Función para añadir un producto al carrito
     public function anadir()
     {
@@ -65,5 +88,4 @@ class CartaController
         header('Location: ' . $_SERVER['HTTP_REFERER']);
         exit;
     }
-
 }

@@ -15,15 +15,29 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg py-0">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+            <div class="container-fluid px-0">
                 <div class="logo">
                     <a href="<?= url . "?controller=Home" ?>" class="logo-enlace"></a>
                 </div>
-                <div class="w-100 mb-0 ms-3">
-                    <!-- Para el triangulo gris probar con ::before en CSS -->
-                    <div class="w-100 d-flex justify-content-between align-items-center mb-2 background-gris">
-                        <div class="d-flex align-items-center my-2 px-2 buscador-header">
+                <button class="navbar-toggler me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="w-100 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between">
+                        <div class="carta">
+                            <ul class="navbar-nav me-auto mb-lg-0">
+                                <li class="nav-item">
+                                    <a href="<?= url . "?controller=Carta" ?>" class="text-menu">
+                                        <div class="d-flex align-items-center ms-2">
+                                            <img src="assets/images/header/carta.svg" alt="" class="me-2 imagen-carta">
+                                            <p class="mb-0 text">Carta</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
                             <form class="d-flex justify-content-between w-100" role="search">
                                 <input class="w-100 buscador text" type="search" placeholder="Buscar un producto, una marca..." aria-label="Search">
                                 <button type="submit" class="sin-estilo">
@@ -31,8 +45,12 @@
                                 </button>
                             </form>
                         </div>
-                        <div class="d-flex">
-                            <a href="<?php if(!isset($_SESSION['usuario_id'])){echo url . "?controller=Login";}else{echo url . "?controller=Panel";} ?>" class="text-user-header">
+                        <div class="d-flex flex-column flex-lg-row align-items-start">
+                            <a href="<?php if (!isset($_SESSION['usuario_id'])) {
+                                            echo url . "?controller=Login";
+                                        } else {
+                                            echo url . "?controller=Panel";
+                                        } ?>" class="text-user-header">
                                 <div class="d-flex flex-column align-items-center justify-content-center py-2 px-2">
                                     <div class="mb-1 logo-user"></div>
                                     <?php
@@ -56,19 +74,12 @@
                             </a>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-start my-0 my-3">
-                        <a href="<?= url . "?controller=Carta" ?>" class="text-menu">
-                            <div class="d-flex align-items-center ms-3">
-                                <img src="assets/images/header/carta.svg" alt="" class="me-2">
-                                <p class="mb-0">Carta</p>
-                            </div>
-                        </a>
-                    </div>
                 </div>
             </div>
         </nav>
         <hr class="my-0 linea-header">
     </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

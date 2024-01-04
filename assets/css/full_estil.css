@@ -695,7 +695,7 @@ button.sin-estilo {
     height: 4.5rem;
     width: 7.5rem;
     background-image: url(../images/header/Logo_leroy_merlin.svg);
-    background-size: 100%;
+    background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -800,9 +800,8 @@ button.sin-estilo {
 }
 
 .buscador-header {
-    width: 35rem;
+    width: 30rem;
     height: 3rem;
-    margin-left: 8rem;
     border-radius: 3px;
     border: 0.3px solid #000000;
     background-color: #FFFFFF;
@@ -840,9 +839,9 @@ input.checkbox {
     display: inline-block;
 }
 
-.input-precio span{
+.input-precio span {
     position: absolute;
-    right: 5px; 
+    right: 5px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
@@ -894,5 +893,74 @@ input[type="radio"]:checked {
     h1 {
         background-color: var(--bg-color2);
         width: 100%;
+    }
+}
+
+@media (max-width: 877px) {
+
+    .carta {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .imagen-carta {
+        width: 0.7rem;
+        height: auto;
+    }
+
+    .logo-user {
+        height: 0;
+        width: 0;
+        background-image: none;
+    }
+
+    .text-carrito-header {
+        color: #000000;
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+    }
+
+    .text-carrito-header:hover {
+        color: #000000;
+    }
+
+    .logo-carrito {
+        height: 0;
+        width: 0;
+        background-image: none;
+    }
+
+    div .background-verde{
+        background-color: transparent;
+    }
+
+    .buscador-header {
+        width: 20rem;
+        height: 2rem;
+        border-radius: 3px;
+        border: 0.3px solid #000000;
+        background-color: #FFFFFF;
+    }
+
+    .header-user{
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+    }
+
+    .text-user-header {
+        font-weight: 400;
+        font-size: 0.7rem;
+    }
+
+    .text-carrito-header {
+        font-weight: 400;
+        font-size: 0.7rem;
+    }
+
+    .text {
+        font-size: 0.7rem;
     }
 }

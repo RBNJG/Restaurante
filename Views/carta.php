@@ -1,10 +1,3 @@
-<?php
-
-$contador = 0;
-$categoria = "";
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +38,7 @@ $categoria = "";
     </div>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-3 px-0">
+            <div class="col-3 px-0 mb-5">
                 <div class="d-flex align-items-center justify-content-between ps-2 pe-3 py-3 fondo-desplegable">
                     <h3 class="text-h2">Categorías</h4>
                         <hr class="linea-menos">
@@ -72,10 +65,10 @@ $categoria = "";
                     <h3 class="text-h2">Valoraciones de clientes</h4>
                         <hr class="linea-menos">
                 </div>
-                <form action="" class="d-flex flex-column">
+                <form action=<?= url . "?controller=Carta&action=index" ?> method='post' class="d-flex flex-column">
                     <div class="ps-2">
                         <div class="d-flex justify-content-start align-items-baseline my-3">
-                            <input type="checkbox" name="4estrellas" value="4">
+                            <input type="checkbox" name="4estrellas" value="4" <?= $estrellas4 ? 'checked' : '' ?>>
                             <picture class="d-flex align-items-center ms-3 me-2">
                                 <img src="assets/images/carta/4_estrellas.svg" alt="">
                             </picture>
@@ -83,7 +76,7 @@ $categoria = "";
                             <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 4) ?>)</p>
                         </div>
                         <div class="d-flex justify-content-start align-items-baseline my-3">
-                            <input type="checkbox" name="3estrellas" value="3">
+                            <input type="checkbox" name="3estrellas" value="3" <?= $estrellas3 ? 'checked' : '' ?>>
                             <picture class="d-flex align-items-center ms-3 me-2">
                                 <img src="assets/images/carta/3_estrellas.svg" alt="">
                             </picture>
@@ -100,12 +93,12 @@ $categoria = "";
                     <div class="p-0 mb-3">
                         <div class="d-flex justify-content-start align-items-baseline ms-2 mt-3">
                             <div class="input-precio">
-                                <input type="number" min="1" max="100" maxlength="5" class="precio" name="minimo">
+                                <input type="number" value="<?= htmlspecialchars($precioMin) ?>" min="1" max="100" maxlength="5" class="precio" name="minimo">
                                 <span>€</span>
                             </div>
                             <p class="mb-0 mx-3 text">-</p>
                             <div class="input-precio">
-                                <input type="number" min="1" max="100" maxlength="5" class="precio" name="maximo">
+                                <input type="number" value="<?= htmlspecialchars($precioMax) ?>" min="1" max="100" maxlength="5" class="precio" name="maximo">
                                 <span>€</span>
                             </div>
                         </div>
@@ -114,24 +107,26 @@ $categoria = "";
                     <hr class="my-4 linea-filtros">
                     <div class="d-flex justify-content-start align-items-baseline ms-3">
                         <div>
-                            <input type="checkbox">
+                            <input type="checkbox" name="envio" <?= $envio ? 'checked' : '' ?>>
                         </div>
                         <p class="ms-3 mb-0 text">Envío gratuito a domicilio</p>
                     </div>
                     <hr class="my-4 linea-filtros">
                     <div class="d-flex justify-content-start align-items-baseline ms-3">
                         <div>
-                            <input type="checkbox">
+                            <input type="checkbox" name="descuento" <?= $descuento ? 'checked' : '' ?>>
                         </div>
                         <p class="ms-3 mb-0 text">Productos en oferta</p>
                     </div>
                     <hr class="my-4 linea-filtros">
 
+                    <input type="number" name="filtro" value="1" hidden>
+
                     <button type="submit" class="mt-4 align-self-center w-75 btn-compra">Aplicar</button>
-                    <a href="" class="mt-3 align-self-center text">Restablecer</a>
+                    <a href="<?= url . "?controller=Carta" ?>" class="mt-3 align-self-center text">Restablecer</a>
                 </form>
             </div>
-            <div class="col-9 ps-5 pe-0 mt-2">
+            <div class="col-9 ps-5 pe-0 mt-2 mb-5">
                 <div class="row">
                     <div class="d-flex justify-content-start align-items-center">
                         <p class="my-0 text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
@@ -147,102 +142,98 @@ $categoria = "";
                 </div>
                 <?php
                 $contador = 0;
+                $categoriaActual = "";
                 foreach ($productos as $producto) {
-                    $categoriaActual = CategoriaDAO::getCategoryName($producto->getCategoria_id());
-                    if ($categoria != $categoriaActual) {
-                        $contador = 0;
-                        $categoria = $categoriaActual;
+                    if ($categoriaActual != $producto->getCategoria_id()) {;
+                        if ($categoriaActual != "") {
                 ?>
-                        <div class="row mt-4" id="<?= $categoria ?>">
-                            <div class="col-12">
-                                <h3 class="text-h2"><?= $categoria ?></h3>
-                            </div>
-                        </div>
-                        <div class="row mt-2 mb-2">
-                        <?php
+                </div>
+                <?php
                     }
-                        ?>
-                        <div class="col-md-3">
-                            <div class="h-carta">
-                                <div class="h-100">
-                                    <div class="img-carta" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
-                                    <div class="d-flex flex-column justify-content-between h-texto-carta">
-                                        <div class="">
-                                            <p class="mb-0 text subrayado"><?= $producto->getNombre_producto() ?></p>
-                                            <div class="d-flex justify-content-start align-items-center mb-3">
-                                                <picture>
-                                                    <img src="<?php if ($producto->getEstrellas() == 3) {
-                                                                    echo 'assets/images/carta/3_estrellas.svg';
-                                                                } else if ($producto->getEstrellas() == 4) {
-                                                                    echo 'assets/images/carta/4_estrellas.svg';
-                                                                } else if ($producto->getEstrellas() == 0) {
-                                                                    echo 'assets/images/carta/0_estrellas.svg';
-                                                                } ?>" alt="calificación" class="pt-0">
-                                                </picture>
-                                                <p class="mb-0 mt-1 ms-2 text text-opiniones"><?= $producto->getOpiniones() ?> opiniones</p>
-                                            </div>
-                                            <?php if ($producto->getNombre_producto() == "Croquetas de jamón") { ?>
-                                                <picture>
-                                                    <img src="assets/images/carta/precio_mas_bajo.svg" alt="precio más bajo" class="mb-2">
-                                                </picture>
-                                            <?php
-                                            }
-                                            if ($producto->getDescuento() == 0) {
-                                            ?>
-                                                <p class="text-precio"><?= $producto->getCoste_base() ?> €</p>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <div class="d-flex align-items-center justify-content-center mb-2 cartel-descuento">
-                                                    <p class="mb-0 text text-cartel-descuento"><?php echo '- ' . number_format(round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2), 2) ?> €</p>
-                                                </div>
-                                                <div class="mb-1">
-                                                    <p class="mb-0 text text-precio-tachado"><?= $producto->getCoste_base() ?> €</p>
-                                                </div>
-                                                <div class="mb-1">
-                                                    <p class="mb-0 text text-precio color-descuento"><?php echo number_format(round($producto->getCoste_base() * $producto->getDescuento(), 2), 2) ?> €</p>
-                                                </div>
-                                            <?php
-                                            }
-                                            if ($producto->getEnvio_gratis() == true) {
-                                            ?>
-                                                <div class="d-flex justify-content-start align-items-center">
-                                                    <picture>
-                                                        <img src="assets/images/carta/tick_envio.svg" alt="envío gratis">
-                                                    </picture>
-                                                    <p class="mb-0 ms-1 mt-1 text text-envio-gratis">Envío gratis</p>
-                                                </div>
-                                            <?php
-                                            }
-                                            ?>
-                                        </div>
-                                        <div class="">
-                                            <form action=<?= url . "?controller=Carta&action=anadir" ?> method='post'>
-                                                <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
-                                                <button class="btn-anadir-carrito" type="submit">Añadir al carrito</button>
-                                            </form>
-                                            <hr class="w-100 mb-0 mt-4">
-                                        </div>
+                    $categoriaActual = $producto->getCategoria_id();
+                    $categoria = CategoriaDAO::getCategoryName($categoriaActual);
+                ?>
+                <div class="row mt-4" id="<?= $categoria ?>">
+                    <div class="col-12">
+                        <h3 class="text-h2"><?= $categoria ?></h3>
+                    </div>
+                </div>
+                <div class="row mt-2 mb-2">
+                    <?php
+                        }
+                    ?>
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                    <div class="h-carta">
+                        <div class="h-100">
+                            <div class="img-carta" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
+                            <div class="d-flex flex-column justify-content-between h-texto-carta">
+                                <div class="">
+                                    <p class="mb-0 text subrayado"><?= $producto->getNombre_producto() ?></p>
+                                    <div class="d-flex justify-content-start align-items-center mb-3">
+                                        <picture>
+                                            <img src="<?php if ($producto->getEstrellas() == 3) {
+                                                            echo 'assets/images/carta/3_estrellas.svg';
+                                                        } else if ($producto->getEstrellas() == 4) {
+                                                            echo 'assets/images/carta/4_estrellas.svg';
+                                                        } else if ($producto->getEstrellas() == 0) {
+                                                            echo 'assets/images/carta/0_estrellas.svg';
+                                                        } ?>" alt="calificación" class="pt-0">
+                                        </picture>
+                                        <p class="mb-0 mt-1 ms-2 text text-opiniones"><?= $producto->getOpiniones() ?> opiniones</p>
                                     </div>
+                                    <?php if ($producto->getNombre_producto() == "Croquetas de jamón") { ?>
+                                        <picture>
+                                            <img src="assets/images/carta/precio_mas_bajo.svg" alt="precio más bajo" class="mb-2">
+                                        </picture>
+                                    <?php
+                                    }
+                                    if ($producto->getDescuento() == 0) {
+                                    ?>
+                                        <p class="text-precio"><?= $producto->getCoste_base() ?> €</p>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <div class="d-flex align-items-center justify-content-center mb-2 cartel-descuento">
+                                            <p class="mb-0 text text-cartel-descuento"><?php echo '- ' . number_format(round($producto->getCoste_base() - ($producto->getCoste_base() * $producto->getDescuento()), 2), 2) ?> €</p>
+                                        </div>
+                                        <div class="mb-1">
+                                            <p class="mb-0 text text-precio-tachado"><?= $producto->getCoste_base() ?> €</p>
+                                        </div>
+                                        <div class="mb-1">
+                                            <p class="mb-0 text text-precio color-descuento"><?php echo number_format(round($producto->getCoste_base() * $producto->getDescuento(), 2), 2) ?> €</p>
+                                        </div>
+                                    <?php
+                                    }
+                                    if ($producto->getEnvio_gratis() == true) {
+                                    ?>
+                                        <div class="d-flex justify-content-start align-items-center">
+                                            <picture>
+                                                <img src="assets/images/carta/tick_envio.svg" alt="envío gratis">
+                                            </picture>
+                                            <p class="mb-0 ms-1 mt-1 text text-envio-gratis">Envío gratis</p>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="">
+                                    <form action=<?= url . "?controller=Carta&action=anadir" ?> method='post'>
+                                        <input name="producto_id" value="<?= $producto->getProducto_id() ?>" hidden />
+                                        <button class="btn-anadir-carrito" type="submit">Añadir al carrito</button>
+                                    </form>
+                                    <hr class="w-100 mb-0 mt-4">
                                 </div>
                             </div>
                         </div>
-                        <?php
-                        $contador++;
-
-                        if ($contador % 4 === 0) {
-                        ?>
-                        </div>
-                <?php
+                    </div>
+                </div>
+            <?php
                         }
-                    }
-                ?>
-                <div class="mb-5"></div>
+            ?>
             </div>
         </div>
     </div>
-
-
+    </div>
 </body>
 
 </html>

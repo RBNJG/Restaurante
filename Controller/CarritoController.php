@@ -21,6 +21,7 @@ class CarritoController
         include_once 'Views/footer.php';
     }
 
+    //Se muestra un mensaje al usuario para informarle de que el pedido se ha realizado
     public function pedidoRealizado()
     {
         //Cabecera
@@ -64,6 +65,7 @@ class CarritoController
         exit;
     }
 
+    //Función que registra la compra de un usuario
     public function compra(){
 
         $fechaActual = new DateTime();
@@ -73,6 +75,11 @@ class CarritoController
         $carrito = $_SESSION['carrito'];
         
         $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,Calculadora::total($carrito),"En preparación");
+
+        //Sumamos puntos de fidelidad al usuario, 1 punto por cada 10€ gastados
+        $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+        $usuario->sumarPuntos(floor(Calculadora::total($carrito)/10));
+        UsuarioDAO::SavePoints($usuario->getPuntos_fidelidad(), $_SESSION['usuario_id']);
 
         foreach($carrito as $producto){
 

@@ -11,9 +11,6 @@ class Usuario{
     private $telefono;
     private $password;
 
-
-
-
     /**
      * Get the value of usuario_id
      */ 

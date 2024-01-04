@@ -44,6 +44,81 @@ class ProductoDAO
         return $productos;
     }
 
+    // Función para obtener todos los productos de la base de datos
+    public static function getProductsWithFilter($estrellas4, $estrellas3, $precioMin, $precioMax, $envio, $descuento)
+    {
+        $connection = DataBase::connect();
+
+        // Preparar y ejecutar la consulta, el WHERE 1 = 1 es para facilitar la adición de condiciones
+        $query = "SELECT * FROM producto WHERE 1 = 1";
+
+        $parametros = [];
+        $tipos = "";
+
+        if ($estrellas4) {
+            $query .= " AND estrellas = 4";
+        }
+
+        if ($estrellas3) {
+            $query .= " AND estrellas = 3";
+        }
+
+        if ($precioMin !== "") {
+            $query .= " AND coste_base >= ?";
+            $parametros[] = $precioMin;
+            $tipos .= "d";
+        }
+
+        if ($precioMax !== "") {
+            $query .= " AND coste_base <= ?";
+            $parametros[] = $precioMax;
+            $tipos .= "d";
+        }
+
+        if ($envio) {
+            $query .= " AND envio_gratis = 1";
+        }
+
+        if ($descuento) {
+            $query .= " AND descuento <> 0";
+        }
+
+        $query .= " ORDER BY categoria_id, coste_base";
+
+
+        $stmt = $connection->prepare($query);
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        if (!empty($parametros)) {
+            $stmt->bind_param($tipos, ...$parametros);
+        }
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el resultado
+        $result = $stmt->get_result();
+
+        //Guardamos los resultados en un array de productos
+        if ($result) {
+            while ($producto = $result->fetch_object('Producto')) {
+                $productos[] = $producto;
+            }
+
+            $result->free();
+        } else {
+            echo "Error en la consulta: " . $connection->error;
+        }
+
+        $connection->close();
+        return $productos;
+    }
+
     // Función para obtener los datos de un producto en concreto pasando si id
     public static function getProduct($id)
     {
@@ -149,7 +224,7 @@ class ProductoDAO
     }
 
     // Función para modificar los atributos de un producto en la base de datos
-    public static function newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base,$imagen, $envio_gratis)
+    public static function newProduct($categoria_id, $nombre_producto, $descripcion, $coste_base, $imagen, $envio_gratis)
     {
         $connection = DataBase::connect();
 
@@ -179,5 +254,4 @@ class ProductoDAO
 
         return $affected_rows;
     }
-    
 }
