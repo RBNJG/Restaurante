@@ -27,7 +27,7 @@ $categorias = CategoriaDAO::getAllCategories();
             <div class="container sombra">
                 <div class="row">
                     <div class="col-4 d-flex flex-column align-items-center justify-content-center">
-                        <img src="assets/images/home/Cartel carrousel.svg" alt="Cartel carrousel" class="my-3">
+                        <img src="assets/images/home/Cartel carrousel.svg" alt="Cartel carrousel" class="my-3 cartel">
                         <p class="text-center my-4 text-carousel">Disfruta de nuestras terrazas en compañía</p>
                     </div>
                     <div class="col-8 px-0">
@@ -69,17 +69,17 @@ $categorias = CategoriaDAO::getAllCategories();
         <section class="mt-5 mb-5">
             <div class="container px-0 seccion-novedades">
                 <div class="row py-5 p-novedades">
-                    <div class="col-4 d-flex align-items-center ps-4 justify-content-start">
+                    <div class="col-md-4 col-6 d-flex align-items-center ps-4 justify-content-start">
                         <picture>
                             <img src="assets/images/home/Nueva carta.png" alt="Nueva carta" class="img-fluid">
                         </picture>
                     </div>
-                    <div class="col-3 ps-4 d-flex align-items-center">
+                    <div class="col-md-3 col-6 ps-4 d-flex align-items-center">
                         <picture>
-                            <img src="assets/images/home/Carta.png" alt="Carta" class="img-fluid">
+                            <img src="assets/images/home/Carta.png" alt="Carta" class="py-3 img-fluid">
                         </picture>
                     </div>
-                    <div class="col-5 d-flex align-items-center">
+                    <div class="col-md-5 col-12 d-flex align-items-center">
                         <div class="d-flex align-items-center text-center fondo-blanco h-100 mr-3">
                             <div class="">
                                 <h3 class="text-h2">¡Descrube nuestra nueva carta!</h3>
@@ -101,16 +101,16 @@ $categorias = CategoriaDAO::getAllCategories();
                 <h2 class="mt-6 mb-3 text-center text-h2">Categorias</h2>
                 <div class="row justify-content-center">
                     <div class="d-flex justify-content-center">
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Entrantes</a>
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Ensaladas</a>
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Arroces</a>
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Brasa</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Entrantes</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Ensaladas</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Arroces</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Brasa</a>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Carnes</a>
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Pescados</a>
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Bebidas</a>
-                        <a class="btn-c-h" href="<?= url . "?controller=Carta" ?>">Postres</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Carnes</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Pescados</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Bebidas</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Postres</a>
                     </div>
                 </div>
             </div>

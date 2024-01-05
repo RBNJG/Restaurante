@@ -412,21 +412,6 @@ button.sin-estilo {
     background-position: 80% 50%;
 }
 
-.logo {
-    height: 4.5rem;
-    width: 7.5rem;
-    background-image: url(../images/header/Logo_leroy_merlin.svg);
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.logo-enlace {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
 /* Fondos */
 
 .background-gris {
@@ -561,7 +546,7 @@ input[type="radio"]:checked {
 @media (max-width: 767.98px) {
 
     .text {
-        font-size: 0.8075rem;
+        font-size: 0.75rem;
     }
 
     .text-h1 {
@@ -573,7 +558,61 @@ input[type="radio"]:checked {
     .text-h2 {
         font-family: var(--fuente-principal);
         font-weight: 600;
-        font-size: 1.282rem;
+        font-size: 1.2rem;
+    }
+    
+    .text-h3 {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 0.855rem;
+    }
+    
+    .text-carrito {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 0.988rem;
+    }
+    
+    .text-filtro {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1.71rem;
+    }
+    
+    .text-precio {
+        font-weight: 700;
+        font-size: 1.064rem;
+    }
+    
+    .text-cartel-descuento {
+        font-size: 0.7695rem;
+        font-weight: 500;
+        color: #FFFFFF;
+    }
+    
+    .text-precio-tachado {
+        text-decoration: line-through;
+        font-weight: 500;
+        font-size: 0.7695rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+
+    .text {
+        font-size: 0.6rem;
+    }
+
+    .text-h1 {
+        font-family: var(--fuente-principal);
+        font-weight: 400;
+        font-size: 2.565rem;
+    }
+    
+    .text-h2 {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1rem;
     }
     
     .text-h3 {

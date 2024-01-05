@@ -18,6 +18,21 @@
     background-repeat: no-repeat;
 }
 
+.logo {
+    height: 4.5rem;
+    width: 7.5rem;
+    background-image: url(../images/header/Logo_leroy_merlin.svg);
+    background-size: 80%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.logo-enlace {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 /* LINEAS */
 .linea-header {
     color: #666666;
@@ -114,10 +129,6 @@
         font-weight: 400;
         font-size: 0.7rem;
     }
-
-    .text {
-        font-size: 0.7rem;
-    }
 }
 
 @media (max-width: 767.98px) {
@@ -176,8 +187,62 @@
         font-weight: 400;
         font-size: 0.6rem;
     }
-
-    .text {
-        font-size: 0.6rem;
-    }
 }
+
+@media (max-width: 575.98px) {
+    .carta {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .imagen-carta {
+        width: 0.5rem;
+        height: auto;
+    }
+
+    .logo-user {
+        height: 0;
+        width: 0;
+        background-image: none;
+    }
+
+    .text-carrito-header {
+        color: #000000;
+        font-weight: 400;
+        font-size: 0.5rem;
+    }
+
+    .text-carrito-header:hover {
+        color: #000000;
+    }
+
+    .logo-carrito {
+        height: 0;
+        width: 0;
+        background-image: none;
+    }
+
+    div .background-verde{
+        background-color: transparent;
+    }
+
+    .buscador-header {
+        width: 14rem;
+        height: 1.4rem;
+        border-radius: 3px;
+        border: 0.3px solid #000000;
+        background-color: #FFFFFF;
+    }
+
+    .header-user{
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+    }
+
+    .text-user-header {
+        font-weight: 400;
+        font-size: 0.5rem;
+    }
+
+ }
