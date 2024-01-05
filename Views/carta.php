@@ -10,6 +10,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/full_estil.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="assets/css/carta.css" rel="stylesheet" type="text/css" media="screen">
     <title>Leroy Merlin</title>
 </head>
 
@@ -25,7 +26,7 @@
         </div>
     </div>
     <div class="mt-5 mb-3">
-        <div class="container px-0 fondo-carta d-flex align-items-center">
+        <div class="container px-0 d-flex align-items-center fondo-carta">
             <h2 class="ms-4 text-white text-carta">Carta</h2>
         </div>
         <div class="container px-0 mt-3">

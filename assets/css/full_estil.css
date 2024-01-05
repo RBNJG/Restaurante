@@ -103,9 +103,7 @@ a:hover {
 
 /* Texto */
 
-.subrayado {
-    text-decoration: underline;
-}
+
 
 .semi-bold {
     font-weight: 600;
@@ -119,9 +117,7 @@ a:hover {
     color: #FFFFFF;
 }
 
-.text-user-header:hover {
-    color: #000000;
-}
+
 
 .text-menu {
     text-decoration: none;
@@ -136,32 +132,13 @@ a:hover {
     font-weight: 400;
 }
 
-.text-migas {
-    font-family: 'leroy-merlin', sans-serif;
-    font-weight: 400;
-    color: #333333;
-}
 
-.text-migas:hover {
-    color: #333333;
-}
 
-.text-carousel {
-    font-family: var(--fuente-principal);
-    font-weight: 600;
-    font-size: 2rem;
-}
 
-.text-carta {
-    font-family: var(--fuente-principal);
-    font-weight: 600;
-    font-size: 2rem;
-}
 
-.text-opiniones {
-    font-size: 0.6rem;
-    color: #666666;
-}
+
+
+
 
 .text-h1 {
     font-family: var(--fuente-principal);
@@ -181,11 +158,7 @@ a:hover {
     font-size: 1rem;
 }
 
-.text-cheque {
-    font-family: var(--fuente-principal);
-    font-weight: 700;
-    font-size: 1.1rem;
-}
+
 
 .text-carrito {
     font-family: var(--fuente-principal);
@@ -199,23 +172,11 @@ a:hover {
     font-size: 2rem;
 }
 
-.text-pago {
-    font-family: var(--fuente-principal);
-    font-weight: 600;
-    font-size: 0.9rem;
-}
 
-.text-footer {
-    color: #FFFFFF;
-    font-family: var(--fuente-principal);
-    font-weight: 400;
-    font-size: 1rem;
-}
 
-.text-panel-seccion {
-    font-size: 0.9rem;
-    color: #666666;
-}
+
+
+
 
 .text-carrito-header {
     color: #FFFFFF;
@@ -225,21 +186,11 @@ a:hover {
     text-decoration: none;
 }
 
-.text-user-header {
-    color: #000000;
-    font-family: var(--fuente-principal);
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-}
 
-.text-password-big {
-    font-size: 0.9rem;
-}
 
-.text-password-small {
-    font-size: 0.8rem;
-}
+
+
+
 
 .text-precio {
     font-weight: 700;
@@ -258,16 +209,7 @@ a:hover {
     font-size: 0.9rem;
 }
 
-.text-precio-tachado-carrito {
-    text-decoration: line-through;
-    font-weight: 800;
-    font-size: 0.9rem;
-}
 
-.text-envio-gratis {
-    font-size: 0.65rem;
-    font-weight: 600;
-}
 
 .text-restablecer:hover {
     color: #666666;
@@ -282,14 +224,9 @@ a:hover {
     color: #000000;
 }
 
-.text-panel-seleccionado {
-    color: #006902;
-}
 
-.text-panel-user {
-    font-size: 1.2rem;
-    font-weight: 600;
-}
+
+
 
 /* Botones */
 
@@ -327,48 +264,9 @@ button.sin-estilo {
     background-color: #C1DE9B;
 }
 
-.btn-c-h {
-    font-family: 'leroy-merlin', sans-serif;
-    font-weight: 400;
-    color: #000000;
-    background-color: #FFFFFF;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    margin: 0.8rem;
-    border-color: #333333;
-    border-style: solid;
-    border-radius: 3rem;
-    border-width: 0.5px;
-    text-decoration: none;
-}
 
-.btn-c-h:hover {
-    background-color: #D9D9D9;
-    color: #000000;
-}
 
-.btn-anadir-carrito {
-    font-family: 'leroy-merlin', sans-serif;
-    font-weight: 600;
-    color: #188803;
-    width: 100%;
-    background-color: #FFFFFF;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    border-color: var(--color-verde-boton);
-    border-style: solid;
-    border-radius: 4px;
-}
 
-.btn-anadir-carrito:hover {
-    background-color: #EBF5DE;
-}
-
-.btn-anadir-carrito:active {
-    background-color: #C1DE9B;
-}
 
 .btn-compra {
     font-family: 'leroy-merlin', sans-serif;
@@ -467,22 +365,9 @@ button.sin-estilo {
 
 /* Lineas */
 
-.linea-menos {
-    width: 15px;
-    height: 2px;
-    border: 2px;
-    border-radius: 2px;
-    background-color: #191919;
-    margin: 20px 0;
-    opacity: 1;
-}
 
-.linea-filtros {
-    width: 100%;
-    height: 2px;
-    background-color: #000000;
-    opacity: 1;
-}
+
+
 
 .linea-carrito {
     width: 6rem;
@@ -492,14 +377,9 @@ button.sin-estilo {
     opacity: 1;
 }
 
-.linea-panel {
-    width: 98%;
-}
 
-.linea-header {
-    color: #666666;
-    width: 100%;
-}
+
+
 
 /* Selectores */
 
@@ -573,54 +453,15 @@ button.sin-estilo {
     background-repeat: no-repeat;
 }
 
-.img-basura {
-    height: 1.5rem;
-    width: 1.5rem;
-    margin-bottom: 0.1rem;
-}
 
-.contenedor-basura {
-    height: 2rem;
-    width: 2rem;
-    border-radius: 4px;
-    border: none;
-}
 
-.contenedor-basura:hover {
-    background-color: #D9D9D9;
-}
 
-.icono-redes {
-    height: 2rem;
-    width: 2rem;
-}
 
-.img-carta {
-    height: 40%;
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    width: 100%;
-}
 
-.logo-carrito {
-    position: relative;
-    height: 2rem;
-    width: 2rem;
-    background-image: url(../images/header/carrito.svg);
-    background-size: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.logo-user {
-    height: 2rem;
-    width: 2rem;
-    background-image: url(../images/header/user.svg);
-    background-size: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
+
+
+
 
 .img-carrito {
     height: 8rem;
@@ -631,61 +472,17 @@ button.sin-estilo {
     padding: 0;
 }
 
-.circulo-user {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 20rem;
-    background-color: #EBF5DE;
-    background-image: url(../images/header/user.svg);
-    background-size: 60%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.casa-user {
-    width: 2rem;
-    height: 2rem;
-    background-image: url(../images/panel/casa.svg);
-    background-size: 70%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.pedido-user {
-    width: 2rem;
-    height: 2rem;
-    background-image: url(../images/panel/pedido.svg);
-    background-size: 80%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.datos-user {
-    width: 2rem;
-    height: 2rem;
-    background-image: url(../images/panel/datos.svg);
-    background-size: 75%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.desconectar-user {
-    width: 2rem;
-    height: 2rem;
-    background-image: url(../images/panel/desconectar.svg);
-    background-size: 75%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
 
-.comida-admin {
-    width: 2rem;
-    height: 2rem;
-    background-image: url(../images/panel/comida.svg);
-    background-size: 75%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
+
+
+
+
+
+
 
 .img-categoria-left {
     background-position: 80% 50%;
@@ -716,74 +513,37 @@ button.sin-estilo {
     background-color: #006902;
 }
 
-.fondo-desplegable:hover {
-    background-color: #D9D9D9;
-}
+
 
 .fondo-blanco {
     background-color: #FFFFFF;
     padding: 1rem;
 }
 
-.fondo-gris {
-    background-color: #D9D9D9;
-}
 
-.fondo-footer {
-    background-color: #188803;
-}
 
-.fondo-panel {
-    background-color: #D9D9D9;
-}
 
-.fondo-panel-seleccionado {
-    border-radius: 4px;
-    background-color: #EBF5DE;
-}
 
-.fondo-panel-no-seleccionado:hover {
-    border-radius: 4px;
-    background-color: #e9e9e9;
-}
 
-.fondo-carta {
-    height: 6rem;
-    background-image: url(../images/carta/baner_carta.jpg);
-    background-size: cover;
-    background-position: center 69%;
-    background-repeat: no-repeat;
-}
 
-.cartel-cheque {
-    background-color: #EBF5DE;
-}
 
-.seccion-novedades {
-    background-color: #EBF5DE;
-}
+
+
+
+
+
+
+
+
 
 /* Dimensiones */
 
-.altura-carrito {
-    height: 9.5rem;
-}
 
-.altura-selector {
-    height: 2rem;
-}
 
-.h-carta {
-    height: 30rem;
-}
 
-.h-texto-carta {
-    height: 60%;
-}
 
-.password-container {
-    width: 22rem;
-}
+
+
 
 .h-categoria {
     height: 2rem;
@@ -794,27 +554,13 @@ button.sin-estilo {
     border-right: 1px solid #D9D9D9;
 }
 
-.p-novedades {
-    padding-left: 3rem;
-    padding-right: 2rem;
-}
 
-.buscador-header {
-    width: 30rem;
-    height: 3rem;
-    border-radius: 3px;
-    border: 0.3px solid #000000;
-    background-color: #FFFFFF;
-}
 
-.grupo-panel {
-    border: 1px solid #aaaaaa;
-    border-radius: 4px;
-}
 
-.sombra {
-    box-shadow: 0px 2px 10px 0px rgb(0, 0, 0, 0.25);
-}
+
+
+
+
 
 .cartel-descuento {
     width: 4.5rem;
@@ -834,18 +580,7 @@ input.checkbox {
     height: 1.2rem;
 }
 
-.input-precio {
-    position: relative;
-    display: inline-block;
-}
 
-.input-precio span {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-}
 
 input.precio {
     padding-top: 0.5rem;
@@ -867,11 +602,7 @@ input.buscador {
     box-shadow: none;
 }
 
-.input-password {
-    height: 3rem;
-    border: #666666 1px solid;
-    border-radius: 4px;
-}
+
 
 input[type="radio"] {
     transform: scale(1.8);
@@ -897,68 +628,6 @@ input[type="radio"]:checked {
 }
 
 @media (max-width: 877px) {
-
-    .carta {
-        margin-top: 8px;
-        margin-bottom: 8px;
-    }
-
-    .imagen-carta {
-        width: 0.7rem;
-        height: auto;
-    }
-
-    .logo-user {
-        height: 0;
-        width: 0;
-        background-image: none;
-    }
-
-    .text-carrito-header {
-        color: #000000;
-        font-family: var(--fuente-principal);
-        font-weight: 600;
-        font-size: 1rem;
-        text-decoration: none;
-    }
-
-    .text-carrito-header:hover {
-        color: #000000;
-    }
-
-    .logo-carrito {
-        height: 0;
-        width: 0;
-        background-image: none;
-    }
-
-    div .background-verde{
-        background-color: transparent;
-    }
-
-    .buscador-header {
-        width: 20rem;
-        height: 2rem;
-        border-radius: 3px;
-        border: 0.3px solid #000000;
-        background-color: #FFFFFF;
-    }
-
-    .header-user{
-        display: flex;
-        justify-content: start;
-        flex-direction: column;
-    }
-
-    .text-user-header {
-        font-weight: 400;
-        font-size: 0.7rem;
-    }
-
-    .text-carrito-header {
-        font-weight: 400;
-        font-size: 0.7rem;
-    }
 
     .text {
         font-size: 0.7rem;

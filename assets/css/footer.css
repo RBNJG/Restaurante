@@ -1,0 +1,18 @@
+/* FONDOS */
+.fondo-footer {
+    background-color: #188803;
+}
+
+/* ICONOS */
+.icono-redes {
+    height: 2rem;
+    width: 2rem;
+}
+
+/* TEXTO */
+.text-footer {
+    color: #FFFFFF;
+    font-family: var(--fuente-principal);
+    font-weight: 400;
+    font-size: 1rem;
+}

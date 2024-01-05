@@ -1,0 +1,45 @@
+/* SOMBRAS */
+.sombra {
+    box-shadow: 0px 2px 10px 0px rgb(0, 0, 0, 0.25);
+}
+
+/* TEXTO */
+.text-carousel {
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+/* FONDOS */
+.seccion-novedades {
+    background-color: #EBF5DE;
+}
+
+/* ESPACIADO */
+.p-novedades {
+    padding-left: 3rem;
+    padding-right: 2rem;
+}
+
+/* BOTONES */
+.btn-c-h {
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 400;
+    color: #000000;
+    background-color: #FFFFFF;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    margin: 0.8rem;
+    border-color: #333333;
+    border-style: solid;
+    border-radius: 3rem;
+    border-width: 0.5px;
+    text-decoration: none;
+}
+
+.btn-c-h:hover {
+    background-color: #D9D9D9;
+    color: #000000;
+}
