@@ -46,7 +46,19 @@
     color: #000000;
 }
 
-@media (max-width: 877px) {
+.text-carrito-header {
+    color: #FFFFFF;
+    font-family: var(--fuente-principal);
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.text-carrito-header:hover {
+    color: #FFFFFF;
+}
+
+@media (max-width: 991.98px) {
 
     .carta {
         margin-top: 8px;
@@ -105,5 +117,67 @@
 
     .text {
         font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .carta {
+        margin-top: 8px;
+        margin-bottom: 8px;
+    }
+
+    .imagen-carta {
+        width: 0.6rem;
+        height: auto;
+    }
+
+    .logo-user {
+        height: 0;
+        width: 0;
+        background-image: none;
+    }
+
+    .text-carrito-header {
+        color: #000000;
+        font-weight: 400;
+        font-size: 0.6rem;
+    }
+
+    .text-carrito-header:hover {
+        color: #000000;
+    }
+
+    .logo-carrito {
+        height: 0;
+        width: 0;
+        background-image: none;
+    }
+
+    div .background-verde{
+        background-color: transparent;
+    }
+
+    .buscador-header {
+        width: 17rem;
+        height: 1.6rem;
+        border-radius: 3px;
+        border: 0.3px solid #000000;
+        background-color: #FFFFFF;
+    }
+
+    .header-user{
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+    }
+
+    .text-user-header {
+        font-weight: 400;
+        font-size: 0.6rem;
+    }
+
+    .text {
+        font-size: 0.6rem;
     }
 }

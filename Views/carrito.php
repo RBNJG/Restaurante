@@ -31,7 +31,7 @@ $carrito = $_SESSION['carrito'];
         <?php
         if (count($_SESSION['carrito']) == 0) {
         ?>
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center mb-5">
                 <p class="text-h2">Todavía no tienes ningún producto en el carrito</p>
             </div>
         <?php

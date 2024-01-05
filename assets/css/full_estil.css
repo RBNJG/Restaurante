@@ -103,8 +103,6 @@ a:hover {
 
 /* Texto */
 
-
-
 .semi-bold {
     font-weight: 600;
 }
@@ -112,12 +110,6 @@ a:hover {
 .bold {
     font-weight: 800;
 }
-
-.text-carrito-header:hover {
-    color: #FFFFFF;
-}
-
-
 
 .text-menu {
     text-decoration: none;
@@ -131,14 +123,6 @@ a:hover {
     font-family: 'leroy-merlin', sans-serif;
     font-weight: 400;
 }
-
-
-
-
-
-
-
-
 
 .text-h1 {
     font-family: var(--fuente-principal);
@@ -158,8 +142,6 @@ a:hover {
     font-size: 1rem;
 }
 
-
-
 .text-carrito {
     font-family: var(--fuente-principal);
     font-weight: 600;
@@ -171,24 +153,6 @@ a:hover {
     font-weight: 600;
     font-size: 2rem;
 }
-
-
-
-
-
-
-
-.text-carrito-header {
-    color: #FFFFFF;
-    font-family: var(--fuente-principal);
-    font-weight: 600;
-    font-size: 1rem;
-    text-decoration: none;
-}
-
-
-
-
 
 
 
@@ -209,8 +173,6 @@ a:hover {
     font-size: 0.9rem;
 }
 
-
-
 .text-restablecer:hover {
     color: #666666;
 }
@@ -223,10 +185,6 @@ a:hover {
     text-decoration: underline;
     color: #000000;
 }
-
-
-
-
 
 /* Botones */
 
@@ -263,10 +221,6 @@ button.sin-estilo {
 .btn-g-w:active {
     background-color: #C1DE9B;
 }
-
-
-
-
 
 .btn-compra {
     font-family: 'leroy-merlin', sans-serif;
@@ -365,10 +319,6 @@ button.sin-estilo {
 
 /* Lineas */
 
-
-
-
-
 .linea-carrito {
     width: 6rem;
     height: 3px;
@@ -376,10 +326,6 @@ button.sin-estilo {
     border: none;
     opacity: 1;
 }
-
-
-
-
 
 /* Selectores */
 
@@ -453,16 +399,6 @@ button.sin-estilo {
     background-repeat: no-repeat;
 }
 
-
-
-
-
-
-
-
-
-
-
 .img-carrito {
     height: 8rem;
     width: 8rem;
@@ -471,18 +407,6 @@ button.sin-estilo {
     background-repeat: no-repeat;
     padding: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .img-categoria-left {
     background-position: 80% 50%;
@@ -513,37 +437,12 @@ button.sin-estilo {
     background-color: #006902;
 }
 
-
-
 .fondo-blanco {
     background-color: #FFFFFF;
     padding: 1rem;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* Dimensiones */
-
-
-
-
-
-
-
 
 .h-categoria {
     height: 2rem;
@@ -553,14 +452,6 @@ button.sin-estilo {
     border-left: 1px solid #D9D9D9;
     border-right: 1px solid #D9D9D9;
 }
-
-
-
-
-
-
-
-
 
 .cartel-descuento {
     width: 4.5rem;
@@ -579,8 +470,6 @@ input.checkbox {
     width: 1.2rem;
     height: 1.2rem;
 }
-
-
 
 input.precio {
     padding-top: 0.5rem;
@@ -602,8 +491,6 @@ input.buscador {
     box-shadow: none;
 }
 
-
-
 input[type="radio"] {
     transform: scale(1.8);
     -webkit-transform: scale(1.8);
@@ -616,20 +503,111 @@ input[type="radio"]:checked {
 }
 
 /*Media query*/
-@media only screen and (max-width: 600px) {
-    /* body {
-      background-color: lightblue;
-    } */
 
-    h1 {
-        background-color: var(--bg-color2);
-        width: 100%;
+@media (max-width: 991.98px) {
+
+    .text {
+        font-size: 0.9rem;
+    }
+
+    .text-h1 {
+        font-family: var(--fuente-principal);
+        font-weight: 400;
+        font-size: 2.7rem;
+    }
+    
+    .text-h2 {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1.35rem;
+    }
+    
+    .text-h3 {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+    
+    .text-carrito {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1.04rem;
+    }
+    
+    .text-filtro {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1.8rem;
+    }
+    
+    .text-precio {
+        font-weight: 700;
+        font-size: 1.12rem;
+    }
+    
+    .text-cartel-descuento {
+        font-size: 0.81rem;
+        font-weight: 500;
+        color: #FFFFFF;
+    }
+    
+    .text-precio-tachado {
+        text-decoration: line-through;
+        font-weight: 500;
+        font-size: 0.81rem;
     }
 }
 
-@media (max-width: 877px) {
+@media (max-width: 767.98px) {
 
     .text {
-        font-size: 0.7rem;
+        font-size: 0.8075rem;
+    }
+
+    .text-h1 {
+        font-family: var(--fuente-principal);
+        font-weight: 400;
+        font-size: 2.565rem;
+    }
+    
+    .text-h2 {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1.282rem;
+    }
+    
+    .text-h3 {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 0.855rem;
+    }
+    
+    .text-carrito {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 0.988rem;
+    }
+    
+    .text-filtro {
+        font-family: var(--fuente-principal);
+        font-weight: 600;
+        font-size: 1.71rem;
+    }
+    
+    .text-precio {
+        font-weight: 700;
+        font-size: 1.064rem;
+    }
+    
+    .text-cartel-descuento {
+        font-size: 0.7695rem;
+        font-weight: 500;
+        color: #FFFFFF;
+    }
+    
+    .text-precio-tachado {
+        text-decoration: line-through;
+        font-weight: 500;
+        font-size: 0.7695rem;
     }
 }
