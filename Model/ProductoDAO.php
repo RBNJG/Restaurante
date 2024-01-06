@@ -254,4 +254,43 @@ class ProductoDAO
 
         return $affected_rows;
     }
+
+    // Función para obtener el precio más bajo de los productos
+    public static function getCheaperPrice()
+    {
+        $connection = DataBase::connect();
+
+        // Preparar la consulta
+        $query = "SELECT MIN(coste_base) AS precio_minimo FROM producto WHERE categoria_id != 7 AND categoria_id != 8";
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener el resultado
+        $result = $stmt->get_result();
+
+        if ($result) {
+            $fila = $result->fetch_assoc();
+            if ($fila) {
+                $precio = $fila['precio_minimo'];
+            }
+            $result->free();
+        } else {
+            echo "Error en la consulta: " . $connection->error;
+        }
+
+        // Cerrar la conexión
+        $stmt->close();
+        $connection->close();
+
+        return $precio;
+    }
 }

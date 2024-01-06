@@ -90,13 +90,13 @@ class DetallePedidoDAO
     }
 
     //Función para crear un nuevo detalle de pedido
-    public static function newDetallePedido($pedido_id, $producto_id, $modificacion_id, $cantidad_producto, $subtotal)
+    public static function newDetallePedido($pedido_id, $producto_id, $cantidad_producto, $subtotal)
     {
 
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "INSERT INTO detalles_pedido (pedido_id,producto_id,modificacion_id,cantidad_producto,subtotal) VALUES (?,?,?,?,?)";
+        $query = "INSERT INTO detalles_pedido (pedido_id,producto_id,cantidad_producto,subtotal) VALUES (?,?,?,?)";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -105,7 +105,7 @@ class DetallePedidoDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("iiiid", $pedido_id, $producto_id, $modificacion_id, $cantidad_producto, $subtotal);
+        $stmt->bind_param("iiid", $pedido_id, $producto_id, $cantidad_producto, $subtotal);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {

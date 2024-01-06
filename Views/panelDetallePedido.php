@@ -18,7 +18,7 @@
     <div class="container-flex fondo-panel">
         <div class="container pt-4">
             <div class="row">
-            <div class="col-3">
+                <div class="col-lg-3 col-md-4 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <div class="d-flex justify-content-start align-items-center mb-3">
                             <div class="circulo-user"></div>
@@ -30,9 +30,6 @@
                                                                 break;
                                                             case 2:
                                                                 echo 'Usuario';
-                                                                break;
-                                                            case 3:
-                                                                echo 'Desarrollador';
                                                                 break;
                                                         }  ?></p>
                             </div>
@@ -55,21 +52,21 @@
                                 <p class="ms-2 mb-0 text text-panel-seccion">Gestión</p>
                                 <hr class="mb-0 mt-2 align-self-center linea-panel">
                                 <a href="<?= url . "?controller=Panel&action=listadoProductos" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
-                                    <div class="comida-admin"></div>
-                                    <div class="ms-2">
-                                        <p class="mb-0 text">Gestionar productos</p>
+                                    <div class="d-flex justify-content-start align-items-center p-2 fondo-panel-no-seleccionado">
+                                        <div class="comida-admin"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Gestionar productos</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            <a href="<?= url . "?controller=Panel&action=revisarPedidos" ?>" class="text-menu">
-                                <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
-                                    <div class="pedido-user"></div>
-                                    <div class="ms-2">
-                                        <p class="mb-0 text">Gestionar pedidos</p>
+                                </a>
+                                <a href="<?= url . "?controller=Panel&action=revisarPedidos" ?>" class="text-menu">
+                                    <div class="d-flex justify-content-start align-items-center p-2 mb-3 fondo-panel-no-seleccionado">
+                                        <div class="pedido-user"></div>
+                                        <div class="ms-2">
+                                            <p class="mb-0 text">Gestionar pedidos</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
                             </div>
                         <?php
                         } else {
@@ -111,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-lg-9 col-md-8 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <div>
                             <p class="text-h2">PEDIDO Nº <?= $pedido->getPedido_id() ?></p>

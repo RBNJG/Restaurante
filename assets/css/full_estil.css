@@ -154,8 +154,6 @@ a:hover {
     font-size: 2rem;
 }
 
-
-
 .text-precio {
     font-weight: 700;
     font-size: 1.25rem;
@@ -196,30 +194,6 @@ button.sin-estilo {
     margin: 0;
     font: inherit;
     cursor: pointer;
-}
-
-.btn-g-w {
-    font-family: 'leroy-merlin', sans-serif;
-    font-weight: 600;
-    color: #188803;
-    background-color: #FFFFFF;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-top: 0.6rem;
-    padding-bottom: 0.6rem;
-    border-color: var(--color-verde-boton);
-    border-style: solid;
-    border-radius: 2px;
-    text-decoration: none;
-}
-
-.btn-g-w:hover {
-    background-color: #EBF5DE;
-    color: #188803;
-}
-
-.btn-g-w:active {
-    background-color: #C1DE9B;
 }
 
 .btn-compra {
@@ -292,7 +266,7 @@ button.sin-estilo {
     height: 100%;
 }
 
-.sumar :hover {
+.sumar:hover {
     background-color: #EBF5DE;
 }
 
@@ -541,6 +515,33 @@ input[type="radio"]:checked {
         font-weight: 500;
         font-size: 0.81rem;
     }
+
+    .select-filtro {
+        width: 13rem;
+        padding: 0.6rem;
+    }
+
+    .h-categoria {
+        height: 1.8rem;
+    }
+
+    .img-categoria {
+        height: 1.8rem;
+        width: 1.8rem;
+    }
+
+    input.precio {
+        padding-top: 0.45rem;
+        padding-bottom: 0.45rem;
+        padding-left: 0.45rem;
+        padding-right: 0.8rem;
+        height: 2.3rem;
+        width: 4rem;
+    }
+
+    #cantidad {
+        width: 2.6rem;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -552,7 +553,7 @@ input[type="radio"]:checked {
     .text-h1 {
         font-family: var(--fuente-principal);
         font-weight: 400;
-        font-size: 2.565rem;
+        font-size: 2.4rem;
     }
     
     .text-h2 {
@@ -564,7 +565,7 @@ input[type="radio"]:checked {
     .text-h3 {
         font-family: var(--fuente-principal);
         font-weight: 600;
-        font-size: 0.855rem;
+        font-size: 0.85rem;
     }
     
     .text-carrito {
@@ -576,7 +577,7 @@ input[type="radio"]:checked {
     .text-filtro {
         font-family: var(--fuente-principal);
         font-weight: 600;
-        font-size: 1.71rem;
+        font-size: 1.65rem;
     }
     
     .text-precio {
@@ -594,6 +595,33 @@ input[type="radio"]:checked {
         text-decoration: line-through;
         font-weight: 500;
         font-size: 0.7695rem;
+    }
+
+    .select-filtro {
+        width: 12rem;
+        padding: 0.6rem;
+    }
+
+    .h-categoria {
+        height: 1.6rem;
+    }
+
+    .img-categoria {
+        height: 1.6rem;
+        width: 1.6rem;
+    }
+
+    input.precio {
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+        padding-left: 0.4rem;
+        padding-right: 0.7rem;
+        height: 2rem;
+        width: 3.5rem;
+    }
+
+    #cantidad {
+        width: 2.3rem;
     }
 }
 
@@ -606,7 +634,7 @@ input[type="radio"]:checked {
     .text-h1 {
         font-family: var(--fuente-principal);
         font-weight: 400;
-        font-size: 2.565rem;
+        font-size: 2rem;
     }
     
     .text-h2 {
@@ -618,7 +646,7 @@ input[type="radio"]:checked {
     .text-h3 {
         font-family: var(--fuente-principal);
         font-weight: 600;
-        font-size: 0.855rem;
+        font-size: 0.78rem;
     }
     
     .text-carrito {
@@ -630,16 +658,16 @@ input[type="radio"]:checked {
     .text-filtro {
         font-family: var(--fuente-principal);
         font-weight: 600;
-        font-size: 1.71rem;
+        font-size: 1.5rem;
     }
     
     .text-precio {
         font-weight: 700;
-        font-size: 1.064rem;
+        font-size: 0.9rem;
     }
     
     .text-cartel-descuento {
-        font-size: 0.7695rem;
+        font-size: 0.7rem;
         font-weight: 500;
         color: #FFFFFF;
     }
@@ -647,6 +675,33 @@ input[type="radio"]:checked {
     .text-precio-tachado {
         text-decoration: line-through;
         font-weight: 500;
-        font-size: 0.7695rem;
+        font-size: 0.7rem;
+    }
+
+    .select-filtro {
+        width: 9rem;
+        padding: 0.6rem;
+    }
+
+    .h-categoria {
+        height: 1.4rem;
+    }
+
+    .img-categoria {
+        height: 1.4rem;
+        width: 1.4rem;
+    }
+
+    input.precio {
+        padding-top: 0.35rem;
+        padding-bottom: 0.35rem;
+        padding-left: 0.35rem;
+        padding-right: 0.6rem;
+        height: 1.8rem;
+        width: 3rem;
+    }
+
+    #cantidad {
+        width: 2.1rem;
     }
 }

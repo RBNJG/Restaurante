@@ -256,8 +256,14 @@ class PanelController
         $direccion = $_POST['direccion'];
         $email = $_POST['email'];
         $telefono = $_POST['telefono'];
+        //Si el usuario no es administrador pasaremos area cómo nulo
+        if(isset($_POST['area'])){
+            $area = $_POST['area'];
+        }else{
+            $area = null;
+        }
 
-        UsuarioDAO::modifyUser($nombre, $apellidos, $direccion, $email, $telefono, $_SESSION['usuario_id']);
+        UsuarioDAO::modifyUser($nombre, $apellidos, $direccion, $email, $telefono, $area,  $_SESSION['usuario_id']);
 
         header("Location: " . url . "?controller=Panel");
         exit;

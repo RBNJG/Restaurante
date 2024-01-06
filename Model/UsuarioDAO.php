@@ -242,12 +242,12 @@ class UsuarioDAO
     }
 
     //Función para modificar los datos de un usuario
-    public static function modifyUser($nombre, $apellidos, $direccion, $email, $telefono, $id)
+    public static function modifyUser($nombre, $apellidos, $direccion, $email, $telefono, $area, $id)
     {
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "UPDATE usuario SET nombre = ?, apellidos = ?, direccion = ?, email = ?, telefono = ? WHERE usuario_id = ?";
+        $query = "UPDATE usuario SET nombre = ?, apellidos = ?, direccion = ?, email = ?, telefono = ?, area_responsable = ? WHERE usuario_id = ?";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -256,7 +256,7 @@ class UsuarioDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("ssssii",  $nombre, $apellidos, $direccion, $email, $telefono, $id);
+        $stmt->bind_param("ssssisi",  $nombre, $apellidos, $direccion, $email, $telefono, $area, $id);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {

@@ -26,7 +26,7 @@ $categorias = CategoriaDAO::getAllCategories();
     <div class="container-flex fondo-panel">
         <div class="container pt-4">
             <div class="row">
-                <div class="col-3">
+                <div class="col-lg-3 col-md-4 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <div class="d-flex justify-content-start align-items-center mb-3">
                             <div class="circulo-user"></div>
@@ -38,9 +38,6 @@ $categorias = CategoriaDAO::getAllCategories();
                                                                 break;
                                                             case 2:
                                                                 echo 'Usuario';
-                                                                break;
-                                                            case 3:
-                                                                echo 'Desarrollador';
                                                                 break;
                                                         }  ?></p>
                             </div>
@@ -119,7 +116,7 @@ $categorias = CategoriaDAO::getAllCategories();
                         </div>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-lg-9 col-md-8 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <h2 class="mb-3 text text-h2">Modificar <?= $producto->getNombre_producto() ?></h2>
                         <form action=<?= url . "?controller=Panel&action=guardarCambiosProducto" ?> method="post">

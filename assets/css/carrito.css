@@ -1,3 +1,4 @@
+/* CONTENEDORES */
 .altura-carrito {
     height: 9.5rem;
 }
@@ -17,12 +18,19 @@
     background-color: #D9D9D9;
 }
 
+/* IMAGENES */
 .img-basura {
     height: 1.5rem;
     width: 1.5rem;
     margin-bottom: 0.1rem;
 }
 
+.pagos{
+    width: 90%;
+    height: auto;
+}
+
+/* TEXTO */
 .text-precio-tachado-carrito {
     text-decoration: line-through;
     font-weight: 800;
@@ -45,21 +53,55 @@
     font-size: 0.9rem;
 }
 
+/* FONDOS */
 .fondo-gris {
     background-color: #D9D9D9;
 }
 
 @media (max-width: 991.98px) {
 
-    
+    .text-cheque {
+        font-size: 1rem;
+    }
+
+    .img-basura {
+        height: 1.4rem;
+        width: 1.4rem;
+    }
+
+    .text-pago {
+        font-size: 0.82rem;
+    }
 }
 
 @media (max-width: 767.98px) {
 
-    
+    .text-cheque {
+        font-size: 0.85rem;
+    }
+
+    .img-basura {
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+
+    .text-pago {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-width: 575.98px) {
     
+    .text-cheque {
+        font-size: 0.75rem;
+    }
 
+    .img-basura {
+        height: 1rem;
+        width: 1rem;
+    }
+
+    .text-pago {
+        font-size: 0.58rem;
+    }
  }

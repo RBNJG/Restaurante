@@ -38,7 +38,7 @@ $carrito = $_SESSION['carrito'];
         } else {
         ?>
             <div class="row">
-                <div class="col-9 px-0 mb-5">
+                <div class="col-lg-9 col-md-8 col-6 px-0 mb-5">
                     <h3 class="text-h3 mb-3">Vendido por LEROY MERLIN</h3>
                     <?php
                     $pos = 0;
@@ -88,7 +88,7 @@ $carrito = $_SESSION['carrito'];
                                                 <input name="sumar" value="<?= $pos ?>" hidden />
                                                 <button class="sumar" type="submit">
                                                     <picture class="d-flex align-items-center">
-                                                        <img src="assets/images/carrito/mas.svg" alt="">
+                                                        <img src="assets/images/carrito/mas.svg" alt="" class="">
                                                     </picture>
                                                 </button>
                                             </form>
@@ -123,7 +123,7 @@ $carrito = $_SESSION['carrito'];
                     }
                     ?>
                 </div>
-                <div class="col-3 ps-4 mt-2 mb-5">
+                <div class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5">
                     <div class="d-flex justify-content-between align-items-center py-4 px-3 mb-3 cartel-cheque">
                         <h3 class="mb-0 text-cheque">Aplicar cheques club</h4>
                             <picture>
@@ -156,8 +156,8 @@ $carrito = $_SESSION['carrito'];
                             <button class="btn-compra mb-3">Continuar</button>
                         </form>
                         <p class="mb-2 text-pago">Pago 100% seguro</p>
-                        <picture>
-                            <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3">
+                        <picture class="w-100">
+                            <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3 pagos">
                         </picture>
                     </div>
                 </div>

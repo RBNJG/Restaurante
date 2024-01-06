@@ -37,6 +37,8 @@ class CartaController
 
         //Obtenemos las categorias
         $categorias = CategoriaDAO::getAllCategories();
+        //Obtenemos el precio más bajo
+        $precio = ProductoDAO::getCheaperPrice();
 
         //Cabecera
         include_once 'Views/header.php';

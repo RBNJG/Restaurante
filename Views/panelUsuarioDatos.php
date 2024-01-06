@@ -24,7 +24,7 @@ $carrito = $_SESSION['carrito'];
     <div class="container-flex fondo-panel">
         <div class="container pt-4">
             <div class="row">
-                <div class="col-3">
+                <div class="col-lg-3 col-md-4 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <div class="d-flex justify-content-start align-items-center mb-3">
                             <div class="circulo-user"></div>
@@ -36,9 +36,6 @@ $carrito = $_SESSION['carrito'];
                                                                 break;
                                                             case 2:
                                                                 echo 'Usuario';
-                                                                break;
-                                                            case 3:
-                                                                echo 'Desarrollador';
                                                                 break;
                                                         }  ?></p>
                             </div>
@@ -117,7 +114,7 @@ $carrito = $_SESSION['carrito'];
                         </div>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-lg-9 col-md-8 col-6">
                     <div class="mb-4 p-4 grupo-panel fondo-blanco">
                         <form action=<?= url . "?controller=Panel&action=guardarCambios" ?> method="post">
                             <div class="d-flex justify-content-between mb-4">
@@ -176,6 +173,23 @@ $carrito = $_SESSION['carrito'];
                                 </div>
                             </div>
 
+                            <?php
+                            if ($usuario->getRol_id() == 1) {
+                            ?>
+                                <div class="d-flex justify-content-start mb-4">
+                                    <div class="w-50 pe-3 d-flex flex-column">
+                                        <label for="area" class="mb-1">
+                                            <div class="d-flex align-items-center">
+                                                <p class="me-1 mb-2 text text-password-big color-migas">Área responsable</p>
+                                                <p class="text mb-2 text-password-small color-hover">- Obligatorio</p>
+                                            </div>
+                                        </label>
+                                        <input type="text" id="area" name="area" value="<?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getArea_responsable() ?>" class="p-3 input-password" required>
+                                    </div>
+                                </div>
+                            <?php
+                            }
+                            ?>
                             <div class="w-100 d-flex justify-content-center">
                                 <button type="submit" class="w-50 align-self-center mb-2 btn-compra">Guardar cambios</button>
                             </div>

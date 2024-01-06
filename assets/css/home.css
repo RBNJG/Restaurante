@@ -50,6 +50,30 @@
     color: #000000;
 }
 
+.btn-g-w {
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 600;
+    color: #188803;
+    background-color: #FFFFFF;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    border-color: var(--color-verde-boton);
+    border-style: solid;
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+.btn-g-w:hover {
+    background-color: #EBF5DE;
+    color: #188803;
+}
+
+.btn-g-w:active {
+    background-color: #C1DE9B;
+}
+
 @media (max-width: 991.98px) {
 
     .text-carousel {

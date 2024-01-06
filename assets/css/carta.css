@@ -16,13 +16,16 @@
 }
 
 .text-opiniones {
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 400;
     font-size: 0.6rem;
     color: #666666;
 }
 
 .text-envio-gratis {
+    font-family: 'leroy-merlin', sans-serif;
     font-size: 0.65rem;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .subrayado {
@@ -93,6 +96,11 @@
     width: 100%;
 }
 
+.precio-bajo{
+    width: 90%;
+    height: auto;
+}
+
 /* BOTONES */
 .btn-anadir-carrito {
     font-family: 'leroy-merlin', sans-serif;
@@ -116,16 +124,70 @@
 }
 
 @media (max-width: 991.98px) {
+    .text-carta {
+        font-size: 1.7rem;
+    }
 
-    
+    .fondo-carta {
+        height: 5rem;
+    }
+
+    .estrella{
+        width: 4rem;
+        height: auto;
+    }
+
+    .text-opiniones {
+        font-size: 0.55rem;
+    }
+
+    .text-envio-gratis {
+        font-size: 0.6rem;
+    }
 }
 
 @media (max-width: 767.98px) {
-
+    .text-carta {
+        font-size: 1.6rem;
+    }
     
+    .fondo-carta {
+        height: 4.5rem;
+    }
+
+    .estrella{
+        width: 3.2rem;
+        height: auto;
+    }
+
+    .text-opiniones {
+        font-size: 0.45rem;
+    }
+
+    .text-envio-gratis {
+        font-size: 0.53rem;
+    }
 }
 
 @media (max-width: 575.98px) {
-    
+    .text-carta {
+        font-size: 1.4rem;
+    }
 
- }
+    .fondo-carta {
+        height: 4rem;
+    }
+
+    .estrella{
+        width: 2.8rem;
+        height: auto;
+    }
+
+    .text-opiniones {
+        font-size: 0.4rem;
+    }
+
+    .text-envio-gratis {
+        font-size: 0.45rem;
+    }
+}
