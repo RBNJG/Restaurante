@@ -150,7 +150,7 @@
                             $producto = ProductoDAO::getProduct($detalle->getProducto_id());
                         ?>
                             <div class="row">
-                                <div class="d-flex justify-content-start w-100 ps-0 pe-2 altura-carrito">
+                                <div class="d-flex justify-content-start w-100 ps-2 pe-2 altura-carrito">
                                     <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getImagen() ?>);"></div>
                                     <div class="w-100 d-flex flex-column justify-content-around">
                                         <div class="d-flex justify-content-between px-3">

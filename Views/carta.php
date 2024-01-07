@@ -25,7 +25,7 @@
             </nav>
         </div>
     </div>
-    <div class="mt-5 mb-3">
+    <div class="mt-3">
         <div class="container px-0 d-flex align-items-center fondo-carta">
             <h2 class="ms-4 text-white text-carta">Carta</h2>
         </div>
@@ -37,7 +37,7 @@
             </p>
         </div>
     </div>
-    <div class="container mt-5">
+    <div class="container mt-4">
         <div class="row">
             <div class="col-3 px-0 mb-5">
                 <div class="d-flex align-items-center justify-content-between ps-2 pe-3 py-3 fondo-desplegable">
@@ -132,9 +132,9 @@
                     <div class="d-flex justify-content-start align-items-center">
                         <p class="my-0 text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
                         <select name="" id="" class="ms-3 text select-filtro">
-                            <option value="">Los más vendidos</option>
                             <option value="">Precio: de menor a mayor</option>
                             <option value="">Precio: de mayor a menor</option>
+                            <option value="">Los más vendidos</option>
                         </select>
                         <picture>
                             <img src="assets/images/carta/info.svg" alt="info" class="ms-3">

@@ -5,7 +5,6 @@ class DetallePedido{
     private $detalle_pedido_id;
     private $pedido_id;
     private $producto_id;
-    private $modificacion_id;
     private $cantidad_producto;
     private $subtotal;
 
@@ -67,26 +66,6 @@ class DetallePedido{
     public function setProducto_id($producto_id)
     {
         $this->producto_id = $producto_id;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of modificacion_id
-     */ 
-    public function getModificacion_id()
-    {
-        return $this->modificacion_id;
-    }
-
-    /**
-     * Set the value of modificacion_id
-     *
-     * @return  self
-     */ 
-    public function setModificacion_id($modificacion_id)
-    {
-        $this->modificacion_id = $modificacion_id;
 
         return $this;
     }

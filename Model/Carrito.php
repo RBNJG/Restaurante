@@ -4,7 +4,6 @@ class Carrito{
 
     private $producto;
     private $cantidad = 1;
-    private $modificacion;
 
     public function __construct($producto){
         $this->producto = $producto;
@@ -47,26 +46,6 @@ class Carrito{
     public function setCantidad($cantidad)
     {
         $this->cantidad = $cantidad;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of modificacion
-     */ 
-    public function getModificacion()
-    {
-        return $this->modificacion;
-    }
-
-    /**
-     * Set the value of modificacion
-     *
-     * @return  self
-     */ 
-    public function setModificacion($modificacion)
-    {
-        $this->modificacion = $modificacion;
 
         return $this;
     }

@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary py-0">
+        <nav class="navbar navbar-expand-lg py-0">
             <div class="container-fluid px-0">
                 <div class="logo">
                     <a href="<?= url . "?controller=Home" ?>" class="logo-enlace"></a>

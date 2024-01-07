@@ -71,21 +71,6 @@ class UsuarioDAO
             }
         }
 
-        /*    
-        if ($result) {
-            // Mientras haya usuarios en la base de datos, los voy creando y guardando en un array
-            // Con fetch_object le decimos el objeto de la base de datos que queremos, y si los atributos 
-            // son iguales que en la base de datos y el constructor está vacío, los crea automáticamente.
-            while ($usuario = $result->fetch_object('Usuario')) {
-                $usuarios[] = $usuario;
-            }
-
-            $result->free();
-        } else {
-            echo "Error en la consulta: " . $connection->error;
-        }
-        */
-
         $connection->close();
         return $usuarios;
     }
@@ -154,15 +139,6 @@ class UsuarioDAO
                 echo "Error en la consulta: " . $connection->error;
             }
         }
-
-        /*
-        if ($result) {
-            $usuario = $result->fetch_object('Usuario');
-            $result->free();
-        } else {
-            echo "Error en la consulta: " . $connection->error;
-        }
-        */
 
         // Cerrar la conexión
         $stmt->close();
