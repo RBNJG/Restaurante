@@ -109,6 +109,11 @@
     background-repeat: no-repeat;
 }
 
+.imagen-producto{
+    width: 8rem;
+    height: auto;
+}
+
 /* CONTENEDORES */
 .grupo-panel {
     border: 1px solid #aaaaaa;

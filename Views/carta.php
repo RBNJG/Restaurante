@@ -132,9 +132,9 @@
                     <div class="d-flex justify-content-start align-items-center">
                         <p class="my-0 text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
                         <select name="" id="" class="ms-3 text select-filtro">
-                            <option value="">Precio: de menor a mayor</option>
-                            <option value="">Precio: de mayor a menor</option>
-                            <option value="">Los más vendidos</option>
+                            <option value="menos_mas">Precio: de menor a mayor</option>
+                            <option value="mas_menos">Precio: de mayor a menor</option>
+                            <option value="vendidos">Los más vendidos</option>
                         </select>
                         <picture>
                             <img src="assets/images/carta/info.svg" alt="info" class="ms-3">

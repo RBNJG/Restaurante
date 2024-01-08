@@ -43,21 +43,21 @@ $categorias = CategoriaDAO::getAllCategories();
                 <h2 class="mt-6 mb-4 pt-2 pb-2 text-center text-h2">Nuestras ofertas en carta</h2>
                 <div class="row d-flex justify-content-between">
                     <div class="col-4 d-flex justify-content-start">
-                        <a href="<?= url . "?controller=Carta" ?>">
+                        <a href="<?= url . "?controller=Carta#Ensaladas" ?>">
                             <picture>
                                 <img src="assets/images/home/Ensaladas.png" alt="Oferta ensaladas" class="img-fluid">
                             </picture>
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-center">
-                        <a href="<?= url . "?controller=Carta" ?>">
+                        <a href="<?= url . "?controller=Carta#Entrantes" ?>">
                             <picture>
                                 <img src="assets/images/home/Pasta.png" alt="Spaghettis baratos" class="img-fluid">
                             </picture>
                         </a>
                     </div>
                     <div class="col-4 d-flex justify-content-end">
-                        <a href="<?= url . "?controller=Carta" ?>">
+                        <a href="<?= url . "?controller=Carta#Brasa" ?>">
                             <picture>
                                 <img src="assets/images/home/Oferta entrecot.png" alt="Oferta en brasa" class="img-fluid">
                             </picture>
@@ -101,16 +101,16 @@ $categorias = CategoriaDAO::getAllCategories();
                 <h2 class="mt-6 mb-3 text-center text-h2">Categorias</h2>
                 <div class="row justify-content-center">
                     <div class="d-flex justify-content-center">
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Entrantes</a>
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Ensaladas</a>
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Arroces</a>
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Brasa</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Entrantes" ?>">Entrantes</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Ensaladas" ?>">Ensaladas</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Arroces" ?>">Arroces</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Brasa" ?>">Brasa</a>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Carnes</a>
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Pescados</a>
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Bebidas</a>
-                        <a class="btn-c-h text" href="<?= url . "?controller=Carta" ?>">Postres</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Carnes" ?>">Carnes</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Pescados" ?>">Pescados</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Bebidas" ?>">Bebidas</a>
+                        <a class="btn-c-h text" href="<?= url . "?controller=Carta#Postres" ?>">Postres</a>
                     </div>
                 </div>
             </div>

@@ -257,9 +257,9 @@ class PanelController
         $email = $_POST['email'];
         $telefono = $_POST['telefono'];
         //Si el usuario no es administrador pasaremos area cómo nulo
-        if(isset($_POST['area'])){
+        if (isset($_POST['area'])) {
             $area = $_POST['area'];
-        }else{
+        } else {
             $area = null;
         }
 
@@ -277,11 +277,18 @@ class PanelController
         $descripcion = $_POST['descripcion'];
         $categoria_id = $_POST['categoria_id'];
         $coste_base = $_POST['coste_base'];
-        $imagen = $_POST['imagen'];
+        //$imagen = $_POST['imagen'];
+        if (basename($_FILES["imagen"]["name"] == "")) {
+            $imagen = ProductoDAO::getProduct($producto_id)->getImagen();
+        } else {
+            $nombre_imagen = basename($_FILES["imagen"]["name"]);
+            $imagen = "assets/images/carta/" . $nombre_imagen;
+        }
 
-        if($_POST['envio_gratis'] == 1){
+
+        if ($_POST['envio_gratis'] == 1) {
             $envio_gratis = 1;
-        }else{
+        } else {
             $envio_gratis = 0;
         }
 
@@ -298,11 +305,12 @@ class PanelController
         $descripcion = $_POST['descripcion'];
         $categoria_id = $_POST['categoria_id'];
         $coste_base = $_POST['coste_base'];
-        $imagen = $_POST['imagen'];
-        
-        if($_POST['envio_gratis'] == 1){
+        $nombre_imagen = basename($_FILES["imagen"]["name"]);
+        $imagen = "assets/images/carta/" . $nombre_imagen;
+
+        if ($_POST['envio_gratis'] == 1) {
             $envio_gratis = 1;
-        }else{
+        } else {
             $envio_gratis = 0;
         }
 

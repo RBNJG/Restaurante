@@ -119,7 +119,7 @@ $categorias = CategoriaDAO::getAllCategories();
                 <div class="col-lg-9 col-md-8 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <h2 class="mb-3 text text-h2">Modificar <?= $producto->getNombre_producto() ?></h2>
-                        <form action=<?= url . "?controller=Panel&action=guardarCambiosProducto" ?> method="post">
+                        <form action=<?= url . "?controller=Panel&action=guardarCambiosProducto" ?> method="post" enctype="multipart/form-data">
                             <input type="hidden" name="producto_id" value="<?= $producto->getProducto_id() ?>">
 
                             <div class="w-50 me-3 mb-4 d-flex flex-column">
@@ -140,7 +140,7 @@ $categorias = CategoriaDAO::getAllCategories();
                                 <label for="categoria" class="mb-1">
                                     <p class="me-1 mb-2 text text-password-big color-migas">Categoría</p>
                                 </label>
-                                <select name="categoria_id" class="text select-filtro">
+                                <select name="categoria_id" class="text select-filtro color-migas">
                                     <?php foreach ($categorias as $categoria) { ?>
                                         <option value="<?= $categoria->getCategoria_id() ?>"> <?= $categoria->getNombre_categoria() ?></option>
                                     <?php
@@ -153,7 +153,7 @@ $categorias = CategoriaDAO::getAllCategories();
                                 <label for="coste_base" class="mb-1">
                                     <p class="me-1 mb-2 text text-password-big color-migas">Precio</p>
                                 </label>
-                                <input type="decimal" name="coste_base" value="<?=  $producto->getCoste_base() ?>" class="p-3 input-password" required>
+                                <input type="decimal" name="coste_base" value="<?= $producto->getCoste_base() ?>" class="p-3 input-password" required>
                             </div>
 
                             <div class="w-25 me-3 mb-4 d-flex justify-content-start align-items-center">
@@ -165,9 +165,16 @@ $categorias = CategoriaDAO::getAllCategories();
 
                             <div class="w-50 me-3 mb-4 d-flex flex-column">
                                 <label for="imagen" class="mb-1">
-                                    <p class="me-1 mb-2 text text-password-big color-migas">Ruta imagen</p>
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Imagen</p>
                                 </label>
-                                <input type="text" name="imagen" value="<?=  $producto->getImagen() ?>" class="p-3 input-password" required>
+                                <?php
+                                if ($producto->getImagen() !== "assets/images/carta/") {
+                                ?>
+                                    <img src="<?= $producto->getImagen() ?>" alt="Imagen producto" class="mb-2 imagen-producto">
+                                <?php
+                                }
+                                ?>
+                                <input type="file" name="imagen" class="text color-migas">
                             </div>
 
                             <div class="w-100 d-flex justify-content-start">

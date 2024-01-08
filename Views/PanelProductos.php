@@ -117,7 +117,7 @@ $carrito = $_SESSION['carrito'];
                 <div class="col-lg-9 col-md-8 col-6">
                     <div class="mb-4 grupo-panel fondo-blanco">
                         <h2 class="mb-3 text text-h2">Nuevo producto</h2>
-                        <form action=<?= url . "?controller=Panel&action=nuevoProducto" ?> method="post">
+                        <form action=<?= url . "?controller=Panel&action=nuevoProducto" ?> method="post" enctype="multipart/form-data">
                             <input type="hidden" name="producto_id" value="">
 
                             <div class="w-50 me-3 mb-4 d-flex flex-column">
@@ -138,7 +138,7 @@ $carrito = $_SESSION['carrito'];
                                 <label for="categoria" class="mb-1">
                                     <p class="me-1 mb-2 text text-password-big color-migas">Categoría</p>
                                 </label>
-                                <select name="categoria_id" class="text select-filtro">
+                                <select name="categoria_id" class="text select-filtro color-migas">
                                     <?php foreach ($categorias as $categoria) { ?>
                                         <option value="<?= $categoria->getCategoria_id() ?>"> <?= $categoria->getNombre_categoria() ?></option>
                                     <?php
@@ -163,9 +163,9 @@ $carrito = $_SESSION['carrito'];
 
                             <div class="w-50 me-3 mb-4 d-flex flex-column">
                                 <label for="imagen" class="mb-1">
-                                    <p class="me-1 mb-2 text text-password-big color-migas">Ruta imagen</p>
+                                    <p class="me-1 mb-2 text text-password-big color-migas">Imagen</p>
                                 </label>
-                                <input type="text" name="imagen" value="" class="p-3 input-password" required>
+                                <input type="file" name="imagen" value="" class="text color-migas" required>
                             </div>
 
                             <div class="w-100 d-flex justify-content-start">

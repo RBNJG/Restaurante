@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2023 a las 20:08:48
+-- Tiempo de generación: 08-01-2024 a las 09:39:25
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -57,67 +57,29 @@ CREATE TABLE `detalles_pedido` (
   `detalle_pedido_id` int(11) NOT NULL,
   `pedido_id` int(11) NOT NULL,
   `producto_id` int(11) NOT NULL,
-  `modificacion_id` int(11) NOT NULL,
   `cantidad_producto` int(3) NOT NULL,
   `subtotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `ingrediente`
+-- Volcado de datos para la tabla `detalles_pedido`
 --
 
-CREATE TABLE `ingrediente` (
-  `ingrediente_id` int(11) NOT NULL,
-  `nombre_ingrediente` varchar(50) NOT NULL,
-  `coste_adicional` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `ingrediente`
---
-
-INSERT INTO `ingrediente` (`ingrediente_id`, `nombre_ingrediente`, `coste_adicional`) VALUES
-(1, 'Alioli', 1.50),
-(2, 'Limón', 0.50),
-(3, 'Queso rallado', 1.00),
-(4, 'Tomate cherry', 0.50),
-(5, 'Almejas', 1.00),
-(6, 'Huevo frito', 1.00),
-(7, 'Patatas fritas', 1.00),
-(8, 'Salsa roquefort', 1.00),
-(9, 'Salsa a la pimienta', 1.00),
-(10, 'Guindilla', 0.50),
-(11, 'Ensalada', 1.00),
-(12, 'Frutos rojos', 0.50),
-(13, 'Nueces', 0.50),
-(14, 'Canela', 0.50),
-(15, 'Gambas', 1.00),
-(16, 'Langostinos', 1.50),
-(17, 'Parmesano', 1.00),
-(18, 'Tomate frito', 0.50),
-(19, 'Bacon', 1.00),
-(20, 'Atún', 1.00),
-(21, 'Pollo', 1.00),
-(22, 'Salsa César', 0.50),
-(23, 'Cebolla', 0.50),
-(24, 'Apio', 0.50),
-(25, 'Zanahoria', 0.50),
-(26, 'Panecillo', 1.00);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `modificacion`
---
-
-CREATE TABLE `modificacion` (
-  `modificacion_id` int(11) NOT NULL,
-  `ingrediente_id` int(11) NOT NULL,
-  `cantidad` int(3) NOT NULL,
-  `tipo` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `detalles_pedido` (`detalle_pedido_id`, `pedido_id`, `producto_id`, `cantidad_producto`, `subtotal`) VALUES
+(16, 11, 18, 2, 21.50),
+(19, 12, 10, 3, 24.30),
+(21, 12, 25, 2, 25.60),
+(23, 13, 5, 1, 12.50),
+(24, 14, 6, 1, 13.75),
+(25, 14, 14, 1, 10.75),
+(26, 15, 3, 1, 7.99),
+(27, 15, 7, 3, 21.87),
+(30, 20, 5, 1, 12.50),
+(31, 21, 5, 1, 12.50),
+(32, 21, 3, 1, 7.50),
+(33, 22, 5, 1, 12.50),
+(34, 22, 3, 1, 7.50),
+(35, 22, 18, 1, 10.75);
 
 -- --------------------------------------------------------
 
@@ -128,10 +90,24 @@ CREATE TABLE `modificacion` (
 CREATE TABLE `pedido` (
   `pedido_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` datetime NOT NULL,
   `coste_total` decimal(10,2) NOT NULL,
   `estado` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`pedido_id`, `usuario_id`, `fecha`, `coste_total`, `estado`) VALUES
+(11, 12, '2023-12-15 16:47:52', 21.50, 'En preparación'),
+(12, 12, '2023-12-15 17:06:17', 49.90, 'Entregado'),
+(13, 12, '2024-01-03 19:34:15', 15.50, 'En preparación'),
+(14, 12, '2024-01-03 19:39:08', 24.50, 'En preparación'),
+(15, 12, '2024-01-04 18:05:37', 29.86, 'En preparación'),
+(20, 12, '2024-01-06 20:12:34', 15.50, 'En preparación'),
+(21, 12, '2024-01-07 17:49:41', 23.00, 'En preparación'),
+(22, 12, '2024-01-07 17:58:18', 33.75, 'En preparación');
 
 -- --------------------------------------------------------
 
@@ -146,10 +122,10 @@ CREATE TABLE `producto` (
   `descripcion` varchar(255) NOT NULL,
   `coste_base` decimal(10,2) NOT NULL,
   `imagen` varchar(255) NOT NULL,
-  `descuento` decimal(10,2) NOT NULL,
+  `descuento` decimal(4,2) NOT NULL,
   `envio_gratis` tinyint(1) NOT NULL,
-  `opiniones` int(11) NOT NULL,
-  `estrellas` int(11) NOT NULL
+  `opiniones` int(4) DEFAULT NULL,
+  `estrellas` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -157,7 +133,7 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`producto_id`, `categoria_id`, `nombre_producto`, `descripcion`, `coste_base`, `imagen`, `descuento`, `envio_gratis`, `opiniones`, `estrellas`) VALUES
-(3, 1, 'Croquetas de jamón', 'Croquetas caseras de jamón.', 7.99, 'assets/images/carta/croquetas_jamon.jpg', 0.00, 1, 8, 4),
+(3, 1, 'Espaguetis con tomate', 'Espaguetis con salsa de tomate.', 7.50, 'assets/images/carta/espaguetis.png', 0.00, 1, 8, 4),
 (4, 1, 'Calamares rebozados', 'Calamares a la romana acompañados de salsa de ajo.', 13.50, 'assets/images/carta/calamares.png', 0.00, 1, 4, 4),
 (5, 1, 'Tostadas con salmón', 'Tostadas integrales con salmón, aguacate y rúcula.', 12.50, 'assets/images/carta/tostadas_salmon.png', 0.00, 0, 12, 4),
 (6, 1, 'Jamón ibérico', 'Plato de jamón ibérico de 5 bellotas.', 13.75, 'assets/images/carta/jamon.png', 0.00, 1, 6, 4),
@@ -193,19 +169,6 @@ INSERT INTO `producto` (`producto_id`, `categoria_id`, `nombre_producto`, `descr
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `producto_ingrediente`
---
-
-CREATE TABLE `producto_ingrediente` (
-  `producto_ingrediente_id` int(11) NOT NULL,
-  `producto_id` int(11) NOT NULL,
-  `ingrediente_id` int(11) NOT NULL,
-  `Cantidad_ingrediente` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `rol`
 --
 
@@ -220,8 +183,7 @@ CREATE TABLE `rol` (
 
 INSERT INTO `rol` (`rol_id`, `nombre_rol`) VALUES
 (1, 'Administrador'),
-(2, 'Usuario'),
-(3, 'Desarrollador');
+(2, 'Usuario');
 
 -- --------------------------------------------------------
 
@@ -236,9 +198,19 @@ CREATE TABLE `usuario` (
   `apellidos` varchar(100) NOT NULL,
   `direccion` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `telefono` int(7) NOT NULL,
-  `password` varchar(30) NOT NULL
+  `telefono` int(9) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `puntos_fidelidad` int(11) DEFAULT NULL,
+  `area_responsable` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`usuario_id`, `rol_id`, `nombre`, `apellidos`, `direccion`, `email`, `telefono`, `password`, `puntos_fidelidad`, `area_responsable`) VALUES
+(12, 2, 'Pedro', 'Martínez ', 'Calle random, 3', '1@1.com', 650333123, '$2y$10$liw75m3rzLGigFWPfDAjO.7VfsdMmEA.Y9upAtkgd2GdpX9B3Hyee', 20, NULL),
+(14, 1, 'Rubén', 'Jordán García', 'Pepepepe', 'admin@admin.com', 123456789, '$2y$10$Q74lHMIGxpyCix/0w04/u.BH/HGG7DrzMk1hu5UXxoVVGp/DXzcue', NULL, 'Administración');
 
 --
 -- Índices para tablas volcadas
@@ -257,18 +229,6 @@ ALTER TABLE `detalles_pedido`
   ADD PRIMARY KEY (`detalle_pedido_id`);
 
 --
--- Indices de la tabla `ingrediente`
---
-ALTER TABLE `ingrediente`
-  ADD PRIMARY KEY (`ingrediente_id`);
-
---
--- Indices de la tabla `modificacion`
---
-ALTER TABLE `modificacion`
-  ADD PRIMARY KEY (`modificacion_id`);
-
---
 -- Indices de la tabla `pedido`
 --
 ALTER TABLE `pedido`
@@ -279,12 +239,6 @@ ALTER TABLE `pedido`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`producto_id`);
-
---
--- Indices de la tabla `producto_ingrediente`
---
-ALTER TABLE `producto_ingrediente`
-  ADD PRIMARY KEY (`producto_ingrediente_id`);
 
 --
 -- Indices de la tabla `rol`
@@ -312,37 +266,19 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalles_pedido`
 --
 ALTER TABLE `detalles_pedido`
-  MODIFY `detalle_pedido_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `ingrediente`
---
-ALTER TABLE `ingrediente`
-  MODIFY `ingrediente_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
-
---
--- AUTO_INCREMENT de la tabla `modificacion`
---
-ALTER TABLE `modificacion`
-  MODIFY `modificacion_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `detalle_pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
-
---
--- AUTO_INCREMENT de la tabla `producto_ingrediente`
---
-ALTER TABLE `producto_ingrediente`
-  MODIFY `producto_ingrediente_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -354,7 +290,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

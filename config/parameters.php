@@ -1,3 +1,3 @@
 <?php
 
-define("url","http://localhost/Restaurante/");
+define("url","http://www.leroymerlin.com/");

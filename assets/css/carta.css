@@ -18,13 +18,13 @@
 .text-opiniones {
     font-family: 'leroy-merlin', sans-serif;
     font-weight: 400;
-    font-size: 0.6rem;
+    font-size: 0.625rem;
     color: #666666;
 }
 
 .text-envio-gratis {
     font-family: 'leroy-merlin', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.625rem;
     font-weight: 400;
 }
 
@@ -125,7 +125,7 @@
 
 @media (max-width: 991.98px) {
     .text-carta {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
     }
 
     .fondo-carta {
@@ -142,13 +142,13 @@
     }
 
     .text-envio-gratis {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
     }
 }
 
 @media (max-width: 767.98px) {
     .text-carta {
-        font-size: 1.6rem;
+        font-size: 1.7rem;
     }
     
     .fondo-carta {
@@ -161,17 +161,17 @@
     }
 
     .text-opiniones {
-        font-size: 0.45rem;
+        font-size: 0.5rem;
     }
 
     .text-envio-gratis {
-        font-size: 0.53rem;
+        font-size: 0.5rem;
     }
 }
 
 @media (max-width: 575.98px) {
     .text-carta {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
     }
 
     .fondo-carta {
@@ -188,6 +188,6 @@
     }
 
     .text-envio-gratis {
-        font-size: 0.45rem;
+        font-size: 0.4rem;
     }
 }
