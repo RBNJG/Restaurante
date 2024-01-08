@@ -103,6 +103,7 @@ class ProductoDAO
 
         // Obtener el resultado
         $result = $stmt->get_result();
+        $productos = null;
 
         //Guardamos los resultados en un array de productos
         if ($result) {

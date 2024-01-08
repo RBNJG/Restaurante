@@ -74,7 +74,11 @@
                                 <img src="assets/images/carta/4_estrellas.svg" alt="" class="estrella">
                             </div>
                             <p class="mb-0 text">4 y más</p>
-                            <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 4) ?>)</p>
+                            <p class="mb-0 ms-2 text color-hover">(<?php if ($productos == null) {
+                                                    echo "0";
+                                                } else {
+                                                    Calculadora::countEstrellas($productos, 4);
+                                                } ?>)</p>
                         </div>
                         <div class="d-flex justify-content-start align-items-baseline my-3">
                             <input type="checkbox" name="3estrellas" value="3" <?= $estrellas3 ? 'checked' : '' ?>>
@@ -82,7 +86,11 @@
                                 <img src="assets/images/carta/3_estrellas.svg" alt="" class="estrella">
                             </picture>
                             <p class="mb-0 text">3 y más</p>
-                            <p class="mb-0 ms-2 text color-hover">(<?= Calculadora::countEstrellas($productos, 3) ?>)</p>
+                            <p class="mb-0 ms-2 text color-hover">(<?php if ($productos == null) {
+                                                    echo "0";
+                                                } else {
+                                                    Calculadora::countEstrellas($productos, 3);
+                                                } ?>)</p>
                         </div>
                     </div>
 
@@ -130,7 +138,11 @@
             <div class="col-9 ps-5 pe-0 mt-2 mb-5">
                 <div class="row">
                     <div class="d-flex justify-content-start align-items-center">
-                        <p class="my-0 text"><b><?= count($productos) ?></b> producto(s) ordenado(s) por</p>
+                        <p class="my-0 text"><b><?php if ($productos == null) {
+                                                    echo "0";
+                                                } else {
+                                                    echo count($productos);
+                                                }  ?></b> producto(s) ordenado(s) por</p>
                         <select name="" id="" class="ms-3 text select-filtro">
                             <option value="menos_mas">Precio: de menor a mayor</option>
                             <option value="mas_menos">Precio: de mayor a menor</option>
@@ -144,15 +156,20 @@
                 <?php
                 $contador = 0;
                 $categoriaActual = "";
-                foreach ($productos as $producto) {
-                    if ($categoriaActual != $producto->getCategoria_id()) {;
-                        if ($categoriaActual != "") {
+                if ($productos == null) {
                 ?>
+                    <h2 class="mt-3 text-h2">Ningún producto cumple los requisitos</h2>
+                    <?php
+                } else {
+                    foreach ($productos as $producto) {
+                        if ($categoriaActual != $producto->getCategoria_id()) {;
+                            if ($categoriaActual != "") {
+                    ?>
             </div>
         <?php
-                        }
-                        $categoriaActual = $producto->getCategoria_id();
-                        $categoria = CategoriaDAO::getCategoryName($categoriaActual);
+                            }
+                            $categoriaActual = $producto->getCategoria_id();
+                            $categoria = CategoriaDAO::getCategoryName($categoriaActual);
         ?>
         <div class="row mt-4" id="<?= $categoria ?>">
             <div class="col-12">
@@ -161,7 +178,7 @@
         </div>
         <div class="row mt-2 mb-2">
         <?php
-                    }
+                        }
         ?>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4">
             <div class="h-carta">
@@ -228,9 +245,10 @@
                 </div>
             </div>
         </div>
-    <?php
+<?php
+                    }
                 }
-    ?>
+?>
         </div>
         </div>
     </div>

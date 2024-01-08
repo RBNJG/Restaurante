@@ -57,11 +57,11 @@
                                     <?php
                                     if (!isset($_SESSION['usuario_id'])) {
                                     ?>
-                                        Iniciar sesión
+                                        <p class="mb-0 text-h3">Iniciar sesión
                                     <?php
                                     } else {
                                     ?>
-                                        <?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getNombre() . " " . UsuarioDAO::getUser($_SESSION['usuario_id'])->getApellidos() ?>
+                                        <p class="mb-0 text-h3"><?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getNombre() . " " . UsuarioDAO::getUser($_SESSION['usuario_id'])->getApellidos() ?></p>
                                     <?php
                                     }
                                     ?>
@@ -70,7 +70,7 @@
                             <a href="<?= url . "?controller=Carrito" ?>" class="text-carrito-header">
                                 <div class="d-flex flex-column align-items-center justify-content-center py-2 px-2 background-verde">
                                     <div class="mb-1 logo-carrito"></div>
-                                    Carrito <?= Calculadora::cantidadCarrito($_SESSION['carrito']) ?>
+                                    <p class="mb-0 text-h3">Carrito <?= Calculadora::cantidadCarrito($_SESSION['carrito']) ?></p>
                                 </div>
                             </a>
                         </div>
