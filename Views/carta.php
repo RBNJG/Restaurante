@@ -77,7 +77,7 @@
                             <p class="mb-0 ms-2 text color-hover">(<?php if ($productos == null) {
                                                     echo "0";
                                                 } else {
-                                                    Calculadora::countEstrellas($productos, 4);
+                                                    echo Calculadora::countEstrellas($productos, 4);
                                                 } ?>)</p>
                         </div>
                         <div class="d-flex justify-content-start align-items-baseline my-3">
@@ -89,7 +89,7 @@
                             <p class="mb-0 ms-2 text color-hover">(<?php if ($productos == null) {
                                                     echo "0";
                                                 } else {
-                                                    Calculadora::countEstrellas($productos, 3);
+                                                    echo Calculadora::countEstrellas($productos, 3);
                                                 } ?>)</p>
                         </div>
                     </div>
