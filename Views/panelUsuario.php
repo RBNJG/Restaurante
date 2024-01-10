@@ -129,28 +129,28 @@ $carrito = $_SESSION['carrito'];
                     ?>
                     <div class="grupo-panel fondo-blanco">
                         <?php
-                        if ($pedidosUser == null) {
+                        if(isset($_COOKIE['ultimoPedido'])){
+                            $ultimoPedido = json_decode($_COOKIE['ultimoPedido'], true);
+                        }
+                        if (!isset($_COOKIE['ultimoPedido']) || $ultimoPedido['usuario'] != $_SESSION['usuario_id']) {
                         ?>
                             <h2 class="text text-h2">Todavía no has realizado ningún pedido</h2>
                         <?php
                         } else {
-                            $fechaString = $pedidosUser[0]->getFecha();
-                            $fecha = new DateTime($fechaString);
-
                         ?>
                             <h2 class="text text-h2">Último pedido</h2>
                             <hr class="align-self-center linea-panel">
                             <div class="">
                                 <form action=<?= url . "?controller=Panel&action=detallePedido" ?> method='post'>
-                                    <p class="text-h2">PEDIDO Nº <?= $pedidosUser[0]->getPedido_id() ?></p>
+                                    <p class="text-h2">PEDIDO Nº <?= $ultimoPedido["pedido_id"] ?></p>
                                     <div class="d-flex justify-content-between">
                                         <div>
-                                            <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y"); ?></p>
-                                            <p class="text"><b>Coste total : </b><?= $pedidosUser[0]->getCoste_total() ?> €</p>
-                                            <p class="text"><b>Estado : </b><?= $pedidosUser[0]->getEstado() ?></p>
+                                            <p class="text"><b>Fecha : </b><?= $ultimoPedido["fecha"] ?></p>
+                                            <p class="text"><b>Coste total : </b><?= $ultimoPedido["coste"] ?> €</p>
+                                            <p class="text"><b>Estado : </b><?= $ultimoPedido["estado"] ?></p>
                                         </div>
                                         <div class="d-flex align-items-center me-4">
-                                            <input name="pedido" value="<?= $pedidosUser[0]->getPedido_id() ?>" hidden>
+                                            <input name="pedido" value="<?= $ultimoPedido["pedido_id"] ?>" hidden>
                                             <button class="px-3 mb-3 btn-compra" type="submit">Ver detalles</button>
                                         </div>
                                     </div>

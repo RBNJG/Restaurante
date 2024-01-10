@@ -15,7 +15,10 @@ class PanelController
     public function index()
     {
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
+
+        /*
         $pedidosUser = PedidoDAO::getPedidos($_SESSION['usuario_id']);
+        */
 
         //Cabecera
         include_once 'Views/header.php';

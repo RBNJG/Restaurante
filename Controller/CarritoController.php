@@ -90,6 +90,19 @@ class CarritoController
             DetallePedidoDAO::newDetallePedido($pedidoId,$productoId,$cantidadProducto,$subtotal);
         }
 
+        $pedidoParaCookies = array(
+            "pedido_id" => $pedidoId,
+            "usuario" => $_SESSION['usuario_id'],
+            "fecha" => $fechaActualString,
+            "coste" => Calculadora::total($carrito),
+            "estado" => "En preparación"
+        ); 
+
+        $cookiesPedido = json_encode($pedidoParaCookies);
+
+        //Guardamos el carrito en las cookies
+        setcookie('ultimoPedido', $cookiesPedido, time() + (3600 * 48));
+
         unset($_SESSION['carrito']);
         setcookie('carrito', '', time() - (3600 * 48));
 
