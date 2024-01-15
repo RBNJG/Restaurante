@@ -1,0 +1,14 @@
+.fondo-resenyas {
+    background-color: #E6E6E6;
+}
+
+.barra-progreso{
+    background: #E6E6E6;
+    height: 6px;
+    width: 150px;
+}
+
+.barra-progreso-llena{
+    background: #46a610;
+    height: 100%;
+}

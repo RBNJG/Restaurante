@@ -28,11 +28,19 @@
                     <div class="w-100 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between">
                         <div class="carta">
                             <ul class="navbar-nav me-auto mb-lg-0">
-                                <li class="nav-item">
+                                <li class="nav-item me-4">
                                     <a href="<?= url . "?controller=Carta" ?>" class="text-menu">
                                         <div class="d-flex align-items-center ms-2">
-                                            <img src="assets/images/header/carta.svg" alt="" class="me-2 imagen-carta">
+                                            <img src="assets/images/header/carta.svg" alt="carta" class="me-2 imagen-carta">
                                             <p class="mb-0 text">Carta</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?= url . "?controller=Resenyas" ?>" class="text-menu">
+                                        <div class="d-flex align-items-center ms-2">
+                                            <img src="assets/images/header/opiniones.svg" alt="reseñas" class="me-2 logo-opiniones">
+                                            <p class="mb-0 text">Reseñas</p>
                                         </div>
                                     </a>
                                 </li>
@@ -58,9 +66,9 @@
                                     if (!isset($_SESSION['usuario_id'])) {
                                     ?>
                                         <p class="mb-0 text-h3">Iniciar sesión
-                                    <?php
+                                        <?php
                                     } else {
-                                    ?>
+                                        ?>
                                         <p class="mb-0 text-h3"><?= UsuarioDAO::getUser($_SESSION['usuario_id'])->getNombre() . " " . UsuarioDAO::getUser($_SESSION['usuario_id'])->getApellidos() ?></p>
                                     <?php
                                     }
