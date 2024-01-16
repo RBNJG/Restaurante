@@ -37,7 +37,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?= url . "?controller=Resenyas" ?>" class="text-menu">
+                                    <a href="<?= url . "?controller=Opiniones" ?>" class="text-menu">
                                         <div class="d-flex align-items-center ms-2">
                                             <img src="assets/images/header/opiniones.svg" alt="reseñas" class="me-2 logo-opiniones">
                                             <p class="mb-0 text">Reseñas</p>

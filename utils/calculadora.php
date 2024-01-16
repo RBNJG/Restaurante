@@ -160,4 +160,15 @@ class Calculadora
 
         return $total;
     }
+   
+
+    public static function porcentajeOpiniones($total,$opiniones){
+        if($opiniones == null || $total == null){
+            $porcentaje = 0;
+        }else{
+            $porcentaje = round(($opiniones/$total)*100);
+        }
+        
+        return $porcentaje;
+    }
 }

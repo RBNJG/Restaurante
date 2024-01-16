@@ -8,7 +8,7 @@ include_once 'Controller/LoginController.php';
 include_once 'Controller/RegistroController.php';
 include_once 'Controller/PasswordController.php';
 include_once 'Controller/PanelController.php';
-include_once 'Controller/ResenyasController.php';
+include_once 'Controller/OpinionesController.php';
 include_once 'config/parameters.php';
 
 //Iniciamos sesión
