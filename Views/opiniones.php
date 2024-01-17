@@ -25,7 +25,7 @@
                     Para poder escribir una opinión debes haber realizado un pedido cómo mínimo.
                 </p>
             </section>
-            <section class="d-flex justify-content-center mb-4 fondo-blanco">
+            <section class="d-flex justify-content-center mb-4 fondo-blanco borde">
                 <div>
                     <div class="d-flex justify-content-center">
                         <h2 class="text-h2">4.8/5</h2>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
             </section>
-            <section class="row">
+            <section class="row mb-4">
                 <div class="col-12 col-md-6">
                     <form action=<?= url . "?controller=API&action=api" ?> method='post'>
                         <input type="text" name="accion" value="buscar_pedido" id="" hidden>
@@ -127,19 +127,49 @@
                     </div>
                 </div>
             </section>
-            <section id="opiniones">
-
+            <section id="" class="container">
+                <div class="row mb-3 p-4 fondo-blanco borde">
+                    <div class="col-3">
+                        <div class="d-flex align-items-start flex-column separador">
+                            <div class="d-flex justify-content-start">
+                                <div class="circulo-user-opiniones"></div>
+                                <p>Nombre usuario</p>
+                            </div>
+                            <p>Opinión publicada el ....</p>
+                            <div class="d-flex justify-content-start">
+                                <img src="assets/images/header/opiniones.svg" alt="">
+                                <p>Compra verificada</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="d-flex align-items-start flex-column">
+                            <div class="d-flex justify-content-start aling-items-center mb-2">
+                                <img src="assets/images/carta/4_estrellas.svg" alt="">
+                                <p class="mb-0 text">4/5</p>
+                            </div>
+                            <div class="mb-2">
+                                <p class="text">Opinión</p>
+                            </div>
+                            <p>¿Te ha parecido útil esta opinión?</p>
+                            <div class="d-flex justify-content-start">
+                                <button>Sí</button>
+                                <button>No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
     <script>
         function cargarOpiniones() {
-            fetch('http://www.leroymerlin.com/?controller=API&action=api&accion=buscar_opiniones', {
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: 'accion=buscar_pedido'
+                    body: 'accion=buscar_opiniones'
                 })
                 .then(response => response.json())
                 .then(opiniones => mostrarOpiniones(opiniones))
@@ -148,12 +178,12 @@
 
         function mostrarOpiniones(opiniones) {
             var seccionOpiniones = document.getElementById('opiniones');
-            seccionOpiniones.innerHTML = ''; 
+            seccionOpiniones.innerHTML = '';
             opiniones.forEach(function(opinion) {
                 // Aquí construyes el HTML para cada opinión
                 var div = document.createElement('div');
-                div.className = 'opinion';
-                
+                div.className = 'mb-3 fondo-blanco borde';
+
                 div.innerHTML = `<p>${opinion.opinion}</p>`;
                 seccionOpiniones.appendChild(div);
             });
