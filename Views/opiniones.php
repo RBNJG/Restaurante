@@ -14,7 +14,7 @@
     <title>Leroy Merlin</title>
 </head>
 
-<body>
+<body onload="cargarOpiniones()">
     <main class="fondo-resenyas rellenar">
         <div class="container">
             <section class="mt-3 mb-3">
@@ -109,9 +109,12 @@
             </section>
             <section class="row">
                 <div class="col-12 col-md-6">
-                    <button class="d-flex justify-content-center align-items-center btn-compra text-h3">Filtrar
-                        <img src="assets/images/opiniones/filtro.svg" alt="">
-                    </button>
+                    <form action=<?= url . "?controller=API&action=api" ?> method='post'>
+                        <input type="text" name="accion" value="buscar_pedido" id="" hidden>
+                        <button type="submit" class="d-flex justify-content-center align-items-center btn-compra text-h3">Filtrar
+                            <img src="assets/images/opiniones/filtro.svg" alt="">
+                        </button>
+                    </form>
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
@@ -124,8 +127,38 @@
                     </div>
                 </div>
             </section>
+            <section id="opiniones">
+
+            </section>
         </div>
     </main>
+    <script>
+        function cargarOpiniones() {
+            fetch('http://www.leroymerlin.com/?controller=API&action=api&accion=buscar_opiniones', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'accion=buscar_pedido'
+                })
+                .then(response => response.json())
+                .then(opiniones => mostrarOpiniones(opiniones))
+                .catch(error => console.error('Error:', error));
+        }
+
+        function mostrarOpiniones(opiniones) {
+            var seccionOpiniones = document.getElementById('opiniones');
+            seccionOpiniones.innerHTML = ''; 
+            opiniones.forEach(function(opinion) {
+                // Aquí construyes el HTML para cada opinión
+                var div = document.createElement('div');
+                div.className = 'opinion';
+                
+                div.innerHTML = `<p>${opinion.opinion}</p>`;
+                seccionOpiniones.appendChild(div);
+            });
+        }
+    </script>
 </body>
 
 </html>

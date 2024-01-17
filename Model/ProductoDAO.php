@@ -1,6 +1,6 @@
 <?php
 
-include_once 'config/DataBase.php';
+include_once __DIR__ . '/../config/DataBase.php';
 include_once 'Producto.php';
 
 class ProductoDAO
