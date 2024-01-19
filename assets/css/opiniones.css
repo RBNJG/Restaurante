@@ -2,13 +2,13 @@
     background-color: #E6E6E6;
 }
 
-.barra-progreso{
+.barra-progreso {
     background: #E6E6E6;
     height: 6px;
     width: 150px;
 }
 
-.barra-progreso-llena{
+.barra-progreso-llena {
     background: #46a610;
     height: 100%;
 }
@@ -23,11 +23,55 @@
     border-radius: 20rem;
     background-color: #EBF5DE;
     background-image: url(../images/header/user.svg);
-    background-size: 60%;
+    background-size: 50%;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-.separador{
-    border-right: 1px solid #ccc;
+.separador {
+    border-left: 1px solid #ccc;
+}
+
+.img-verificado {
+    height: 1rem;
+    width: auto;
+}
+
+.img-estrellas{
+    height: 1.5rem;
+    width: auto;
+}
+
+.text-verificado{
+    font-size: 0.875rem;
+    text-decoration: underline;
+}
+
+.text-fecha{
+    font-size: 0.875rem;
+}
+
+.text-util{
+    font-size: 0.8175rem;
+}
+
+.boton-opiniones{
+    font-family: 'leroy-merlin', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #000000;
+    width: 4.5rem;
+    background-color: #ffffff;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    border: 2px solid #000000;
+    border-radius: 4px;
+}
+
+.boton-opiniones:hover{
+    background-color: #E6E6E6;
+}
+
+.boton-deshabilitado{
+    background-color: #E6E6E6 !important;
 }

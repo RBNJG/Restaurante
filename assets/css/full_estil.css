@@ -103,14 +103,6 @@ a:hover {
 
 /* Texto */
 
-.semi-bold {
-    font-weight: 600;
-}
-
-.bold {
-    font-weight: 800;
-}
-
 .text-menu {
     text-decoration: none;
 }
@@ -182,6 +174,14 @@ a:hover {
 .text-categoria:hover {
     text-decoration: underline;
     color: #000000;
+}
+
+.semi-bold {
+    font-weight: 600;
+}
+
+.bold {
+    font-weight: 800 !important;
 }
 
 /* Botones */

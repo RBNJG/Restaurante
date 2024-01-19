@@ -127,44 +127,14 @@
                     </div>
                 </div>
             </section>
-            <section id="" class="container">
-                <div class="row mb-3 p-4 fondo-blanco borde">
-                    <div class="col-3">
-                        <div class="d-flex align-items-start flex-column separador">
-                            <div class="d-flex justify-content-start">
-                                <div class="circulo-user-opiniones"></div>
-                                <p>Nombre usuario</p>
-                            </div>
-                            <p>Opinión publicada el ....</p>
-                            <div class="d-flex justify-content-start">
-                                <img src="assets/images/header/opiniones.svg" alt="">
-                                <p>Compra verificada</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="d-flex align-items-start flex-column">
-                            <div class="d-flex justify-content-start aling-items-center mb-2">
-                                <img src="assets/images/carta/4_estrellas.svg" alt="">
-                                <p class="mb-0 text">4/5</p>
-                            </div>
-                            <div class="mb-2">
-                                <p class="text">Opinión</p>
-                            </div>
-                            <p>¿Te ha parecido útil esta opinión?</p>
-                            <div class="d-flex justify-content-start">
-                                <button>Sí</button>
-                                <button>No</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <section id="opiniones" class="container">
+
             </section>
         </div>
     </main>
     <script>
         function cargarOpiniones() {
-            fetch('http://www.leroymerlin.com/?controller=API&action=api', {
+            fetch('http://www.leroymerlin.com/Controller/APIController.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -177,16 +147,120 @@
         }
 
         function mostrarOpiniones(opiniones) {
-            var seccionOpiniones = document.getElementById('opiniones');
-            seccionOpiniones.innerHTML = '';
-            opiniones.forEach(function(opinion) {
-                // Aquí construyes el HTML para cada opinión
-                var div = document.createElement('div');
-                div.className = 'mb-3 fondo-blanco borde';
+            const contenedorOpiniones = document.getElementById('opiniones');
 
-                div.innerHTML = `<p>${opinion.opinion}</p>`;
-                seccionOpiniones.appendChild(div);
+            opiniones.forEach(opinion => {
+                const urlImagenEstrellas = obtenerImagenEstrellas(opinion.estrellas);
+                const fecha = formatearFecha(opinion.fecha);
+
+                const divRow = document.createElement('div');
+                divRow.className = 'row mb-3 p-4 fondo-blanco borde';
+
+                divRow.innerHTML = `
+            <div class="col-3">
+                <div class="d-flex flex-column">
+                    <div class="d-flex justify-content-start align-items-center">
+                        <div class="me-3 circulo-user-opiniones"></div>
+                        <p class="mb-0 text bold">${opinion.nombre_usuario} ${opinion.apellidos_usuario}</p>
+                    </div>
+                    <p class="my-3 text text-fecha">Opinión publicada el <b>${fecha}</b></p>
+                    <div class="d-flex justify-content-start align-items-center my-2">
+                        <img src="assets/images/opiniones/verificado.svg" alt="" class="me-1 img-verificado">
+                        <p class="mb-0 text text-verificado">Compra verificada</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="d-flex align-items-start flex-column ps-5 separador">
+                    <div class="d-flex justify-content-start aling-items-center mb-2">
+                        <img src="${urlImagenEstrellas}" alt="" class="img-estrellas">
+                        <p class="ms-2 mb-0 text">${opinion.estrellas} / 5</p>
+                    </div>
+                    <div class="my-2">
+                        <p class="text">${opinion.opinion}</p>
+                    </div>
+                    <p class="text text-util">¿Te ha parecido útil esta opinión?</p>
+                    <div class="d-flex justify-content-start">
+                        <button id="si_util_${opinion.opinion_id}" class="me-3 boton-opiniones" onclick="incrementarContador(${opinion.opinion_id}, 'si')">Sí (${opinion.util_si})</button>
+                        <button id="no_util_${opinion.opinion_id}" class="boton-opiniones" onclick="incrementarContador(${opinion.opinion_id}, 'no')">No (${opinion.util_no})</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+                contenedorOpiniones.appendChild(divRow);
             });
+        }
+
+        function obtenerImagenEstrellas(estrellas) {
+            let imagen;
+            switch (estrellas) {
+                case 1:
+                    imagen = 'assets/images/carta/1_estrella.svg';
+                    break;
+                case 2:
+                    imagen = 'assets/images/carta/2_estrellas.svg';
+                    break;
+                case 3:
+                    imagen = 'assets/images/carta/3_estrellas.svg';
+                    break;
+                case 4:
+                    imagen = 'assets/images/carta/4_estrellas.svg';
+                    break;
+                case 5:
+                    imagen = 'assets/images/carta/5_estrellas.svg';
+                    break;
+            }
+            return imagen;
+        }
+
+        function formatearFecha(fecha) {
+            let partesFecha = fecha.split('-');
+            let fechaPartes = new Date(partesFecha[0], partesFecha[1] - 1, partesFecha[2]);
+
+            let opciones = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+
+            return new Intl.DateTimeFormat('es-ES', opciones).format(fechaPartes);
+        }
+
+        function incrementarUtil(opinion_id) {
+            // Incrementar el contador
+            let botonSiUtil = document.getElementById(`si_util_${opinion_id}`);
+            let contadorActual = parseInt(botonSiUtil.textContent.match(/\d+/)[0]);
+            botonSiUtil.textContent = `Sí (${contadorActual + 1})`;
+
+            // Deshabilitar ambos botones
+            botonSiUtil.disabled = true;
+            let botonNoUtil = document.getElementById(`no_util_${opinion_id}`);
+            botonNoUtil.disabled = true;
+
+            // Aquí podrías agregar código para enviar este cambio al servidor, si es necesario
+        }
+
+        function incrementarContador(opinion_id, tipo) {
+            let botonSiUtil = document.getElementById(`si_util_${opinion_id}`);
+            let botonNoUtil = document.getElementById(`no_util_${opinion_id}`);
+
+            // Incrementar el contador apropiado
+            if (tipo === 'si') {
+                let contadorActual = parseInt(botonSiUtil.textContent.match(/\d+/)[0]);
+                botonSiUtil.textContent = `Sí (${contadorActual + 1})`;
+            } else if (tipo === 'no') {
+                let contadorActual = parseInt(botonNoUtil.textContent.match(/\d+/)[0]);
+                botonNoUtil.textContent = `No (${contadorActual + 1})`;
+            }
+
+            // Deshabilitar ambos botones
+            botonSiUtil.disabled = true;
+            botonNoUtil.disabled = true;
+            botonSiUtil.classList.add('boton-deshabilitado');
+            botonNoUtil.classList.add('boton-deshabilitado');
+
+            // Aquí podrías agregar código para enviar este cambio al servidor, si es necesario
         }
     </script>
 </body>
