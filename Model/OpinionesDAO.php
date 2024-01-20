@@ -68,57 +68,13 @@ class OpinionesDAO
             die("Error al ejecutar la consulta: " . $stmt->error);
         }
 
-         // Obtener el resultado
-         $result = $stmt->get_result();
-         $opiniones = null;
- 
-         if ($result) {
-             while ($opinion = $result->fetch_object('Opiniones')) {
-                 $opiniones[] = $opinion;
-             }
- 
-             $result->free();
-         } else {
-             echo "Error en la consulta: " . $connection->error;
-         }
- 
-         // Cerrar la conexión
-         $stmt->close();
-         $connection->close();
- 
-         return $opiniones;
-    }
-
-    //Función para obtener los pedidos de un usuario
-    public static function getPedidos($id)
-    {
-
-        $connection = DataBase::connect();
-
-        // Preparar la consulta
-        $query = "SELECT * FROM pedido WHERE usuario_id = ? ORDER BY fecha DESC";
-        $stmt = $connection->prepare($query);
-
-        // Comprobar si la preparación de la sentencia ha sido correcta
-        if (!$stmt) {
-            die("Error de preparación: " . $connection->error);
-        }
-
-        // Enlazar los parámetros
-        $stmt->bind_param("i", $id);
-
-        // Ejecutar la consulta
-        if (!$stmt->execute()) {
-            die("Error al ejecutar la consulta: " . $stmt->error);
-        }
-
         // Obtener el resultado
         $result = $stmt->get_result();
-        $pedidos = null;
+        $opiniones = null;
 
         if ($result) {
-            while ($pedido = $result->fetch_object('Pedido')) {
-                $pedidos[] = $pedido;
+            while ($opinion = $result->fetch_object('Opiniones')) {
+                $opiniones[] = $opinion;
             }
 
             $result->free();
@@ -130,7 +86,38 @@ class OpinionesDAO
         $stmt->close();
         $connection->close();
 
-        return $pedidos;
+        return $opiniones;
+    }
+
+    //Función para obtener los pedidos de un usuario
+    public static function sumarUtil($opinion_id, $tipo)
+    {
+
+        $connection = DataBase::connect();
+
+        // Preparar la consulta dependiendo del tipo 
+        if ($tipo == 'si') {
+            $query = "UPDATE opiniones SET util_si = util_si + 1 WHERE opinion_id = ?";
+        } else {
+            $query = "UPDATE opiniones SET util_no = util_no + 1 WHERE opinion_id = ?";
+        }
+
+        $stmt = $connection->prepare($query);
+
+        // Comprobar si la preparación de la sentencia ha sido correcta
+        if (!$stmt) {
+            die("Error de preparación: " . $connection->error);
+        }
+
+        // Enlazar los parámetros
+        $stmt->bind_param("i", $opinion_id);
+
+        // Ejecutar la consulta
+        $resultado = $stmt->execute();
+
+        // Cerrar la conexión y devolver el resultado
+        $stmt->close();
+        return $resultado;
     }
 
     public static function newPedido($usuario_id, $fecha, $coste_total, $estado)
@@ -198,7 +185,7 @@ class OpinionesDAO
     }
 
     // Función para modificar los atributos de un producto en la base de datos
-    public static function modifyPedido($coste_total,$estado,$pedido_id)
+    public static function modifyPedido($coste_total, $estado, $pedido_id)
     {
         $connection = DataBase::connect();
 

@@ -43,6 +43,21 @@ class APIController
             echo json_encode($opiniones, JSON_UNESCAPED_UNICODE);
 
             return; //return para salir de la funcion
+        } else if ($_POST['accion'] == "sumar_util") {
+
+            $opinion_id = $_POST['opinion_id'];
+            $tipo = $_POST['tipo'];
+
+            // Actualizamos el valor en la base de datos
+            $resultado = OpinionesDAO::sumarUtil($opinion_id, $tipo);
+
+            if ($resultado) {
+                echo json_encode(["success" => "Contador actualizado con éxito"]);
+            } else {
+                echo json_encode(["error" => "Error al actualizar el contador"]);
+            }
+
+            return;
         } else {
             echo json_encode(["error" => "Acción no definida o no válida"]);
             return;

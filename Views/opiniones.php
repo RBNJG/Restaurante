@@ -227,20 +227,6 @@
             return new Intl.DateTimeFormat('es-ES', opciones).format(fechaPartes);
         }
 
-        function incrementarUtil(opinion_id) {
-            // Incrementar el contador
-            let botonSiUtil = document.getElementById(`si_util_${opinion_id}`);
-            let contadorActual = parseInt(botonSiUtil.textContent.match(/\d+/)[0]);
-            botonSiUtil.textContent = `Sí (${contadorActual + 1})`;
-
-            // Deshabilitar ambos botones
-            botonSiUtil.disabled = true;
-            let botonNoUtil = document.getElementById(`no_util_${opinion_id}`);
-            botonNoUtil.disabled = true;
-
-            // Aquí podrías agregar código para enviar este cambio al servidor, si es necesario
-        }
-
         function incrementarContador(opinion_id, tipo) {
             let botonSiUtil = document.getElementById(`si_util_${opinion_id}`);
             let botonNoUtil = document.getElementById(`no_util_${opinion_id}`);
@@ -260,7 +246,31 @@
             botonSiUtil.classList.add('boton-deshabilitado');
             botonNoUtil.classList.add('boton-deshabilitado');
 
-            // Aquí podrías agregar código para enviar este cambio al servidor, si es necesario
+            // Datos que enviaremos a la API
+            let datos = new URLSearchParams({
+                accion: "sumar_util",
+                opinion_id: opinion_id,
+                tipo: tipo
+            }).toString();
+
+            //Método de envío
+            let opciones = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: datos
+            };
+
+            // Enviamos la solicitud al servidor
+            fetch('http://www.leroymerlin.com/Controller/APIController.php', opciones)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Error al enviar datos:', error);
+                });
         }
     </script>
 </body>
