@@ -37,25 +37,30 @@
     width: auto;
 }
 
-.img-estrellas{
+.img-estrellas {
     height: 1.5rem;
     width: auto;
 }
 
-.text-verificado{
+.img-filtro{
+    height: 1.6rem;
+    width: auto;
+}
+
+.text-verificado {
     font-size: 0.875rem;
     text-decoration: underline;
 }
 
-.text-fecha{
+.text-fecha {
     font-size: 0.875rem;
 }
 
-.text-util{
+.text-util {
     font-size: 0.8175rem;
 }
 
-.boton-opiniones{
+.boton-opiniones {
     font-family: 'leroy-merlin', sans-serif;
     font-weight: 600;
     font-size: 0.875rem;
@@ -68,10 +73,36 @@
     border-radius: 4px;
 }
 
-.boton-opiniones:hover{
+.boton-opiniones:hover {
     background-color: #E6E6E6;
 }
 
-.boton-deshabilitado{
+.boton-deshabilitado {
     background-color: #E6E6E6 !important;
+}
+
+#filtrar.btn-compra {
+    width: 7.5rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+}
+
+#busqueda.buscador-header {
+    width: 25rem;
+}
+
+.btn-desactivado {
+    border-radius: 3px;
+    cursor: not-allowed;
+}
+
+.btn-activado {
+    border-radius: 4px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.btn-activado:hover {
+    opacity: 1;
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
 }

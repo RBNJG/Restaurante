@@ -27,8 +27,9 @@
             </section>
             <section class="d-flex justify-content-center mb-4 fondo-blanco borde">
                 <div>
-                    <div class="d-flex justify-content-center">
+                    <div class="d-flex justify-content-center align-items-baseline">
                         <h2 id="media-estrellas" class="text-h2"></h2>
+                        <p class="mb-0 text"> / 5</p>
                     </div>
                     <div class="d-flex justify-content-center mb-2 media-opiniones">
                         <img id="estrellas-opiniones" src="assets/images/carta/3_estrellas.svg" alt="">
@@ -84,18 +85,18 @@
                 </div>
             </section>
             <section class="row mb-4">
-                <div class="col-12 col-md-6">
+                <div class="col-12 col-md-6 d-flex align-items-center">
                     <form action=<?= url . "?controller=API&action=api" ?> method='post'>
                         <input type="text" name="accion" value="buscar_pedido" id="" hidden>
-                        <button type="submit" class="d-flex justify-content-center align-items-center btn-compra text-h3">Filtrar
-                            <img src="assets/images/opiniones/filtro.svg" alt="">
+                        <button id="filtrar" type="submit" class="d-flex justify-content-center align-items-center btn-compra text">Filtrar
+                            <img src="assets/images/opiniones/filtro.svg" alt="" class="img-filtro">
                         </button>
                     </form>
                 </div>
-                <div class="col-12 col-md-6">
-                    <div class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
+                <div class="col-12 col-md-6 d-flex justify-content-end">
+                    <div id="busqueda" class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
                         <form class="d-flex justify-content-between w-100" role="search">
-                            <input class="w-100 buscador text" type="search" placeholder="Buscar un producto, una marca..." aria-label="Search">
+                            <input class="w-100 buscador text" type="search" placeholder="Buscar por palabras clave" aria-label="Search">
                             <button type="submit" class="sin-estilo">
                                 <img src="assets/images/header/lupa.svg" alt="">
                             </button>
@@ -103,12 +104,24 @@
                     </div>
                 </div>
             </section>
-            <section id="opiniones" class="container">
-
+            <section id="opiniones" class="container mb-4">
             </section>
+            <div id="paginacion" class="mb-4">
+                <div class="d-flex justify-content-center">
+                    <picture>
+                        <img id="paginaAnterior" src="assets/images/carta/izquierda.svg" alt="página anterior">
+                    </picture>
+                    <select id="selectPagina" class="mx-3 text select-pagina">
+                    </select>
+                    <picture>
+                        <img id="paginaSiguiente" src="assets/images/carta/derecha.svg" alt="página siguiente">
+                    </picture>
+                </div>
+            </div>
         </div>
     </main>
     <script>
+        //Función para obtener la información de las opiniones en JSON
         function cargarOpiniones() {
             fetch('http://www.leroymerlin.com/Controller/APIController.php', {
                     method: 'POST',
@@ -119,14 +132,19 @@
                 })
                 .then(response => response.json())
                 .then(opiniones => {
+                    let paginas = paginarOpiniones(opiniones, 1);
                     informacionOpiniones(opiniones);
-                    mostrarOpiniones(opiniones);
+                    mostrarOpiniones(paginas[0]);
+                    agregarControlesPaginacion(paginas);
+                    estiloPaginacion(0, paginas.length);
                 })
                 .catch(error => console.error('Error:', error));
         }
 
+        //Función para contruir el HTML de cada opinión con sus datos
         function mostrarOpiniones(opiniones) {
             const contenedorOpiniones = document.getElementById('opiniones');
+            contenedorOpiniones.innerHTML = '';
 
             opiniones.forEach(opinion => {
                 const urlImagenEstrellas = obtenerImagenEstrellas(opinion.estrellas);
@@ -171,10 +189,13 @@
             });
         }
 
+        //Función para mostrar datos de las opiniones en pantalla
         function informacionOpiniones(opiniones) {
+            //Mostramos el total de opiniones
             let totalOpiniones = document.getElementById('total-opiniones');
             totalOpiniones.innerHTML = opiniones.length + " opiniones";
 
+            //Guardamos la cantidad de opiniones por estrella
             let notaTotal = 0;
             let cantidadPorEstrellas = {
                 1: 0,
@@ -188,29 +209,31 @@
                 cantidadPorEstrellas[opinion.estrellas]++;
             });
 
+            //Mostramos la nota media de las opiniones
             let notaMedia = (notaTotal / opiniones.length).toFixed(1);
             let mediaEstrellas = document.getElementById('media-estrellas');
-            mediaEstrellas.innerHTML = notaMedia + " / 5";
+            mediaEstrellas.innerHTML = notaMedia + " ";
 
             let imagenEstrellas = document.getElementById('estrellas-opiniones');
 
+            //Según la nota media mostramos una imagen u otra
             if (notaMedia >= 1 && notaMedia <= 1.9) {
-                imagenEstrellas.src = 'assets/images/carta/1_estrella.svg'; 
+                imagenEstrellas.src = 'assets/images/carta/1_estrella.svg';
             } else if (notaMedia >= 2 && notaMedia <= 2.9) {
-                imagenEstrellas.src = 'assets/images/carta/2_estrellas.svg'; 
+                imagenEstrellas.src = 'assets/images/carta/2_estrellas.svg';
             } else if (notaMedia >= 3 && notaMedia <= 3.4) {
-                imagenEstrellas.src = 'assets/images/carta/3_estrellas.svg'; 
+                imagenEstrellas.src = 'assets/images/carta/3_estrellas.svg';
             } else if (notaMedia >= 3.5 && notaMedia <= 3.9) {
-                imagenEstrellas.src = 'assets/images/opiniones/3_5_estrellas.svg'; 
+                imagenEstrellas.src = 'assets/images/opiniones/3_5_estrellas.svg';
             } else if (notaMedia >= 4 && notaMedia <= 4.4) {
-                imagenEstrellas.src = 'assets/images/carta/4_estrellas.svg'; 
+                imagenEstrellas.src = 'assets/images/carta/4_estrellas.svg';
             } else if (notaMedia >= 4.5 && notaMedia <= 4.9) {
-                imagenEstrellas.src = 'assets/images/opiniones/4_5_estrellas.svg'; 
+                imagenEstrellas.src = 'assets/images/opiniones/4_5_estrellas.svg';
             } else if (notaMedia >= 5) {
-                imagenEstrellas.src = 'assets/images/carta/5_estrellas.svg'; 
+                imagenEstrellas.src = 'assets/images/carta/5_estrellas.svg';
             }
 
-
+            //Mostramos la cantidad de opiniones por cada estrella y damos estilo a la barra
             for (let estrellas = 1; estrellas <= 5; estrellas++) {
                 let cantidadOpiniones = document.getElementById(`cantidad-opiniones-${estrellas}`);
                 cantidadOpiniones.innerHTML = cantidadPorEstrellas[estrellas];
@@ -221,6 +244,7 @@
             }
         }
 
+        //Función para mostrar la imagen de estrellas según la nota del usuario
         function obtenerImagenEstrellas(estrellas) {
             let imagen;
             switch (estrellas) {
@@ -243,6 +267,7 @@
             return imagen;
         }
 
+        //Función para dar formato a la fecha en la que se hizo la opinión
         function formatearFecha(fecha) {
             let partesFecha = fecha.split('-');
             let fechaPartes = new Date(partesFecha[0], partesFecha[1] - 1, partesFecha[2]);
@@ -256,11 +281,12 @@
             return new Intl.DateTimeFormat('es-ES', opciones).format(fechaPartes);
         }
 
+        //Función para manejar los botones y los valores de util_si / util_no
         function incrementarContador(opinion_id, tipo) {
             let botonSiUtil = document.getElementById(`si_util_${opinion_id}`);
             let botonNoUtil = document.getElementById(`no_util_${opinion_id}`);
 
-            // Incrementar el contador apropiado
+            //Incrementamos el valor del botón presionado
             if (tipo === 'si') {
                 let contadorActual = parseInt(botonSiUtil.textContent.match(/\d+/)[0]);
                 botonSiUtil.textContent = `Sí (${contadorActual + 1})`;
@@ -269,13 +295,13 @@
                 botonNoUtil.textContent = `No (${contadorActual + 1})`;
             }
 
-            // Deshabilitar ambos botones
+            //Después de presionar un botón deshabilitamos las dos opciones
             botonSiUtil.disabled = true;
             botonNoUtil.disabled = true;
             botonSiUtil.classList.add('boton-deshabilitado');
             botonNoUtil.classList.add('boton-deshabilitado');
 
-            // Datos que enviaremos a la API
+            //Preparamos los datos que enviaremos a la API
             let datos = new URLSearchParams({
                 accion: "sumar_util",
                 opinion_id: opinion_id,
@@ -291,7 +317,7 @@
                 body: datos
             };
 
-            // Enviamos la solicitud al servidor
+            //Enviamos la solicitud al servidor para guardar los cambios
             fetch('http://www.leroymerlin.com/Controller/APIController.php', opciones)
                 .then(response => response.json())
                 .then(data => {
@@ -300,6 +326,84 @@
                 .catch(error => {
                     console.error('Error al enviar datos:', error);
                 });
+        }
+
+        //Función para separar las opiniones en grupos para mostrar con paginación
+        function paginarOpiniones(opiniones, opinionesPorPagina) {
+            let paginas = [];
+            for (let i = 0; i < opiniones.length; i += opinionesPorPagina) {
+                let segmento = opiniones.slice(i, i + opinionesPorPagina);
+                paginas.push(segmento);
+            }
+            return paginas;
+        }
+
+        //Función para controlar la paginación con los botones
+        function agregarControlesPaginacion(paginas) {
+            const selectPagina = document.getElementById('selectPagina');
+            selectPagina.innerHTML = '';
+
+            // Agregar opciones para cada página
+            paginas.forEach((_, indice) => {
+                let opcion = document.createElement('option');
+                opcion.value = indice;
+                opcion.textContent = `${indice + 1} de ${paginas.length}`;
+                selectPagina.appendChild(opcion);
+            });
+
+            // Manejar cambio de página
+            selectPagina.onchange = () => {
+                let paginaSeleccionada = selectPagina.value;
+                mostrarOpiniones(paginas[paginaSeleccionada]);
+                estiloPaginacion(selectPagina.selectedIndex, paginas.length);
+            };
+
+            // Navegación de página
+            document.getElementById('paginaAnterior').onclick = () => {
+                if (selectPagina.selectedIndex > 0) {
+                    selectPagina.selectedIndex--;
+                    selectPagina.onchange();
+                }
+
+                estiloPaginacion(selectPagina.selectedIndex, paginas.length);
+            };
+
+            document.getElementById('paginaSiguiente').onclick = () => {
+                if (selectPagina.selectedIndex < paginas.length - 1) {
+                    selectPagina.selectedIndex++;
+                    selectPagina.onchange();
+                }
+
+                estiloPaginacion(selectPagina.selectedIndex, paginas.length);
+            };
+        }
+
+        //Función para cambiar la aparariencia de los botones de paginación según la página actual
+        function estiloPaginacion(paginaActual, totalPaginas) {
+            const botonAnterior = document.getElementById('paginaAnterior');
+            const botonSiguiente = document.getElementById('paginaSiguiente');
+
+            // Actualizar el estilo o clase del botón "Anterior"
+            if (paginaActual === 0) {
+                botonAnterior.classList.remove('btn-activado');
+                botonAnterior.classList.add('btn-desactivado');
+                botonAnterior.src = "assets/images/carta/izquierda.svg";
+            } else {
+                botonAnterior.classList.remove('btn-desactivado');
+                botonAnterior.classList.add('btn-activado');
+                botonAnterior.src = "assets/images/opiniones/boton_izquierda_activo.svg";
+            }
+
+            // Actualizar el estilo o clase del botón "Siguiente"
+            if (paginaActual === totalPaginas - 1) {
+                botonSiguiente.classList.remove('btn-activado');
+                botonSiguiente.classList.add('btn-desactivado');
+                botonSiguiente.src = "assets/images/carta/derecha.svg";
+            } else {
+                botonSiguiente.classList.remove('btn-desactivado');
+                botonSiguiente.classList.add('btn-activado');
+                botonSiguiente.src = "assets/images/opiniones/boton_derecha_activo.svg"
+            }
         }
     </script>
 </body>
