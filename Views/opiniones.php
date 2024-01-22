@@ -28,81 +28,57 @@
             <section class="d-flex justify-content-center mb-4 fondo-blanco borde">
                 <div>
                     <div class="d-flex justify-content-center">
-                        <h2 class="text-h2">4.8/5</h2>
+                        <h2 id="media-estrellas" class="text-h2"></h2>
                     </div>
                     <div class="d-flex justify-content-center mb-2 media-opiniones">
-                        <img src="assets/images/carta/3_estrellas.svg" alt="">
-                        <p class="mb-0 ms-2 text"><?php if ($opiniones == null) {
-                                                        echo 0;
-                                                    } else {
-                                                        echo count($opiniones);
-                                                    }; ?> opiniones</p>
+                        <img id="estrellas-opiniones" src="assets/images/carta/3_estrellas.svg" alt="">
+                        <p id="total-opiniones" class="mb-0 ms-2 text"></p>
                     </div>
                     <div class="d-flex align-items-start flex-column">
                         <div class="w-100 d-flex justify-content-start align-items-center">
                             <div class="d-flex align-items-start me-3 5estrellas">
-                                <img src="assets/images/carta/3_estrellas.svg" alt="">
+                                <img src="assets/images/carta/5_estrellas.svg" alt="">
                             </div>
                             <div class="me-3 barra-progreso">
-                                <div class="barra-progreso-llena" style="width:<?php if (OpinionesDAO::getOpinionesByStars(5) == null) {
-                                                                                    echo 0;
-                                                                                } else {
-                                                                                    echo Calculadora::porcentajeOpiniones(count($opiniones), count(OpinionesDAO::getOpinionesByStars(5)));
-                                                                                }  ?>%"></div>
+                                <div id="barra-progreso-5" class="barra-progreso-llena"></div>
                             </div>
-                            <p class="mb-0 text">134</p>
+                            <p id="cantidad-opiniones-5" class="mb-0 text"></p>
                         </div>
                         <div class="w-100 d-flex justify-content-start align-items-center">
                             <div class="d-flex justify-content-start me-3 4estrellas">
-                                <img src="assets/images/carta/3_estrellas.svg" alt="">
+                                <img src="assets/images/carta/4_estrellas.svg" alt="">
                             </div>
                             <div class="me-3 barra-progreso">
-                                <div class="barra-progreso-llena" style="width:<?php if (OpinionesDAO::getOpinionesByStars(4) == null) {
-                                                                                    echo 0;
-                                                                                } else {
-                                                                                    echo Calculadora::porcentajeOpiniones(count($opiniones), count(OpinionesDAO::getOpinionesByStars(4)));
-                                                                                }  ?>%"></div>
+                                <div id="barra-progreso-4" class="barra-progreso-llena"></div>
                             </div>
-                            <p class="mb-0 text">12</p>
+                            <p id="cantidad-opiniones-4" class="mb-0 text"></p>
                         </div>
                         <div class="w-100 d-flex justify-content-start align-items-center">
                             <div class="d-flex align-items-center me-3 3estrellas">
                                 <img src="assets/images/carta/3_estrellas.svg" alt="">
                             </div>
                             <div class="me-3 barra-progreso">
-                                <div class="barra-progreso-llena" style="width:<?php if (OpinionesDAO::getOpinionesByStars(3) == null) {
-                                                                                    echo 0;
-                                                                                } else {
-                                                                                    echo Calculadora::porcentajeOpiniones(count($opiniones), count(OpinionesDAO::getOpinionesByStars(3)));
-                                                                                }  ?>%"></div>
+                                <div id="barra-progreso-3" class="barra-progreso-llena"></div>
                             </div>
-                            <p class="mb-0 text">1</p>
+                            <p id="cantidad-opiniones-3" class="mb-0 text"></p>
                         </div>
                         <div class="w-100 d-flex justify-content-start align-items-center">
                             <div class="d-flex align-items-center me-3 2estrellas">
-                                <img src="assets/images/carta/3_estrellas.svg" alt="">
+                                <img src="assets/images/carta/2_estrellas.svg" alt="">
                             </div>
                             <div class="me-3 barra-progreso">
-                                <div class="barra-progreso-llena" style="width:<?php if (OpinionesDAO::getOpinionesByStars(2) == null) {
-                                                                                    echo 0;
-                                                                                } else {
-                                                                                    echo Calculadora::porcentajeOpiniones(count($opiniones), count(OpinionesDAO::getOpinionesByStars(2)));
-                                                                                }  ?>%"></div>
+                                <div id="barra-progreso-2" class="barra-progreso-llena"></div>
                             </div>
-                            <p class="mb-0 text">1</p>
+                            <p id="cantidad-opiniones-2" class="mb-0 text"></p>
                         </div>
                         <div class="w-100 d-flex justify-content-start align-items-center">
                             <div class="d-flex align-items-center me-3 1estrella">
-                                <img src="assets/images/carta/3_estrellas.svg" alt="">
+                                <img src="assets/images/carta/1_estrella.svg" alt="">
                             </div>
                             <div class="me-3 barra-progreso">
-                                <div class="barra-progreso-llena" style="width:<?php if (OpinionesDAO::getOpinionesByStars(1) == null) {
-                                                                                    echo 0;
-                                                                                } else {
-                                                                                    echo Calculadora::porcentajeOpiniones(count($opiniones), count(OpinionesDAO::getOpinionesByStars(1)));
-                                                                                }  ?>%"></div>
+                                <div id="barra-progreso-1" class="barra-progreso-llena"></div>
                             </div>
-                            <p class="mb-0 text">2</p>
+                            <p id="cantidad-opiniones-1" class="mb-0 text"></p>
                         </div>
                     </div>
                 </div>
@@ -142,7 +118,10 @@
                     body: 'accion=buscar_opiniones'
                 })
                 .then(response => response.json())
-                .then(opiniones => mostrarOpiniones(opiniones))
+                .then(opiniones => {
+                    informacionOpiniones(opiniones);
+                    mostrarOpiniones(opiniones);
+                })
                 .catch(error => console.error('Error:', error));
         }
 
@@ -190,6 +169,56 @@
 
                 contenedorOpiniones.appendChild(divRow);
             });
+        }
+
+        function informacionOpiniones(opiniones) {
+            let totalOpiniones = document.getElementById('total-opiniones');
+            totalOpiniones.innerHTML = opiniones.length + " opiniones";
+
+            let notaTotal = 0;
+            let cantidadPorEstrellas = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0
+            };
+            opiniones.forEach(opinion => {
+                notaTotal += opinion.estrellas;
+                cantidadPorEstrellas[opinion.estrellas]++;
+            });
+
+            let notaMedia = (notaTotal / opiniones.length).toFixed(1);
+            let mediaEstrellas = document.getElementById('media-estrellas');
+            mediaEstrellas.innerHTML = notaMedia + " / 5";
+
+            let imagenEstrellas = document.getElementById('estrellas-opiniones');
+
+            if (notaMedia >= 1 && notaMedia <= 1.9) {
+                imagenEstrellas.src = 'assets/images/carta/1_estrella.svg'; 
+            } else if (notaMedia >= 2 && notaMedia <= 2.9) {
+                imagenEstrellas.src = 'assets/images/carta/2_estrellas.svg'; 
+            } else if (notaMedia >= 3 && notaMedia <= 3.4) {
+                imagenEstrellas.src = 'assets/images/carta/3_estrellas.svg'; 
+            } else if (notaMedia >= 3.5 && notaMedia <= 3.9) {
+                imagenEstrellas.src = 'assets/images/opiniones/3_5_estrellas.svg'; 
+            } else if (notaMedia >= 4 && notaMedia <= 4.4) {
+                imagenEstrellas.src = 'assets/images/carta/4_estrellas.svg'; 
+            } else if (notaMedia >= 4.5 && notaMedia <= 4.9) {
+                imagenEstrellas.src = 'assets/images/opiniones/4_5_estrellas.svg'; 
+            } else if (notaMedia >= 5) {
+                imagenEstrellas.src = 'assets/images/carta/5_estrellas.svg'; 
+            }
+
+
+            for (let estrellas = 1; estrellas <= 5; estrellas++) {
+                let cantidadOpiniones = document.getElementById(`cantidad-opiniones-${estrellas}`);
+                cantidadOpiniones.innerHTML = cantidadPorEstrellas[estrellas];
+
+                let porcentaje = (cantidadPorEstrellas[estrellas] / opiniones.length) * 100;
+                let barraProgreso = document.getElementById(`barra-progreso-${estrellas}`);
+                barraProgreso.style.width = porcentaje + '%';
+            }
         }
 
         function obtenerImagenEstrellas(estrellas) {

@@ -18,8 +18,8 @@ class APIController
             // Especificar el tipo de contenido para la respuesta
             header('Content-Type: application/json');
 
-            //$id_usuario = json_decode($_POST["id_usuario"]); se decodifican los datos JSON que se reciben desde JS
-            $opinionesDAO = OpinionesDAO::getAllOpiniones(); //puedes hacer un select de pedidos aqui, o un insert o lo que quieras, utilizando el MODELO
+            //Recuperamos las opiniones
+            $opinionesDAO = OpinionesDAO::getAllOpiniones();
 
             foreach ($opinionesDAO as $opinion) {
                 $user = UsuarioDAO::getUser($opinion->getUsuario_id());
@@ -38,11 +38,10 @@ class APIController
             }
 
 
-            // Si quieres devolverle información al JS, codificas en json un array con la información
-            // y se los devuelves al JS
+            //Devolvemos a JS las opiniones en JSON
             echo json_encode($opiniones, JSON_UNESCAPED_UNICODE);
 
-            return; //return para salir de la funcion
+            return;
         } else if ($_POST['accion'] == "sumar_util") {
 
             $opinion_id = $_POST['opinion_id'];
