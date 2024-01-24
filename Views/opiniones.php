@@ -11,6 +11,7 @@
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/full_estil.css" rel="stylesheet" type="text/css" media="screen">
     <link href="assets/css/opiniones.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="assets/css/carta.css" rel="stylesheet" type="text/css" media="screen">
     <title>Leroy Merlin</title>
 </head>
 
@@ -86,12 +87,11 @@
             </section>
             <section class="row mb-4">
                 <div class="col-12 col-md-6 d-flex align-items-center">
-                    <form action=<?= url . "?controller=API&action=api" ?> method='post'>
-                        <input type="text" name="accion" value="buscar_pedido" id="" hidden>
+                    <div>
                         <button id="filtrar" type="submit" class="d-flex justify-content-center align-items-center btn-compra text">Filtrar
                             <img src="assets/images/opiniones/filtro.svg" alt="" class="img-filtro">
                         </button>
-                    </form>
+                    </div>
                 </div>
                 <div class="col-12 col-md-6 d-flex justify-content-end">
                     <div id="busqueda" class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
@@ -104,6 +104,80 @@
                     </div>
                 </div>
             </section>
+            <div id="panelFiltros" class="panel-filtros">
+                <div class="container mt-3">
+                    <div class="d-flex justify-content-between mx-2">
+                        <div class="d-flex justify-content-start align-items-center">
+                            <img src="assets/images/opiniones/filtro_gris.svg" alt="" class="">
+                            <h3 class="ms-2 mb-0 text text-h3 color-hover">Filtrar</h3>
+                        </div>
+                        <button id="cerrar-filtros" class="sin-estilo">
+                            <img src="assets/images/opiniones/cerrar.svg" alt="">
+                        </button>
+                    </div>
+                </div>
+                <hr class="linea-filtros-opiniones">
+                <div class="container mt-3">
+                    <div class="d-flex flex-column">
+                        <div class="mx-2">
+                            <form action="">
+                                <fieldset class="mb-3">
+                                    <p class="text bold">Ordenar por:</p>
+                                    <select name="" id="" class="text select-filtro">
+                                        <option value="mas_reciente">Las más reciente</option>
+                                        <option value="mas_antigua">Las más antiguas</option>
+                                        <option value="mas_valorada">Las mejor valoradas</option>
+                                        <option value="menos_valorada">Las peor valoradas</option>
+                                    </select>
+                                </fieldset>
+                                <fieldset>
+                                    <p class="text bold">Notas</p>
+                                    <div class="d-flex justify-content-start align-items-baseline my-3">
+                                        <input type="checkbox" name="4estrellas" value="5">
+                                        <div class="d-flex align-items-center ms-3 me-2">
+                                            <img src="assets/images/carta/5_estrellas.svg" alt="" class="estrella">
+                                        </div>
+                                        <p class="mb-0 text">5 estrellas</p>
+                                    </div>
+                                    <div class="d-flex justify-content-start align-items-baseline my-3">
+                                        <input type="checkbox" name="3estrellas" value="4">
+                                        <picture class="d-flex align-items-center ms-3 me-2">
+                                            <img src="assets/images/carta/4_estrellas.svg" alt="" class="estrella">
+                                        </picture>
+                                        <p class="mb-0 text">4 estrellas</p>
+                                    </div>
+                                    <div class="d-flex justify-content-start align-items-baseline my-3">
+                                        <input type="checkbox" name="3estrellas" value="3">
+                                        <picture class="d-flex align-items-center ms-3 me-2">
+                                            <img src="assets/images/carta/3_estrellas.svg" alt="" class="estrella">
+                                        </picture>
+                                        <p class="mb-0 text">3 estrellas</p>
+                                    </div>
+                                    <div class="d-flex justify-content-start align-items-baseline my-3">
+                                        <input type="checkbox" name="3estrellas" value="2">
+                                        <picture class="d-flex align-items-center ms-3 me-2">
+                                            <img src="assets/images/carta/2_estrellas.svg" alt="" class="estrella">
+                                        </picture>
+                                        <p class="mb-0 text">2 estrellas</p>
+                                    </div>
+                                    <div class="d-flex justify-content-start align-items-baseline my-3">
+                                        <input type="checkbox" name="3estrellas" value="1">
+                                        <picture class="d-flex align-items-center ms-3 me-2">
+                                            <img src="assets/images/carta/1_estrella.svg" alt="" class="estrella">
+                                        </picture>
+                                        <p class="mb-0 text">1 estrella</p>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div class="mx-2 mt-5 d-flex justify-content-around">
+                            <button id="aplicar-filtros" type="submit" class="btn-compra text">Filtrar</button>
+                            <button id="borrar-todo" class="btn-anadir-carrito" type="submit">Borrar todo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="fondoOscuro" class="fondo-oscuro"></div>
             <section id="opiniones" class="container mb-4">
             </section>
             <div id="paginacion" class="mb-4">
@@ -405,6 +479,20 @@
                 botonSiguiente.src = "assets/images/opiniones/boton_derecha_activo.svg"
             }
         }
+
+        //Al apretar el botón "Filtrar" se muestran las opciones para aplicar filtros
+        document.getElementById('filtrar').addEventListener('click', function() {
+            document.getElementById('panelFiltros').style.right = '0';
+            document.getElementById('fondoOscuro').style.display = 'block';
+        });
+
+        //Si se hace click en el fondo oscuro o el botón de cerrar al mostrar los filtros, estos se cierran
+        document.querySelectorAll('#fondoOscuro, #cerrar-filtros').forEach(function(elemento) {
+            elemento.addEventListener('click', function() {
+                document.getElementById('panelFiltros').style.right = '-100%';
+                document.getElementById('fondoOscuro').style.display = 'none';
+            });
+        });
     </script>
 </body>
 
