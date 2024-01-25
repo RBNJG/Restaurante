@@ -37,7 +37,7 @@
                         <p id="total-opiniones" class="mb-0 ms-2 text"></p>
                     </div>
                     <div class="d-flex align-items-start flex-column">
-                        <div class="w-100 d-flex justify-content-start align-items-center">
+                        <div class="w-100 d-flex justify-content-start align-items-center opiniones-naranja">
                             <div class="d-flex align-items-start me-3 5estrellas">
                                 <img src="assets/images/carta/5_estrellas.svg" alt="">
                             </div>
@@ -46,7 +46,7 @@
                             </div>
                             <p id="cantidad-opiniones-5" class="mb-0 text"></p>
                         </div>
-                        <div class="w-100 d-flex justify-content-start align-items-center">
+                        <div class="w-100 d-flex justify-content-start align-items-center opiniones-naranja">
                             <div class="d-flex justify-content-start me-3 4estrellas">
                                 <img src="assets/images/carta/4_estrellas.svg" alt="">
                             </div>
@@ -55,7 +55,7 @@
                             </div>
                             <p id="cantidad-opiniones-4" class="mb-0 text"></p>
                         </div>
-                        <div class="w-100 d-flex justify-content-start align-items-center">
+                        <div class="w-100 d-flex justify-content-start align-items-center opiniones-naranja">
                             <div class="d-flex align-items-center me-3 3estrellas">
                                 <img src="assets/images/carta/3_estrellas.svg" alt="">
                             </div>
@@ -64,7 +64,7 @@
                             </div>
                             <p id="cantidad-opiniones-3" class="mb-0 text"></p>
                         </div>
-                        <div class="w-100 d-flex justify-content-start align-items-center">
+                        <div class="w-100 d-flex justify-content-start align-items-center opiniones-naranja">
                             <div class="d-flex align-items-center me-3 2estrellas">
                                 <img src="assets/images/carta/2_estrellas.svg" alt="">
                             </div>
@@ -73,7 +73,7 @@
                             </div>
                             <p id="cantidad-opiniones-2" class="mb-0 text"></p>
                         </div>
-                        <div class="w-100 d-flex justify-content-start align-items-center">
+                        <div class="w-100 d-flex justify-content-start align-items-center opiniones-naranja">
                             <div class="d-flex align-items-center me-3 1estrella">
                                 <img src="assets/images/carta/1_estrella.svg" alt="">
                             </div>
@@ -95,9 +95,9 @@
                 </div>
                 <div class="col-12 col-md-6 d-flex justify-content-end">
                     <div id="busqueda" class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
-                        <form class="d-flex justify-content-between w-100" role="search">
-                            <input class="w-100 buscador text" type="search" placeholder="Buscar por palabras clave" aria-label="Search">
-                            <button type="submit" class="sin-estilo">
+                        <form id="buscador" class="d-flex justify-content-between w-100" role="search">
+                            <input id="texto-buscador" class="w-100 buscador text" type="search" placeholder="Buscar por palabras clave" aria-label="Search">
+                            <button id="buscar" type="submit" class="sin-estilo">
                                 <img src="assets/images/header/lupa.svg" alt="">
                             </button>
                         </form>
@@ -123,7 +123,7 @@
                             <form action="">
                                 <fieldset class="mb-3">
                                     <p class="text bold">Ordenar por:</p>
-                                    <select name="" id="" class="text select-filtro">
+                                    <select name="" id="select-order" class="text select-filtro">
                                         <option value="mas_reciente">Las más reciente</option>
                                         <option value="mas_antigua">Las más antiguas</option>
                                         <option value="mas_valorada">Las mejor valoradas</option>
@@ -133,14 +133,14 @@
                                 <fieldset>
                                     <p class="text bold">Notas</p>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
-                                        <input type="checkbox" name="4estrellas" value="5">
+                                        <input type="checkbox" name="5estrellas" value="5">
                                         <div class="d-flex align-items-center ms-3 me-2">
                                             <img src="assets/images/carta/5_estrellas.svg" alt="" class="estrella">
                                         </div>
                                         <p class="mb-0 text">5 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
-                                        <input type="checkbox" name="3estrellas" value="4">
+                                        <input type="checkbox" name="4estrellas" value="4">
                                         <picture class="d-flex align-items-center ms-3 me-2">
                                             <img src="assets/images/carta/4_estrellas.svg" alt="" class="estrella">
                                         </picture>
@@ -154,14 +154,14 @@
                                         <p class="mb-0 text">3 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
-                                        <input type="checkbox" name="3estrellas" value="2">
+                                        <input type="checkbox" name="2estrellas" value="2">
                                         <picture class="d-flex align-items-center ms-3 me-2">
                                             <img src="assets/images/carta/2_estrellas.svg" alt="" class="estrella">
                                         </picture>
                                         <p class="mb-0 text">2 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
-                                        <input type="checkbox" name="3estrellas" value="1">
+                                        <input type="checkbox" name="1estrella" value="1">
                                         <picture class="d-flex align-items-center ms-3 me-2">
                                             <img src="assets/images/carta/1_estrella.svg" alt="" class="estrella">
                                         </picture>
@@ -196,7 +196,7 @@
     </main>
     <script>
         //Función para obtener la información de las opiniones en JSON
-        function cargarOpiniones() {
+        function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
             fetch('http://www.leroymerlin.com/Controller/APIController.php', {
                     method: 'POST',
                     headers: {
@@ -206,13 +206,47 @@
                 })
                 .then(response => response.json())
                 .then(opiniones => {
-                    let paginas = paginarOpiniones(opiniones, 1);
+                    let opinionesFiltradas = filtrarOpiniones(opiniones, orden, estrellasFiltradas, textoBusqueda);
+                    let paginas = paginarOpiniones(opinionesFiltradas, 3);
                     informacionOpiniones(opiniones);
                     mostrarOpiniones(paginas[0]);
                     agregarControlesPaginacion(paginas);
                     estiloPaginacion(0, paginas.length);
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        // Función para filtrar y ordenar opiniones
+        function filtrarOpiniones(opiniones, orden, estrellasFiltradas, textoBusqueda) {
+            // Filtrar por estrellas, si se especifica
+            if (estrellasFiltradas.length > 0) {
+                opiniones = opiniones.filter(opinion => estrellasFiltradas.includes(opinion.estrellas));
+            }
+
+            //Filtrar por texto de opinión
+            if (textoBusqueda) {
+                opiniones = opiniones.filter(opinion =>
+                    opinion.opinion.toLowerCase().includes(textoBusqueda.toLowerCase())
+                );
+            }
+
+            // Ordenar opiniones según el criterio
+            switch (orden) {
+                case "mas_reciente":
+                    opiniones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                    break;
+                case "mas_antigua":
+                    opiniones.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+                    break;
+                case "mas_valorada":
+                    opiniones.sort((a, b) => b.estrellas - a.estrellas);
+                    break;
+                case "menos_valorada":
+                    opiniones.sort((a, b) => a.estrellas - b.estrellas);
+                    break;
+            }
+
+            return opiniones;
         }
 
         //Función para contruir el HTML de cada opinión con sus datos
@@ -492,6 +526,46 @@
                 document.getElementById('panelFiltros').style.right = '-100%';
                 document.getElementById('fondoOscuro').style.display = 'none';
             });
+        });
+
+        //Al hacer click en "filtrar" se aplican todos los filtros seleccionado en las opiniones
+        document.querySelectorAll('#aplicar-filtros, #buscar').forEach(elemento => {
+            elemento.addEventListener('click', function() {
+                event.preventDefault(); // Prevenir la acción por defecto
+
+                // Obtener el valor ingresado en el campo de búsqueda
+                let textoBusqueda = document.getElementById('texto-buscador').value.trim().toLowerCase();
+                let orden = document.getElementById('select-order').value;
+                let estrellasFiltradas = Array.from(document.querySelectorAll('[name="5estrellas"]:checked,[name="4estrellas"]:checked,[name="3estrellas"]:checked,[name="2estrellas"]:checked,[name="1estrella"]:checked')).map(el => parseInt(el.value));
+                cargarOpiniones(orden, estrellasFiltradas, textoBusqueda);
+
+                // Cerrar el panel de filtros
+                document.getElementById('panelFiltros').style.right = '-100%';
+                document.getElementById('fondoOscuro').style.display = 'none';
+            })
+        });
+
+        //Quitar todo los filtros al hacer click en el botón "borrar todo"
+        document.getElementById('borrar-todo').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevenir la acción por defecto del botón (si está dentro de un formulario)
+
+            // Desmarcar todos los checkboxes
+            document.querySelectorAll('[name="5estrellas"],[name="4estrellas"],[name="3estrellas"],[name="2estrellas"],[name="1estrella"]').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+
+            // Restablecer el valor del select a su opción por defecto
+            document.querySelector('.select-filtro').value = 'mas_reciente';
+
+            //Restablecer el texto
+            document.getElementById('texto-buscador').value = "";
+
+            // Llamar a cargarOpiniones sin filtros para restablecer la lista de opiniones
+            cargarOpiniones();
+
+            // Cerrar el panel de filtros si es necesario
+            document.getElementById('panelFiltros').style.right = '-100%';
+            document.getElementById('fondoOscuro').style.display = 'none';
         });
     </script>
 </body>

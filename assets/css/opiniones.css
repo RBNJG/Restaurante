@@ -144,3 +144,11 @@
     color: #666666;
     width: 100%;
 }
+
+.opiniones-naranja:hover{
+    color: #ea7315;
+}
+
+.opiniones-naranja:hover .barra-progreso{
+    background: #ea711536;
+}
