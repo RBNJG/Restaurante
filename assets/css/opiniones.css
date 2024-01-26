@@ -93,6 +93,13 @@
     padding-bottom: 0.8rem;
 }
 
+#nueva-opinion.btn-compra {
+    display: none;
+    width: 10rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
 #borrar-todo.btn-anadir-carrito {
     width: 7.5rem;
     padding-top: 0.8rem;
@@ -145,10 +152,28 @@
     width: 100%;
 }
 
-.opiniones-naranja:hover{
+.opiniones-naranja:hover {
     color: #ea7315;
 }
 
-.opiniones-naranja:hover .barra-progreso{
+.opiniones-naranja:hover .barra-progreso {
     background: #ea711536;
+}
+
+.formulario-opiniones {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.5s, max-height 0.5s ease-in-out;
+}
+
+.estrella-selector .estrella {
+    color: gray;
+    font-size: 50px;
+    cursor: pointer;
+}
+
+.estrella-selector .estrella.resaltada {
+    color: #ea7315;
 }

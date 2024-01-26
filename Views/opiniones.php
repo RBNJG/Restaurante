@@ -15,7 +15,7 @@
     <title>Leroy Merlin</title>
 </head>
 
-<body onload="cargarOpiniones()">
+<body onload="obtenerUsuario();cargarOpiniones()">
     <main class="fondo-resenyas rellenar">
         <div class="container">
             <section class="mt-3 mb-3">
@@ -25,6 +25,29 @@
                     Aquí puedes dejar tu opinión sobre nuestros productos o servicio.
                     Para poder escribir una opinión debes haber realizado un pedido cómo mínimo.
                 </p>
+            </section>
+            <section>
+                <div class="d-flex justify-content-center">
+                    <button id="nueva-opinion" class="mb-4 btn-compra text text-h3">Nueva opinión</button>
+                </div>
+                <div id="formulario-opinion" class="formulario-opiniones fondo-blanco borde">
+                    <form action="">
+                        <label for="">Pedido</label>
+                        <select name="lista-pedidos" id="lista-pedidos"></select>
+                        <label for="">Puntuación</label>
+                        <div id="estrellas" class="estrella-selector">
+                            <span class="estrella" data-valor="1">&#9733;</span>
+                            <span class="estrella" data-valor="2">&#9733;</span>
+                            <span class="estrella" data-valor="3">&#9733;</span>
+                            <span class="estrella" data-valor="4">&#9733;</span>
+                            <span class="estrella" data-valor="5">&#9733;</span>
+                        </div>
+                        <label for="">Opinión</label>
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+
+                        <button>Guardar</button>
+                    </form>
+                </div>
             </section>
             <section class="d-flex justify-content-center mb-4 fondo-blanco borde">
                 <div>
@@ -197,7 +220,7 @@
     <script>
         //Función para obtener la información de las opiniones en JSON
         function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
-            fetch('http://www.leroymerlin.com/Controller/APIController.php', {
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
@@ -214,6 +237,46 @@
                     estiloPaginacion(0, paginas.length);
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function obtenerUsuario() {
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'accion=obtener_usuario'
+                })
+                .then(response => response.json())
+                .then(pedidos => {
+                    if (pedidos.error) {
+                        console.error("Error:", pedidos.error);
+                        document.getElementById('nueva-opinion').style.display = 'none';
+                    } else {
+                        document.getElementById('nueva-opinion').style.display = 'block';
+                        actualizarSelectPedidos(pedidos)
+                        console.log("Usuario:", pedidos.usuario_id);
+                        console.log("Pedidos:", pedidos.pedidos_usuario);
+                        // Aquí puedes hacer algo con los datos del usuario y sus pedidos
+                    }
+                })
+                .catch(error => console.error('Error al obtener los datos:', error));
+        }
+
+        function actualizarSelectPedidos(pedidos) {
+            //Seleccionamos el select de pedidos
+            var selectPedidos = document.getElementById('lista-pedidos');
+
+            //Eliminamos el contenido
+            selectPedidos.innerHTML = '';
+
+            //Agregamos cada pedido como opción del select
+            pedidos[0].pedidos_usuario.forEach(function(pedido) {
+                var opcion = document.createElement('option');
+                opcion.textContent = 'Pedido ' + pedido.pedido_id;
+                opcion.value = pedido.pedido_id;
+                selectPedidos.appendChild(opcion);
+            });
         }
 
         // Función para filtrar y ordenar opiniones
@@ -426,7 +489,7 @@
             };
 
             //Enviamos la solicitud al servidor para guardar los cambios
-            fetch('http://www.leroymerlin.com/Controller/APIController.php', opciones)
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', opciones)
                 .then(response => response.json())
                 .then(data => {
                     console.log('Respuesta del servidor:', data);
@@ -566,6 +629,67 @@
             // Cerrar el panel de filtros si es necesario
             document.getElementById('panelFiltros').style.right = '-100%';
             document.getElementById('fondoOscuro').style.display = 'none';
+        });
+
+        document.getElementById('nueva-opinion').addEventListener('click', function() {
+            var formulario = document.getElementById('formulario-opinion');
+            if (formulario.style.display === "none") {
+                formulario.style.display = "block";
+                formulario.classList.add('mb-4');
+                setTimeout(function() {
+                    formulario.style.opacity = 1;
+                    formulario.style.maxHeight = "1000px";
+                }, 10); // Timeout para permitir que el navegador aplique el display: block
+            } else {
+                formulario.style.opacity = 0;
+                formulario.style.maxHeight = "0";
+                setTimeout(function() {
+                    formulario.style.display = "none";
+                }, 500); // Debe coincidir con la duración de la transición
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let estrellas = document.querySelectorAll('.estrella-selector .estrella');
+            let calificacionSeleccionada = 0;
+
+            estrellas.forEach(function(estrella) {
+                estrella.addEventListener('mouseover', resaltarEstrellas);
+                estrella.addEventListener('click', seleccionarCalificacion);
+                estrella.addEventListener('mouseout', mantenerResaltado);
+            });
+
+            function resaltarEstrellas() {
+                let valor = this.getAttribute('data-valor');
+                resetearEstrellas();
+                for (let i = 0; i < valor; i++) {
+                    estrellas[i].classList.add('resaltada');
+                }
+            }
+
+            function seleccionarCalificacion() {
+                calificacionSeleccionada = this.getAttribute('data-valor');
+                console.log('Calificación seleccionada:', calificacionSeleccionada);
+                resaltarSeleccion(calificacionSeleccionada);
+                // Aquí puedes almacenar la calificación seleccionada en alguna variable o enviarla a un servidor
+            }
+
+            function mantenerResaltado() {
+                resaltarSeleccion(calificacionSeleccionada);
+            }
+
+            function resaltarSeleccion(valor) {
+                resetearEstrellas();
+                for (let i = 0; i < valor; i++) {
+                    estrellas[i].classList.add('resaltada');
+                }
+            }
+
+            function resetearEstrellas() {
+                estrellas.forEach(function(estrella) {
+                    estrella.classList.remove('resaltada');
+                });
+            }
         });
     </script>
 </body>

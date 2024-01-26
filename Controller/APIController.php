@@ -13,7 +13,7 @@ class APIController
 
     public function api()
     {
-
+        
         if ($_POST['accion'] == "buscar_opiniones") {
             // Especificar el tipo de contenido para la respuesta
             header('Content-Type: application/json');
@@ -57,14 +57,45 @@ class APIController
             }
 
             return;
+        } else if ($_POST['accion'] == "obtener_usuario") {
+
+            if (isset($_SESSION['usuario_id'])) {
+                // El usuario ha iniciado sesión
+                $usuario_id = $_SESSION['usuario_id'];
+
+                //Obtenemos los pedidos del usuario
+                $pedidos = PedidoDAO::getPedidos($usuario_id);
+
+                if (empty($pedidos)) {
+                    //El usuario no ha realizado ningún pedido
+                    echo json_encode(["error" => "Usuario sin pedidos"]);
+                    return;
+                } else {
+                    $idPedidos = [];
+
+                    foreach ($pedidos as $pedido) {
+                        $idPedidos[] = [
+                            'pedido_id' => $pedido->getPedido_id()
+                        ];
+                    }
+
+                    $pedidosUsuario[] = [
+                        'usuario_id' => $usuario_id,
+                        'pedidos_usuario' => $idPedidos
+                    ];
+
+                    //Devolvemos a JS los pedidos del usuario
+                    echo json_encode($pedidosUsuario, JSON_UNESCAPED_UNICODE);
+                }
+            } else {
+                // El usuario no ha iniciado sesión
+                echo json_encode(["error" => "Usuario no autenticado"]);
+            }
+
+            return;
         } else {
             echo json_encode(["error" => "Acción no definida o no válida"]);
             return;
         }
     }
-}
-
-$controller = new APIController();
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $controller->api();
 }
