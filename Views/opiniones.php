@@ -30,22 +30,28 @@
                 <div class="d-flex justify-content-center">
                     <button id="nueva-opinion" class="mb-4 btn-compra text text-h3">Nueva opinión</button>
                 </div>
-                <div id="formulario-opinion" class="formulario-opiniones fondo-blanco borde">
+                <div id="formulario-opinion" class="p-4 formulario-opiniones fondo-blanco borde">
                     <form action="">
-                        <label for="">Pedido</label>
-                        <select name="lista-pedidos" id="lista-pedidos"></select>
-                        <label for="">Puntuación</label>
-                        <div id="estrellas" class="estrella-selector">
-                            <span class="estrella" data-valor="1">&#9733;</span>
-                            <span class="estrella" data-valor="2">&#9733;</span>
-                            <span class="estrella" data-valor="3">&#9733;</span>
-                            <span class="estrella" data-valor="4">&#9733;</span>
-                            <span class="estrella" data-valor="5">&#9733;</span>
+                        <div class="d-flex align-items-center mb-1">
+                            <label for="" class="me-2 text-h3">Pedido</label>
+                            <select name="lista-pedidos" id="lista-pedidos" class="text select-filtro"></select>
                         </div>
-                        <label for="">Opinión</label>
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                        <div class="d-flex align-items-center mb-1">
+                            <label for="" class="me-2 text-h3">Puntuación</label>
+                            <div id="estrellas" class="mb-1 estrella-selector">
+                                <span class="estrella" data-valor="1">&#9733;</span>
+                                <span class="estrella" data-valor="2">&#9733;</span>
+                                <span class="estrella" data-valor="3">&#9733;</span>
+                                <span class="estrella" data-valor="4">&#9733;</span>
+                                <span class="estrella" data-valor="5">&#9733;</span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column mb-3">
+                            <label for="" class="mb-2 text-h3">Opinión</label>
+                            <textarea name="" id="opinion" cols="30" rows="10" class="p-2 text espacio-comentario"></textarea>
+                        </div>
 
-                        <button>Guardar</button>
+                        <button id="guardar-opinion" class="btn-compra text-h3">Guardar</button>
                     </form>
                 </div>
             </section>
@@ -218,6 +224,9 @@
         </div>
     </main>
     <script>
+        let estrellasGlobal;
+        let usuario_idGlobal;
+
         //Función para obtener la información de las opiniones en JSON
         function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
             fetch('http://www.leroymerlin.com/?controller=API&action=api', {
@@ -255,6 +264,7 @@
                     } else {
                         document.getElementById('nueva-opinion').style.display = 'block';
                         actualizarSelectPedidos(pedidos)
+                        usuario_idGlobal = pedidos.usuario_id;
                         console.log("Usuario:", pedidos.usuario_id);
                         console.log("Pedidos:", pedidos.pedidos_usuario);
                         // Aquí puedes hacer algo con los datos del usuario y sus pedidos
@@ -271,9 +281,9 @@
             selectPedidos.innerHTML = '';
 
             //Agregamos cada pedido como opción del select
-            pedidos[0].pedidos_usuario.forEach(function(pedido) {
+            pedidos.pedidos_usuario.forEach(function(pedido) {
                 var opcion = document.createElement('option');
-                opcion.textContent = 'Pedido ' + pedido.pedido_id;
+                opcion.textContent = 'Pedido nº' + pedido.pedido_id;
                 opcion.value = pedido.pedido_id;
                 selectPedidos.appendChild(opcion);
             });
@@ -631,6 +641,52 @@
             document.getElementById('fondoOscuro').style.display = 'none';
         });
 
+        //
+        //Guardar nueva opinión
+        document.getElementById('guardar-opinion').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            //Preparamos los datos que enviaremos a la API
+            let datos = new URLSearchParams({
+                accion: "guardar_opinion",
+                pedido_id: document.getElementById('lista-pedidos').value,
+                estrellas: estrellasGlobal,
+                usuario_id: usuario_idGlobal,
+                opinion: document.getElementById('opinion').value
+            }).toString();
+
+            //Método de envío
+            let opciones = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: datos
+            };
+
+            //Enviamos la solicitud al servidor para guardar los cambios
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', opciones)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Error al enviar datos:', error);
+                });
+
+            //Cerramos el espacio para la nueva opinión
+            var formulario = document.getElementById('formulario-opinion');
+            formulario.style.opacity = 0;
+            formulario.style.maxHeight = "0";
+            setTimeout(function() {
+                formulario.style.display = "none";
+            }, 500);
+
+            // Llamar a cargarOpiniones sin filtros para restablecer la lista de opiniones
+            cargarOpiniones();
+        });
+
+        //Muestra u oculta el formulario para insertar una nueva opinión
         document.getElementById('nueva-opinion').addEventListener('click', function() {
             var formulario = document.getElementById('formulario-opinion');
             if (formulario.style.display === "none") {
@@ -639,16 +695,17 @@
                 setTimeout(function() {
                     formulario.style.opacity = 1;
                     formulario.style.maxHeight = "1000px";
-                }, 10); // Timeout para permitir que el navegador aplique el display: block
+                }, 10);
             } else {
                 formulario.style.opacity = 0;
                 formulario.style.maxHeight = "0";
                 setTimeout(function() {
                     formulario.style.display = "none";
-                }, 500); // Debe coincidir con la duración de la transición
+                }, 500);
             }
         });
 
+        //Aspecto de las estrellas al insertar opinión
         document.addEventListener('DOMContentLoaded', function() {
             let estrellas = document.querySelectorAll('.estrella-selector .estrella');
             let calificacionSeleccionada = 0;
@@ -671,7 +728,7 @@
                 calificacionSeleccionada = this.getAttribute('data-valor');
                 console.log('Calificación seleccionada:', calificacionSeleccionada);
                 resaltarSeleccion(calificacionSeleccionada);
-                // Aquí puedes almacenar la calificación seleccionada en alguna variable o enviarla a un servidor
+                estrellasGlobal = calificacionSeleccionada;
             }
 
             function mantenerResaltado() {

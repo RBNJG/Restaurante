@@ -13,7 +13,7 @@ class APIController
 
     public function api()
     {
-        
+
         if ($_POST['accion'] == "buscar_opiniones") {
             // Especificar el tipo de contenido para la respuesta
             header('Content-Type: application/json');
@@ -34,6 +34,7 @@ class APIController
                     'util_si' => $opinion->getUtil_si(),
                     'util_no' => $opinion->getUtil_no(),
                     'fecha' => $opinion->getFecha(),
+                    'pedido_id' => $opinion->getPedido_id()
                 ];
             }
 
@@ -79,17 +80,38 @@ class APIController
                         ];
                     }
 
-                    $pedidosUsuario[] = [
+                    $pedidosUsuario = [
                         'usuario_id' => $usuario_id,
                         'pedidos_usuario' => $idPedidos
                     ];
 
                     //Devolvemos a JS los pedidos del usuario
                     echo json_encode($pedidosUsuario, JSON_UNESCAPED_UNICODE);
+
+                    return;
                 }
             } else {
                 // El usuario no ha iniciado sesión
                 echo json_encode(["error" => "Usuario no autenticado"]);
+            }
+
+            return;
+        } else if ($_POST['accion'] == "guardar_opinion") {
+
+            $usuario_id = $_POST['usuario_id'];
+            $opinion = $_POST['opinion'];
+            $estrellas = $_POST['estrellas'];
+            $pedido_id = $_POST['pedido_id'];
+            $fechaActual = new DateTime();
+            $fechaActualString = $fechaActual->format("Y-m-d H:i:s");
+
+            // Actualizamos el valor en la base de datos
+            $resultado = OpinionesDAO::newOpinion($usuario_id,$opinion,$estrellas,$pedido_id,$fechaActualString);
+
+            if ($resultado) {
+                echo json_encode(["success" => "Contador actualizado con éxito"]);
+            } else {
+                echo json_encode(["error" => "Error al actualizar el contador"]);
             }
 
             return;

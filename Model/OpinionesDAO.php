@@ -120,13 +120,14 @@ class OpinionesDAO
         return $resultado;
     }
 
-    public static function newPedido($usuario_id, $fecha, $coste_total, $estado)
+    //Función para guardar una opinión en la base de datos
+    public static function newOpinion($usuario_id, $opinion, $estrellas, $pedido_id, $fecha)
     {
 
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "INSERT INTO pedido (usuario_id,fecha,coste_total,estado) VALUES (?,?,?,?)";
+        $query = "INSERT INTO opiniones (usuario_id,opinion,estrellas,fecha,pedido_id) VALUES (?,?,?,?,?)";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -135,7 +136,7 @@ class OpinionesDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("isds", $usuario_id, $fecha, $coste_total, $estado);
+        $stmt->bind_param("isisi", $usuario_id, $opinion, $estrellas, $fecha, $pedido_id);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {
@@ -143,76 +144,12 @@ class OpinionesDAO
         }
 
         // Obtener el ID del pedido insertado
-        $pedidoId = $connection->insert_id;
+        $opinionId = $connection->insert_id;
 
         // Cerrar la conexión
         $stmt->close();
         $connection->close();
 
-        return $pedidoId;
-    }
-
-    //Función para eliminar un pedido a través de su id
-    public static function deletePedido($pedido_id)
-    {
-        $connection = DataBase::connect();
-
-        // Preparar la consulta
-        $query = "DELETE FROM pedido WHERE pedido_id = ?";
-        $stmt = $connection->prepare($query);
-
-        // Comprobar si la preparación de la sentencia ha sido correcta
-        if (!$stmt) {
-            die("Error de preparación: " . $connection->error);
-        }
-
-        // Enlazar los parámetros
-        $stmt->bind_param("i", $pedido_id);
-
-        // Ejecutar la consulta
-        if (!$stmt->execute()) {
-            die("Error al ejecutar la consulta: " . $stmt->error);
-        }
-
-        // Obtener el número de filas afectadas
-        $result = $stmt->affected_rows;
-
-        // Cerrar la conexión
-        $stmt->close();
-        $connection->close();
-
-        return $result;
-    }
-
-    // Función para modificar los atributos de un producto en la base de datos
-    public static function modifyPedido($coste_total, $estado, $pedido_id)
-    {
-        $connection = DataBase::connect();
-
-        // Preparar la consulta
-        $query = "UPDATE pedido SET coste_total = ?, estado = ? WHERE pedido_id = ?";
-        $stmt = $connection->prepare($query);
-
-        // Comprobar si la preparación de la sentencia ha sido correcta
-        if (!$stmt) {
-            die("Error de preparación: " . $connection->error);
-        }
-
-        // Enlazar los parámetros
-        $stmt->bind_param("dsi", $coste_total, $estado, $pedido_id);
-
-        // Ejecutar la consulta
-        if (!$stmt->execute()) {
-            die("Error al ejecutar la consulta: " . $stmt->error);
-        }
-
-        // Obtener el número de filas afectadas
-        $affected_rows = $stmt->affected_rows;
-
-        // Cerrar la conexión
-        $stmt->close();
-        $connection->close();
-
-        return $affected_rows;
+        return $opinionId;
     }
 }

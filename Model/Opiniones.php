@@ -9,6 +9,7 @@ class Opiniones {
     private $util_si;
     private $util_no;
     private $fecha;
+    private $pedido_id;
 
     /**
      * Get the value of opinion_id
@@ -146,6 +147,26 @@ class Opiniones {
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pedido_id
+     */ 
+    public function getPedido_id()
+    {
+        return $this->pedido_id;
+    }
+
+    /**
+     * Set the value of pedido_id
+     *
+     * @return  self
+     */ 
+    public function setPedido_id($pedido_id)
+    {
+        $this->pedido_id = $pedido_id;
 
         return $this;
     }
