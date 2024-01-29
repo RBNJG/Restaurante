@@ -94,7 +94,7 @@
 }
 
 #nueva-opinion.btn-compra {
-    display: none;
+    display: block;
     width: 10rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -168,17 +168,33 @@
     transition: opacity 0.5s, max-height 0.5s ease-in-out;
 }
 
-.estrella-selector .estrella {
-    color: gray;
-    font-size: 2.6rem;
+.estrella {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.9rem;
+    height: 2.9rem;
+    background-image: url(../images/opiniones/estrella_vacia.svg);
+    background-size: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
     cursor: pointer;
 }
 
-.estrella-selector .estrella.resaltada {
-    color: #ea7315;
+.estrella svg {
+    width: 2.6rem;
+    height: 2.6rem;
+    display: block;
+    margin: auto;
 }
 
-.espacio-comentario{
+.estrella.resaltada,
+.estrella:hover,
+.estrella:active {
+    background-image: url(../images/opiniones/estrella_llena.svg);
+}
+
+.espacio-comentario {
     border: 1px solid #000000;
     border-radius: 4px;
     height: 10rem;

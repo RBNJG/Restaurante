@@ -68,8 +68,12 @@ class APIController
                 $pedidos = PedidoDAO::getPedidos($usuario_id);
 
                 if (empty($pedidos)) {
+                    $pedidosUsuario = [
+                        'mensaje' => 'Todavía no has realizado ningún pedido'
+                    ];
+
                     //El usuario no ha realizado ningún pedido
-                    echo json_encode(["error" => "Usuario sin pedidos"]);
+                    echo json_encode($pedidosUsuario, JSON_UNESCAPED_UNICODE);
                     return;
                 } else {
                     $idPedidos = [];
@@ -91,8 +95,13 @@ class APIController
                     return;
                 }
             } else {
-                // El usuario no ha iniciado sesión
-                echo json_encode(["error" => "Usuario no autenticado"]);
+                $pedidosUsuario = [
+                    'mensaje' => 'Has de iniciar sesión para dejar tu opinión.'
+                ];
+
+                //El usuario no ha realizado ningún pedido
+                echo json_encode($pedidosUsuario, JSON_UNESCAPED_UNICODE);
+                return;
             }
 
             return;

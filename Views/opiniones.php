@@ -12,6 +12,8 @@
     <link href="assets/css/full_estil.css" rel="stylesheet" type="text/css" media="screen">
     <link href="assets/css/opiniones.css" rel="stylesheet" type="text/css" media="screen">
     <link href="assets/css/carta.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="node_modules/notie/dist/notie.css" rel="stylesheet">
+    <link href="node_modules/notie/dist/notie_min.css" rel="stylesheet">
     <title>Leroy Merlin</title>
 </head>
 
@@ -32,18 +34,18 @@
                 </div>
                 <div id="formulario-opinion" class="p-4 formulario-opiniones fondo-blanco borde">
                     <form action="">
-                        <div class="d-flex align-items-center mb-1">
-                            <label for="" class="me-2 text-h3">Pedido</label>
+                        <div class="d-flex align-items-center mb-3">
+                            <label for="" class="me-3 text-h3">Pedido</label>
                             <select name="lista-pedidos" id="lista-pedidos" class="text select-filtro"></select>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
+                        <div class="d-flex align-items-center mb-3">
                             <label for="" class="me-2 text-h3">Puntuación</label>
-                            <div id="estrellas" class="mb-1 estrella-selector">
-                                <span class="estrella" data-valor="1">&#9733;</span>
-                                <span class="estrella" data-valor="2">&#9733;</span>
-                                <span class="estrella" data-valor="3">&#9733;</span>
-                                <span class="estrella" data-valor="4">&#9733;</span>
-                                <span class="estrella" data-valor="5">&#9733;</span>
+                            <div id="estrellas" class="d-flex estrella-selector">
+                                <span class="estrella" data-valor="1"></span>
+                                <span class="estrella" data-valor="2"></span>
+                                <span class="estrella" data-valor="3"></span>
+                                <span class="estrella" data-valor="4"></span>
+                                <span class="estrella" data-valor="5"></span>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-3">
@@ -226,6 +228,7 @@
     <script>
         let estrellasGlobal;
         let usuario_idGlobal;
+        let mensajeUsuario = "";
 
         //Función para obtener la información de las opiniones en JSON
         function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
@@ -260,14 +263,16 @@
                 .then(pedidos => {
                     if (pedidos.error) {
                         console.error("Error:", pedidos.error);
-                        document.getElementById('nueva-opinion').style.display = 'none';
+                        //document.getElementById('nueva-opinion').style.display = 'none';
+                    } else if (pedidos.mensaje) {
+                        //document.getElementById('nueva-opinion').style.display = 'block';
+                        mensajeUsuario = pedidos.mensaje;
                     } else {
-                        document.getElementById('nueva-opinion').style.display = 'block';
+                        //document.getElementById('nueva-opinion').style.display = 'block';
                         actualizarSelectPedidos(pedidos)
                         usuario_idGlobal = pedidos.usuario_id;
                         console.log("Usuario:", pedidos.usuario_id);
                         console.log("Pedidos:", pedidos.pedidos_usuario);
-                        // Aquí puedes hacer algo con los datos del usuario y sus pedidos
                     }
                 })
                 .catch(error => console.error('Error al obtener los datos:', error));
@@ -350,9 +355,12 @@
             </div>
             <div class="col-9">
                 <div class="d-flex align-items-start flex-column ps-5 separador">
-                    <div class="d-flex justify-content-start aling-items-center mb-2">
-                        <img src="${urlImagenEstrellas}" alt="" class="img-estrellas">
-                        <p class="ms-2 mb-0 text">${opinion.estrellas} / 5</p>
+                    <div class="w-100 d-flex justify-content-between"> 
+                        <div class="d-flex justify-content-start aling-items-center mb-2">
+                            <img src="${urlImagenEstrellas}" alt="" class="img-estrellas">
+                            <p class="ms-2 mb-0 text">${opinion.estrellas} / 5</p>
+                        </div>
+                        <p class="text">Pedido nº${opinion.pedido_id}</p>
                     </div>
                     <div class="my-2">
                         <p class="text">${opinion.opinion}</p>
@@ -641,10 +649,27 @@
             document.getElementById('fondoOscuro').style.display = 'none';
         });
 
-        //
         //Guardar nueva opinión
         document.getElementById('guardar-opinion').addEventListener('click', function(event) {
             event.preventDefault();
+
+            // Verificar si se ha seleccionado una calificación
+            if (!estrellasGlobal || estrellasGlobal === 0) {
+                notie.alert({
+                    type: 'error', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                    text: 'Por favor, selecciona una valoración.'
+                })
+                return;
+            }
+
+            // Verificar si se ha seleccionado una calificación
+            if (document.getElementById('opinion').value == "") {
+                notie.alert({
+                    type: 'error', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                    text: 'Por favor, escribe tu opinión.'
+                })
+                return;
+            }
 
             //Preparamos los datos que enviaremos a la API
             let datos = new URLSearchParams({
@@ -668,6 +693,13 @@
             fetch('http://www.leroymerlin.com/?controller=API&action=api', opciones)
                 .then(response => response.json())
                 .then(data => {
+                    notie.alert({
+                        type: 'success', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                        text: 'Opinión guardada con éxito.'
+                    })
+                    // Llamar a cargarOpiniones sin filtros para restablecer la lista de opiniones
+                    cargarOpiniones();
+                    resetearFormulario();
                     console.log('Respuesta del servidor:', data);
                 })
                 .catch(error => {
@@ -681,13 +713,39 @@
             setTimeout(function() {
                 formulario.style.display = "none";
             }, 500);
-
-            // Llamar a cargarOpiniones sin filtros para restablecer la lista de opiniones
-            cargarOpiniones();
         });
+
+        //Función para resetear los valores del formulario
+        function resetearFormulario() {
+            // Resetear el select de pedidos
+            let selectPedidos = document.getElementById('lista-pedidos');
+            if (selectPedidos.options.length > 0) {
+                selectPedidos.selectedIndex = 0;
+            }
+
+            // Resetear las estrellas
+            let estrellas = document.querySelectorAll('#estrellas .estrella');
+            estrellas.forEach(estrella => {
+                estrella.classList.remove('resaltada', 'seleccionada');
+            });
+            estrellasGlobal = 0;
+
+            // Limpiar el textarea de la opinión
+            document.getElementById('opinion').value = '';
+        }
 
         //Muestra u oculta el formulario para insertar una nueva opinión
         document.getElementById('nueva-opinion').addEventListener('click', function() {
+            //Si el usuario no cumple las condiciones le mostramos el mensaje y no abrimos el formulario
+            if (mensajeUsuario != "") {
+                notie.alert({
+                    type: 'error',
+                    text: mensajeUsuario
+                })
+
+                return;
+            }
+
             var formulario = document.getElementById('formulario-opinion');
             if (formulario.style.display === "none") {
                 formulario.style.display = "block";
@@ -749,6 +807,7 @@
             }
         });
     </script>
+    <script src="https://unpkg.com/notie"></script>
 </body>
 
 </html>
