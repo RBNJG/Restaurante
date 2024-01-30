@@ -124,6 +124,39 @@ class APIController
             }
 
             return;
+        } else if ($_POST['accion'] == "obtener_carrito") {
+
+            // Especificar el tipo de contenido para la respuesta
+            header('Content-Type: application/json');
+
+            //Recuperamos el carrito
+            $carrito = $_SESSION['carrito'];
+
+            $carritoJson = [];
+
+            foreach ($carrito as $producto) {
+                $productoCompleto = $producto->getProducto();
+
+                $productoJson = [
+                    'producto_id' => $productoCompleto->getProducto_id(),
+                    'nombre_producto' => $productoCompleto->getNombre_producto(),
+                    'coste_base' => $productoCompleto->getCoste_base(),
+                    'imagen' => $productoCompleto->getImagen(),
+                    'descuento' => $productoCompleto->getDescuento(),
+                    'envio_gratis' => $productoCompleto->getEnvio_gratis(),
+                ];
+
+                $carritoJson [] = [
+                    'producto' => $productoJson,
+                    'cantidad' => $producto->getCantidad()
+                ];
+            }
+
+
+            //Devolvemos a JS el carrito en JSON
+            echo json_encode($carritoJson, JSON_UNESCAPED_UNICODE);
+
+            return;
         } else {
             echo json_encode(["error" => "Acción no definida o no válida"]);
             return;

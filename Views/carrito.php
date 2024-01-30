@@ -1,9 +1,3 @@
-<?php
-
-$carrito = $_SESSION['carrito'];
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,14 +14,14 @@ $carrito = $_SESSION['carrito'];
     <title>Leroy Merlin</title>
 </head>
 
-<body>
+<body onload="cargarCarrito()">
     <div class="mt-3">
         <div class="container px-0">
             <h1 class="text-h1 mb-4">Carrito</h1>
             <hr class="linea-carrito">
         </div>
     </div>
-    <div class="container rellenar">
+    <section class="container rellenar">
         <?php
         if (count($_SESSION['carrito']) == 0) {
         ?>
@@ -96,7 +90,7 @@ $carrito = $_SESSION['carrito'];
                                         <?php
                                         if ($producto->getProducto()->getDescuento() == 0) {
                                         ?>
-                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto,0, 0) ?> €</p>
+                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto, 0, 0) ?> €</p>
                                         <?php
                                         } else {
                                         ?>
@@ -107,8 +101,8 @@ $carrito = $_SESSION['carrito'];
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-baseline">
-                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto,0, 1) ?> €</p>
-                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto,0, 0) ?> €</p>
+                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto, 0, 1) ?> €</p>
+                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto, 0, 0) ?> €</p>
                                                 </div>
                                             </div>
                                         <?php
@@ -125,10 +119,13 @@ $carrito = $_SESSION['carrito'];
                 </div>
                 <div class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5">
                     <div class="d-flex justify-content-between align-items-center py-4 px-3 mb-3 cartel-cheque">
-                        <h3 class="mb-0 text-cheque">Aplicar cheques club</h4>
+                        <h3 class="mb-0 text-cheque">Aplicar puntos fidelidad</h4>
                             <picture>
                                 <img src="assets/icons/flecha_derecha.svg" alt="flecha" class="flecha">
                             </picture>
+                    </div>
+                    <div class="">
+
                     </div>
                     <hr class="w-100 mb-0 linea-carrito">
                     <div class="px-3 borde-fino">
@@ -165,7 +162,27 @@ $carrito = $_SESSION['carrito'];
         <?php
         }
         ?>
-    </div>
+    </section>
+    <script>
+        function cargarCarrito() {
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'accion=obtener_carrito'
+                })
+                .then(response => response.json())
+                .then(carrito => {
+                    carrito.forEach(item => {
+                        console.log("Producto id:", item.producto.producto_id);
+                        console.log("Nombre producto:", item.producto.nombre_producto);
+                        console.log("Cantidad:", item.cantidad);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 
 </html>

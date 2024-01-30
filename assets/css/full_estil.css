@@ -184,6 +184,10 @@ a:hover {
     font-weight: 800 !important;
 }
 
+.subrayado {
+    text-decoration: underline;
+}
+
 /* Botones */
 
 button.sin-estilo {

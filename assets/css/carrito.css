@@ -39,6 +39,11 @@
 
 .cartel-cheque {
     background-color: #EBF5DE;
+    cursor: pointer;
+}
+
+.cartel-cheque:hover h3{
+    text-decoration: underline;
 }
 
 .text-cheque {
