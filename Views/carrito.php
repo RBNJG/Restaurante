@@ -21,147 +21,53 @@
             <hr class="linea-carrito">
         </div>
     </div>
-    <section class="container rellenar">
-        <?php
-        if (count($_SESSION['carrito']) == 0) {
-        ?>
-            <div class="d-flex justify-content-center mb-5">
-                <p class="text-h2">Todavía no tienes ningún producto en el carrito</p>
-            </div>
-        <?php
-        } else {
-        ?>
-            <div class="row">
-                <div class="col-lg-9 col-md-8 col-6 px-0 mb-5">
-                    <h3 class="text-h3 mb-3">Vendido por LEROY MERLIN</h3>
-                    <?php
-                    $pos = 0;
-                    foreach ($carrito as $producto) {
-                    ?>
-                        <div class="row">
-                            <div class="d-flex justify-content-start w-100 ps-0 pe-2 altura-carrito">
-                                <div class="align-self-center img-carrito" style="background-image: url(<?= $producto->getProducto()->getImagen() ?>);"></div>
-                                <div class="w-100 d-flex flex-column justify-content-around">
-                                    <div class="d-flex justify-content-between px-3">
-                                        <p class="mb-0 text"><?= $producto->getProducto()->getNombre_producto() ?></p>
-                                        <form action=<?= url . "?controller=Carrito&action=eliminar" ?> method='post'>
-                                            <input name="pos_producto" value="<?= $pos ?>" hidden />
-                                            <button type="submit" class="d-flex justify-content-center align-items-center contenedor-basura sin-estilo">
-                                                <picture>
-                                                    <img src="assets/images/carrito/basura.svg" alt="" class="img-basura">
-                                                </picture>
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="d-flex justify-content-between px-3">
-                                        <div class="d-flex align-self-center altura-selector">
-                                            <?php
-                                            if ($producto->getCantidad() == 1) {
-                                            ?>
-                                                <button id="" class="restar-off" disabled>
-                                                    <picture class="d-flex align-items-center">
-                                                        <img src="assets/images/carrito/menos.svg" alt="">
-                                                    </picture>
-                                                </button>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <form action=<?= url . "?controller=Carrito&action=modificarCantidad" ?> method='post'>
-                                                    <input name="restar" value="<?= $pos ?>" hidden />
-                                                    <button class="restar" type="submit">
-                                                        <picture class="d-flex align-items-center">
-                                                            <img src="assets/images/carrito/menos.svg" alt="">
-                                                        </picture>
-                                                    </button>
-                                                </form>
-                                            <?php
-                                            }
-                                            ?>
-                                            <input type="text" id="cantidad" class="mx-0 text" value="<?= $producto->getCantidad() ?>" readonly>
-                                            <form action=<?= url . "?controller=Carrito&action=modificarCantidad" ?> method='post'>
-                                                <input name="sumar" value="<?= $pos ?>" hidden />
-                                                <button class="sumar" type="submit">
-                                                    <picture class="d-flex align-items-center">
-                                                        <img src="assets/images/carrito/mas.svg" alt="" class="">
-                                                    </picture>
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <?php
-                                        if ($producto->getProducto()->getDescuento() == 0) {
-                                        ?>
-                                            <p class="mb-0 text-cheque"><?= Calculadora::totalProducto($producto, 0, 0) ?> €</p>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <div>
-                                                <div class="d-flex justify-content-end">
-                                                    <div class="d-flex align-items-center justify-content-center cartel-descuento">
-                                                        <p class="mb-0 text-cartel-descuento">- <?= number_format(Calculadora::descuento($producto) * $producto->getCantidad(), 2) ?> €</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-baseline">
-                                                    <p class="mb-0 me-4 text text-precio-tachado-carrito"><?= Calculadora::totalProducto($producto, 0, 1) ?> €</p>
-                                                    <p class="mb-0 text text-precio color-descuento"><?= Calculadora::totalProducto($producto, 0, 0) ?> €</p>
-                                                </div>
-                                            </div>
-                                        <?php
-                                        }
-                                        ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php
-                        $pos++;
-                    }
-                    ?>
-                </div>
-                <div class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5">
-                    <div class="d-flex justify-content-between align-items-center py-4 px-3 mb-3 cartel-cheque">
-                        <h3 class="mb-0 text-cheque">Aplicar puntos fidelidad</h4>
-                            <picture>
-                                <img src="assets/icons/flecha_derecha.svg" alt="flecha" class="flecha">
-                            </picture>
-                    </div>
-                    <div class="">
+    <section id="contenedor-carrito" class="container rellenar">
+        <div class="row">      
+            <div id="productos-carrito" class="col-lg-9 col-md-8 col-6 px-0 mb-5">
 
-                    </div>
-                    <hr class="w-100 mb-0 linea-carrito">
-                    <div class="px-3 borde-fino">
-                        <div class="d-flex justify-content-between pt-3">
-                            <p class="mb-2 text-cheque">Subtotal</p>
-                            <p class="mb-2 text-cheque"><?= Calculadora::subtotal($carrito) ?> €</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p class="text">Gastos de envío estimados</p>
-                            <p class="text"><?= Calculadora::costeEnvio($carrito) ?> €</p>
-                        </div>
-                    </div>
-                    <div class="py-2 px-3 fondo-gris">
-                        <div class="d-flex justify-content-between">
-                            <p class="text-h2">Total</p>
-                            <p class="text-h2"><?= Calculadora::total($carrito) ?> €</p>
-                        </div>
-                        <p class="text">Impuestos incluidos</p>
-                        <form action=<?php if (!isset($_SESSION['usuario_id'])) {
-                                            echo url . "?controller=Login";
-                                        } else {
-                                            echo url . "?controller=Carrito&action=compra";
-                                        } ?> method='post'>
-                            <input name="carrito" value="<?= $_SESSION['carrito'] ?>" hidden>
-                            <button class="btn-compra mb-3">Continuar</button>
-                        </form>
-                        <p class="mb-2 text-pago">Pago 100% seguro</p>
-                        <picture class="w-100">
-                            <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3 pagos">
+            </div>     
+            <div id="pago" class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5">
+                <div class="d-flex justify-content-between align-items-center py-4 px-3 mb-3 cartel-cheque">
+                    <h3 class="mb-0 text-cheque">Aplicar puntos fidelidad</h4>
+                        <picture>
+                            <img src="assets/icons/flecha_derecha.svg" alt="flecha" class="flecha">
                         </picture>
+                </div>
+                <div class="">
+
+                </div>
+                <hr class="w-100 mb-0 linea-carrito">
+                <div class="px-3 borde-fino">
+                    <div class="d-flex justify-content-between pt-3">
+                        <p class="mb-2 text-cheque">Subtotal</p>
+                        <p class="mb-2 text-cheque"><?= Calculadora::subtotal($carrito) ?> €</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <p class="text">Gastos de envío estimados</p>
+                        <p class="text"><?= Calculadora::costeEnvio($carrito) ?> €</p>
                     </div>
                 </div>
+                <div class="py-2 px-3 fondo-gris">
+                    <div class="d-flex justify-content-between">
+                        <p class="text-h2">Total</p>
+                        <p class="text-h2"><?= Calculadora::total($carrito) ?> €</p>
+                    </div>
+                    <p class="text">Impuestos incluidos</p>
+                    <form action=<?php if (!isset($_SESSION['usuario_id'])) {
+                                        echo url . "?controller=Login";
+                                    } else {
+                                        echo url . "?controller=Carrito&action=compra";
+                                    } ?> method='post'>
+                        <input name="carrito" value="<?= $_SESSION['carrito'] ?>" hidden>
+                        <button class="btn-compra mb-3">Continuar</button>
+                    </form>
+                    <p class="mb-2 text-pago">Pago 100% seguro</p>
+                    <picture class="w-100">
+                        <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3 pagos">
+                    </picture>
+                </div>
             </div>
-        <?php
-        }
-        ?>
+        </div>
     </section>
     <script>
         function cargarCarrito() {
@@ -174,13 +80,211 @@
                 })
                 .then(response => response.json())
                 .then(carrito => {
-                    carrito.forEach(item => {
-                        console.log("Producto id:", item.producto.producto_id);
-                        console.log("Nombre producto:", item.producto.nombre_producto);
-                        console.log("Cantidad:", item.cantidad);
-                    });
+                    mostrarCarrito(carrito)
                 })
                 .catch(error => console.error('Error:', error));
+        }
+
+        function mostrarCarrito(carrito) {
+
+            if (carrito.length === 0) {
+                const contenedorCarrito = document.getElementById('contenedor-carrito');
+                contenedorCarrito.innerHTML = '';
+
+                // Crear div principal
+                const divRow = document.createElement('div');
+                divRow.className = 'd-flex justify-content-center mb-5';
+
+                const pMensaje = document.createElement('p');
+                pMensaje.className = 'text-h2';
+                pMensaje.textContent = "Todavía no tienes ningún producto en el carrito";
+
+                divRow.appendChild(pMensaje);
+
+                contenedorCarrito.appendChild(divRow);
+
+            } else {
+                const productosCarrito = document.getElementById('productos-carrito');
+                productosCarrito.innerHTML = '';
+
+                const h3Titulo = document.createElement('h3');
+                h3Titulo.className = 'text-h3 mb-3';
+                h3Titulo.textContent = 'Vendido por LEROY MERLIN';
+                productosCarrito.appendChild(h3Titulo);
+
+                carrito.forEach((producto, pos) => {
+                    const divRow = document.createElement('div');
+                    divRow.className = 'row';
+
+                    const divFlex = document.createElement('div');
+                    divFlex.className = 'd-flex justify-content-start w-100 ps-0 pe-2 altura-carrito';
+
+                    //Imagen del producto
+                    const divImagen = document.createElement('div');
+                    divImagen.className = 'align-self-center img-carrito';
+                    divImagen.style.backgroundImage = `url(${producto.producto.imagen})`;
+                    divFlex.appendChild(divImagen);
+
+                    const divContenido = document.createElement('div');
+                    divContenido.className = 'w-100 d-flex flex-column justify-content-around';
+
+                    //Primera fila dentro del producto
+                    const divPrimeraFila = document.createElement('div');
+                    divPrimeraFila.className = 'd-flex justify-content-between px-3';
+
+                    //Nombre del producto
+                    const pNombreProducto = document.createElement('p');
+                    pNombreProducto.className = 'mb-0 text';
+                    pNombreProducto.textContent = producto.producto.nombre_producto;
+                    divPrimeraFila.appendChild(pNombreProducto);
+
+                    //Botón de eliminar
+                    const botonEliminar = document.createElement('button');
+                    botonEliminar.className = 'd-flex justify-content-center align-items-center contenedor-basura sin-estilo';
+                    botonEliminar.id = 'eliminar-producto';
+
+                    const basura = document.createElement('img');
+                    basura.src = 'assets/images/carrito/basura.svg';
+                    basura.className = 'img-basura';
+
+                    botonEliminar.appendChild(basura);
+                    divPrimeraFila.appendChild(botonEliminar);
+
+                    divContenido.appendChild(divPrimeraFila);
+
+                    // Segunda fila dentro del producto
+                    const divSegundaFila = document.createElement('div');
+                    divSegundaFila.className = 'd-flex justify-content-between px-3';
+
+                    const divSelector = document.createElement('div');
+                    divSelector.className = 'd-flex align-self-center altura-selector';
+
+                    //Si la cantidad del producto es 1 el botón de restar se desactiva
+                    if (producto.cantidad === 1) {
+                        //Botón menos desactivo
+                        const boton = document.createElement('button');
+                        boton.className = 'restar-off';
+                        boton.disabled = true;
+
+                        const picture = document.createElement('picture');
+                        picture.className = 'd-flex align-items-center';
+
+                        //Imagen del botón
+                        const img = document.createElement('img');
+                        img.src = 'assets/images/carrito/menos.svg';
+
+                        picture.appendChild(img);
+
+                        boton.appendChild(picture);
+
+                        divSelector.appendChild(boton);
+                    } else {
+                        //Botón menos activo
+                        const boton = document.createElement('button');
+                        boton.className = 'restar';
+                        boton.id = 'restar';
+
+                        const picture = document.createElement('picture');
+                        picture.className = 'd-flex align-items-center';
+
+                        //Imagen del botón
+                        const img = document.createElement('img');
+                        img.src = 'assets/images/carrito/menos.svg';
+
+                        picture.appendChild(img);
+
+                        boton.appendChild(picture);
+
+                        divSelector.appendChild(boton);
+                    }
+
+                    //Input con cantidad
+                    const inputCantidad = document.createElement('input');
+
+                    //Asignar los atributos al input
+                    inputCantidad.type = 'text';
+                    inputCantidad.id = 'cantidad';
+                    inputCantidad.className = 'mx-0 text';
+                    inputCantidad.value = producto.cantidad;
+                    inputCantidad.readOnly = true;
+
+                    divSelector.appendChild(inputCantidad);
+
+                    //Botón más
+                    const botonMas = document.createElement('button');
+                    botonMas.className = 'sumar';
+                    botonMas.id = 'sumar';
+
+                    const pictureMas = document.createElement('picture');
+                    pictureMas.className = 'd-flex align-items-center';
+
+                    //Imagen del botón
+                    const imgMas = document.createElement('img');
+                    imgMas.src = 'assets/images/carrito/mas.svg';
+
+                    pictureMas.appendChild(imgMas);
+
+                    botonMas.appendChild(pictureMas);
+
+                    divSelector.appendChild(botonMas);
+
+                    divSegundaFila.appendChild(divSelector);
+
+                    //Si el precio tiene descuento se muestra de forma distinta
+                    if (producto.producto.descuento === 0.00) {
+                        const pPrecio = document.createElement('p');
+                        pPrecio.className = 'mb-0 text-cheque';
+                        pPrecio.textContent = `${(producto.producto.coste_base * producto.cantidad).toFixed(2)} €`;
+                        divSegundaFila.appendChild(pPrecio);
+                    } else {
+                        // Calculamos los valores necesarios
+                        let precioFinal = ((producto.producto.descuento * producto.producto.coste_base) * producto.cantidad).toFixed(2);
+                        let precioTachado = (producto.producto.coste_base * producto.cantidad).toFixed(2);
+                        let descuentoTotal = (precioTachado - precioFinal).toFixed(2);
+
+                        // Creamos el contenedor principal
+                        const divPrincipal = document.createElement('div');
+
+                        // Creamos y agregamos el primer div
+                        const divDescuento = document.createElement('div');
+                        divDescuento.className = 'd-flex justify-content-end';
+
+                        const divCartelDescuento = document.createElement('div');
+                        divCartelDescuento.className = 'd-flex align-items-center justify-content-center cartel-descuento';
+
+                        const pDescuento = document.createElement('p');
+                        pDescuento.className = 'mb-0 text-cartel-descuento';
+                        pDescuento.textContent = `- ${descuentoTotal} €`;
+
+                        divCartelDescuento.appendChild(pDescuento);
+                        divDescuento.appendChild(divCartelDescuento);
+                        divPrincipal.appendChild(divDescuento);
+
+                        // Creamos y agregamos el segundo div
+                        const divPrecios = document.createElement('div');
+                        divPrecios.className = 'd-flex align-items-baseline';
+
+                        const pPrecioTachado = document.createElement('p');
+                        pPrecioTachado.className = 'mb-0 me-4 text text-precio-tachado-carrito';
+                        pPrecioTachado.textContent = `${precioTachado} €`;
+
+                        const pPrecioFinal = document.createElement('p');
+                        pPrecioFinal.className = 'mb-0 text text-precio color-descuento';
+                        pPrecioFinal.textContent = `${precioFinal} €`;
+
+                        divPrecios.appendChild(pPrecioTachado);
+                        divPrecios.appendChild(pPrecioFinal);
+                        divPrincipal.appendChild(divPrecios);
+
+                        divSegundaFila.appendChild(divPrincipal);
+                    }
+
+                    divContenido.appendChild(divSegundaFila);
+                    divFlex.appendChild(divContenido);
+                    divRow.appendChild(divFlex);
+                    productosCarrito.appendChild(divRow);
+                });
+            }
         }
     </script>
 </body>

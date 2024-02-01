@@ -142,7 +142,7 @@ class APIController
                     'nombre_producto' => $productoCompleto->getNombre_producto(),
                     'coste_base' => $productoCompleto->getCoste_base(),
                     'imagen' => $productoCompleto->getImagen(),
-                    'descuento' => $productoCompleto->getDescuento(),
+                    'descuento' => floatval($productoCompleto->getDescuento()),
                     'envio_gratis' => $productoCompleto->getEnvio_gratis(),
                 ];
 
