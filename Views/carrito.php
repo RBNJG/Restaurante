@@ -22,10 +22,10 @@
         </div>
     </div>
     <section id="contenedor-carrito" class="container rellenar">
-        <div class="row">      
+        <div class="row">
             <div id="productos-carrito" class="col-lg-9 col-md-8 col-6 px-0 mb-5">
 
-            </div>     
+            </div>
             <div id="pago" class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5">
                 <div class="d-flex justify-content-between align-items-center py-4 px-3 mb-3 cartel-cheque">
                     <h3 class="mb-0 text-cheque">Aplicar puntos fidelidad</h4>
@@ -40,17 +40,17 @@
                 <div class="px-3 borde-fino">
                     <div class="d-flex justify-content-between pt-3">
                         <p class="mb-2 text-cheque">Subtotal</p>
-                        <p class="mb-2 text-cheque"><?= Calculadora::subtotal($carrito) ?> €</p>
+                        <p id="subtotal" class="mb-2 text-cheque"></p>
                     </div>
                     <div class="d-flex justify-content-between">
                         <p class="text">Gastos de envío estimados</p>
-                        <p class="text"><?= Calculadora::costeEnvio($carrito) ?> €</p>
+                        <p id="coste-envio" class="text"></p>
                     </div>
                 </div>
                 <div class="py-2 px-3 fondo-gris">
                     <div class="d-flex justify-content-between">
                         <p class="text-h2">Total</p>
-                        <p class="text-h2"><?= Calculadora::total($carrito) ?> €</p>
+                        <p id="total" class="text-h2"></p>
                     </div>
                     <p class="text">Impuestos incluidos</p>
                     <form action=<?php if (!isset($_SESSION['usuario_id'])) {
@@ -70,6 +70,7 @@
         </div>
     </section>
     <script>
+        //Función que carga el carrito
         function cargarCarrito() {
             fetch('http://www.leroymerlin.com/?controller=API&action=api', {
                     method: 'POST',
@@ -80,11 +81,17 @@
                 })
                 .then(response => response.json())
                 .then(carrito => {
-                    mostrarCarrito(carrito)
+                    carrito.forEach(producto=> {
+                        console.log(typeof producto.producto.coste_base);
+                    });
+                    mostrarCarrito(carrito),
+                        envio(carrito),
+                        actualizarCarritoUI(carrito)
                 })
                 .catch(error => console.error('Error:', error));
         }
 
+        //Función que genera el HTML de los productos del carrito
         function mostrarCarrito(carrito) {
 
             if (carrito.length === 0) {
@@ -182,7 +189,7 @@
                         //Botón menos activo
                         const boton = document.createElement('button');
                         boton.className = 'restar';
-                        boton.id = 'restar';
+                        boton.id = `sumar-${pos}`;
 
                         const picture = document.createElement('picture');
                         picture.className = 'd-flex align-items-center';
@@ -204,6 +211,7 @@
                     //Asignar los atributos al input
                     inputCantidad.type = 'text';
                     inputCantidad.id = 'cantidad';
+                    inputCantidad.name = `cantidad-${pos}`;
                     inputCantidad.className = 'mx-0 text';
                     inputCantidad.value = producto.cantidad;
                     inputCantidad.readOnly = true;
@@ -213,7 +221,7 @@
                     //Botón más
                     const botonMas = document.createElement('button');
                     botonMas.className = 'sumar';
-                    botonMas.id = 'sumar';
+                    botonMas.id = `sumar-${pos}`;
 
                     const pictureMas = document.createElement('picture');
                     pictureMas.className = 'd-flex align-items-center';
@@ -233,6 +241,7 @@
                     //Si el precio tiene descuento se muestra de forma distinta
                     if (producto.producto.descuento === 0.00) {
                         const pPrecio = document.createElement('p');
+                        pPrecio.id = `precio-producto-${producto.producto.producto_id}`;
                         pPrecio.className = 'mb-0 text-cheque';
                         pPrecio.textContent = `${(producto.producto.coste_base * producto.cantidad).toFixed(2)} €`;
                         divSegundaFila.appendChild(pPrecio);
@@ -269,6 +278,7 @@
                         pPrecioTachado.textContent = `${precioTachado} €`;
 
                         const pPrecioFinal = document.createElement('p');
+                        pPrecioFinal.id = `precio-producto-${producto.producto.producto_id}`;
                         pPrecioFinal.className = 'mb-0 text text-precio color-descuento';
                         pPrecioFinal.textContent = `${precioFinal} €`;
 
@@ -284,7 +294,92 @@
                     divRow.appendChild(divFlex);
                     productosCarrito.appendChild(divRow);
                 });
+
+                //Manejador de eventos para sumar y restar cantidad de producto
+                productosCarrito.addEventListener('click', function(event) {
+                    if (event.target.matches('.sumar, .sumar *')) {
+                        // Manejar clic en sumar
+                        const pos = parseInt(event.target.closest('button').id.split('-')[1]);
+                        modificarCantidad(carrito, pos, 1);
+                    } else if (event.target.matches('.restar, .restar *')) {
+                        // Manejar clic en restar
+                        const pos = parseInt(event.target.closest('button').id.split('-')[1]);
+                        modificarCantidad(carrito, pos, -1);
+                    }
+                });
             }
+        }
+
+        function modificarCantidad(carrito, pos, cambio) {
+            // Cambiar la cantidad del producto en la posición dada
+            let producto = carrito[pos];
+            producto.cantidad += cambio;
+
+            // Actualizar la interfaz de usuario
+            const inputCantidad = document.querySelector(`input[name='cantidad-${pos}']`);
+            inputCantidad.value = producto.cantidad;
+
+            // Actualizar el carrito y la interfaz de usuario
+            actualizarCarritoUI(carrito);
+
+            // Aquí puedes agregar código para actualizar el carrito en el servidor
+            // Por ejemplo, haciendo una solicitud fetch para actualizar la cantidad
+        }
+
+        function actualizarCarritoUI(carrito) {
+            // Actualizar Subtotal, Total, Descuentos, etc.
+            let subtotal = 0;
+
+            carrito.forEach(producto => {
+                let precioProducto = producto.producto.coste_base;
+                let cantidadProducto = producto.cantidad;
+                let descuentoProducto = producto.producto.descuento;
+
+                // Calcula el subtotal por producto (teniendo en cuenta el descuento si existe)
+                let subtotalProducto = cantidadProducto * (precioProducto * descuentoProducto);
+                subtotal += subtotalProducto;
+
+                // Actualiza el detalle del producto en el carrito
+                const divPrecioProducto = document.querySelector(`#precio-producto-${producto.producto.producto_id}`);
+                divPrecioProducto.textContent = `${subtotalProducto.toFixed(2)} €`;
+
+                // Aquí puedes agregar cualquier otra actualización que dependa de la cantidad del producto
+            });
+
+            // Actualizar subtotal en la UI
+            const divSubtotal = document.getElementById('subtotal');
+            divSubtotal.textContent = `${subtotal.toFixed(2)} €`;
+
+            // Actualizar total (subtotal + envío)
+            const divTotal = document.getElementById('total');
+            divTotal.textContent = `${(subtotal + envio(carrito)).toFixed(2)} €`;
+        }
+
+        //Función para mostrar el subtotal
+        function subtotal(carrito) {
+
+        }
+
+        //Función para mostrar el coste de envío
+        function envio(carrito) {
+            const precioEnvio = document.getElementById('coste-envio');
+            precioEnvio.innerHTML = '';
+
+            let coste = 0;
+
+            for (const producto of carrito) {
+                if (producto.producto.envio === 0) {
+                    coste = 3;
+                    break;
+                }
+            }
+
+            precioEnvio.textContent = `${coste} €`;
+        }
+
+        //Función para msotrar el coste total del pedido
+        function costeTotal(carrito) {
+
         }
     </script>
 </body>

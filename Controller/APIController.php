@@ -138,12 +138,12 @@ class APIController
                 $productoCompleto = $producto->getProducto();
 
                 $productoJson = [
-                    'producto_id' => $productoCompleto->getProducto_id(),
+                    'producto_id' => (int) $productoCompleto->getProducto_id(),
                     'nombre_producto' => $productoCompleto->getNombre_producto(),
-                    'coste_base' => $productoCompleto->getCoste_base(),
+                    'coste_base' => floatval($productoCompleto->getCoste_base()),
                     'imagen' => $productoCompleto->getImagen(),
                     'descuento' => floatval($productoCompleto->getDescuento()),
-                    'envio_gratis' => $productoCompleto->getEnvio_gratis(),
+                    'envio_gratis' => (int) $productoCompleto->getEnvio_gratis(),
                 ];
 
                 $carritoJson [] = [
