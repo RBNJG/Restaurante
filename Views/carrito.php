@@ -70,6 +70,8 @@
         </div>
     </section>
     <script>
+        let carritoGlobal;
+        let costeEnvioGlobal = 0;
         //Función que carga el carrito
         function cargarCarrito() {
             fetch('http://www.leroymerlin.com/?controller=API&action=api', {
@@ -81,12 +83,10 @@
                 })
                 .then(response => response.json())
                 .then(carrito => {
-                    carrito.forEach(producto=> {
-                        console.log(typeof producto.producto.coste_base);
-                    });
+                    carritoGlobal = carrito;
                     mostrarCarrito(carrito),
                         envio(carrito),
-                        actualizarCarritoUI(carrito)
+                        getCoste(carrito);
                 })
                 .catch(error => console.error('Error:', error));
         }
@@ -122,6 +122,7 @@
                 carrito.forEach((producto, pos) => {
                     const divRow = document.createElement('div');
                     divRow.className = 'row';
+                    divRow.id = `producto-${pos}`;
 
                     const divFlex = document.createElement('div');
                     divFlex.className = 'd-flex justify-content-start w-100 ps-0 pe-2 altura-carrito';
@@ -148,7 +149,7 @@
                     //Botón de eliminar
                     const botonEliminar = document.createElement('button');
                     botonEliminar.className = 'd-flex justify-content-center align-items-center contenedor-basura sin-estilo';
-                    botonEliminar.id = 'eliminar-producto';
+                    botonEliminar.id = `eliminar-${pos}`;
 
                     const basura = document.createElement('img');
                     basura.src = 'assets/images/carrito/basura.svg';
@@ -295,18 +296,7 @@
                     productosCarrito.appendChild(divRow);
                 });
 
-                //Manejador de eventos para sumar y restar cantidad de producto
-                productosCarrito.addEventListener('click', function(event) {
-                    if (event.target.matches('.sumar, .sumar *')) {
-                        // Manejar clic en sumar
-                        const pos = parseInt(event.target.closest('button').id.split('-')[1]);
-                        modificarCantidad(carrito, pos, 1);
-                    } else if (event.target.matches('.restar, .restar *')) {
-                        // Manejar clic en restar
-                        const pos = parseInt(event.target.closest('button').id.split('-')[1]);
-                        modificarCantidad(carrito, pos, -1);
-                    }
-                });
+
             }
         }
 
@@ -320,44 +310,89 @@
             inputCantidad.value = producto.cantidad;
 
             // Actualizar el carrito y la interfaz de usuario
-            actualizarCarritoUI(carrito);
+            mostrarCarrito(carrito);
+            getCoste(carrito)
 
-            // Aquí puedes agregar código para actualizar el carrito en el servidor
-            // Por ejemplo, haciendo una solicitud fetch para actualizar la cantidad
+            //Preparamos los datos que enviaremos a la API
+            let datos = new URLSearchParams({
+                accion: "actualizar_carrito",
+                producto_id: producto.producto.producto_id,
+                cantidad: cambio,
+            }).toString();
+
+            //Método de envío
+            let opciones = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: datos
+            };
+
+            // Enviar el carrito actualizado al servidor para actualizar $_SESSION['carrito']
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', opciones)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Error al enviar datos:', error);
+                });
         }
 
-        function actualizarCarritoUI(carrito) {
-            // Actualizar Subtotal, Total, Descuentos, etc.
+        function eliminarProducto(carrito, pos) {
+
+            //Preparamos los datos que enviaremos a la API
+            let datos = new URLSearchParams({
+                accion: "eliminar_producto_carrito",
+                pos_producto: pos,
+            }).toString();
+
+            //Método de envío
+            let opciones = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: datos
+            };
+
+            // Enviar el carrito actualizado al servidor para actualizar $_SESSION['carrito']
+            fetch('http://www.leroymerlin.com/?controller=API&action=api', opciones)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                })
+                .catch(error => {
+                    console.error('Error al enviar datos:', error);
+                });
+
+            // Actualizar el carrito y la interfaz de usuario
+            cargarCarrito();
+        }
+
+        //Función para obtener los costes del pedido
+        function getCoste(carrito) {
             let subtotal = 0;
 
             carrito.forEach(producto => {
-                let precioProducto = producto.producto.coste_base;
-                let cantidadProducto = producto.cantidad;
-                let descuentoProducto = producto.producto.descuento;
+                let precio = producto.producto.coste_base;
+                let cantidad = producto.cantidad;
+                let descuento = producto.producto.descuento;
 
-                // Calcula el subtotal por producto (teniendo en cuenta el descuento si existe)
-                let subtotalProducto = cantidadProducto * (precioProducto * descuentoProducto);
-                subtotal += subtotalProducto;
-
-                // Actualiza el detalle del producto en el carrito
-                const divPrecioProducto = document.querySelector(`#precio-producto-${producto.producto.producto_id}`);
-                divPrecioProducto.textContent = `${subtotalProducto.toFixed(2)} €`;
-
-                // Aquí puedes agregar cualquier otra actualización que dependa de la cantidad del producto
+                let precioTotalProducto = precio * cantidad * (1 - descuento);
+                subtotal += precioTotalProducto;
             });
 
-            // Actualizar subtotal en la UI
-            const divSubtotal = document.getElementById('subtotal');
-            divSubtotal.textContent = `${subtotal.toFixed(2)} €`;
+            let divSubtotal = document.getElementById('subtotal');
+            if (divSubtotal) {
+                divSubtotal.textContent = `${subtotal.toFixed(2)} €`;
+            }
 
-            // Actualizar total (subtotal + envío)
-            const divTotal = document.getElementById('total');
-            divTotal.textContent = `${(subtotal + envio(carrito)).toFixed(2)} €`;
-        }
-
-        //Función para mostrar el subtotal
-        function subtotal(carrito) {
-
+            let divTotal = document.getElementById('total');
+            if (divTotal) {
+                divTotal.textContent = `${(subtotal + costeEnvioGlobal).toFixed(2)} €`;
+            }
         }
 
         //Función para mostrar el coste de envío
@@ -368,8 +403,9 @@
             let coste = 0;
 
             for (const producto of carrito) {
-                if (producto.producto.envio === 0) {
+                if (producto.producto.envio_gratis === 0) {
                     coste = 3;
+                    costeEnvioGlobal = coste;
                     break;
                 }
             }
@@ -377,10 +413,26 @@
             precioEnvio.textContent = `${coste} €`;
         }
 
-        //Función para msotrar el coste total del pedido
-        function costeTotal(carrito) {
+        //Manejador de eventos para sumar y restar cantidad de producto
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('productos-carrito').addEventListener('click', function(event) {
+                if (event.target.matches('.sumar, .sumar *')) {
+                    // Manejar clic en sumar
+                    const pos = parseInt(event.target.closest('button').id.split('-')[1]);
+                    modificarCantidad(carritoGlobal, pos, 1);
+                } else if (event.target.matches('.restar, .restar *')) {
+                    // Manejar clic en restar
+                    const pos = parseInt(event.target.closest('button').id.split('-')[1]);
+                    modificarCantidad(carritoGlobal, pos, -1);
+                }
 
-        }
+                if (event.target.matches('.contenedor-basura, .contenedor-basura *')) {
+                    // Manejar clic en eliminar
+                    const pos = parseInt(event.target.closest('button').id.split('-')[1]);
+                    eliminarProducto(carritoGlobal, pos);
+                }
+            });
+        });
     </script>
 </body>
 

@@ -78,7 +78,7 @@
                             <a href="<?= url . "?controller=Carrito" ?>" class="text-carrito-header">
                                 <div class="d-flex flex-column align-items-center justify-content-center py-2 px-2 background-verde">
                                     <div class="mb-1 logo-carrito"></div>
-                                    <p class="mb-0 text-h3">Carrito <?= Calculadora::cantidadCarrito($_SESSION['carrito']) ?></p>
+                                    <p id="carrito-header" class="mb-0 text-h3">Carrito <?= Calculadora::cantidadCarrito($_SESSION['carrito']) ?></p>
                                 </div>
                             </a>
                         </div>
@@ -88,6 +88,15 @@
         </nav>
         <hr class="my-0 linea-header">
     </header>
+    <script>
+        //Función para mostrar de forma dinámica la cantidad de productos en el carrito
+        function actualizarCantidadCarritoEnHeader(cantidad) {
+            const cantidadCarrito = document.getElementById('carrito-header');
+            if (cantidadCarrito) {
+                cantidadCarrito.textContent = 'Carrito ' + cantidad;
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

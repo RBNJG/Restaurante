@@ -115,7 +115,7 @@ class APIController
             $fechaActualString = $fechaActual->format("Y-m-d H:i:s");
 
             // Actualizamos el valor en la base de datos
-            $resultado = OpinionesDAO::newOpinion($usuario_id,$opinion,$estrellas,$pedido_id,$fechaActualString);
+            $resultado = OpinionesDAO::newOpinion($usuario_id, $opinion, $estrellas, $pedido_id, $fechaActualString);
 
             if ($resultado) {
                 echo json_encode(["success" => "Contador actualizado con éxito"]);
@@ -146,7 +146,7 @@ class APIController
                     'envio_gratis' => (int) $productoCompleto->getEnvio_gratis(),
                 ];
 
-                $carritoJson [] = [
+                $carritoJson[] = [
                     'producto' => $productoJson,
                     'cantidad' => $producto->getCantidad()
                 ];
@@ -155,6 +155,60 @@ class APIController
 
             //Devolvemos a JS el carrito en JSON
             echo json_encode($carritoJson, JSON_UNESCAPED_UNICODE);
+
+            return;
+        } else if ($_POST['accion'] == "actualizar_carrito") {
+
+            $producto_id = $_POST['producto_id'];
+            $cantidad = $_POST['cantidad'];
+
+            //Buscamos el producto en el carrito 
+            foreach ($_SESSION['carrito'] as $pedido) {
+                if ($pedido->getProducto()->getProducto_id() == $producto_id) {
+                    //Buscamos el producto para asignar la cantidad
+                    $pedido->setCantidad($pedido->getCantidad() + $cantidad);
+
+                    //Después de encontrar el producto salimos del bucle
+                    break;
+                }
+            }
+
+            $carritoParaJson = array_map(function ($pedido) {
+                return [
+                    'producto_id' => $pedido->getProducto()->getProducto_id(),
+                    'cantidad' => $pedido->getCantidad(),
+                ];
+            }, $_SESSION['carrito']);
+
+            $cookiesCarrito = json_encode($carritoParaJson);
+
+            //Guardamos el carrito en las cookies
+            setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
+
+            echo json_encode(["success" => "Carrito actualizado con éxito"]);
+
+            return;
+        } else if ($_POST['accion'] == "eliminar_producto_carrito") {
+
+            //Eliminamos el producto del array del carrito
+            unset($_SESSION['carrito'][$_POST['pos_producto']]);
+
+            //Reordenamos el array
+            $_SESSION['carrito'] = array_values($_SESSION['carrito']);
+
+            $carritoParaJson = array_map(function ($pedido) {
+                return [
+                    'producto_id' => $pedido->getProducto()->getProducto_id(),
+                    'cantidad' => $pedido->getCantidad(),
+                ];
+            }, $_SESSION['carrito']);
+
+            $cookiesCarrito = json_encode($carritoParaJson);
+
+            //Guardamos el carrito en las cookies
+            setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
+
+            echo json_encode(["success" => "Carrito modificado con éxito"]);
 
             return;
         } else {
