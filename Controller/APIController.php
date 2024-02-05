@@ -58,8 +58,9 @@ class APIController
             }
 
             return;
-        } else if ($_POST['accion'] == "obtener_usuario") {
+        } else if ($_POST['accion'] == "obtener_usuario_opiniones") {
 
+            //Comprobamos si el usuario ha iniciado sesión y si ha realizado algún pedido
             if (isset($_SESSION['usuario_id'])) {
                 // El usuario ha iniciado sesión
                 $usuario_id = $_SESSION['usuario_id'];
@@ -101,6 +102,47 @@ class APIController
 
                 //El usuario no ha realizado ningún pedido
                 echo json_encode($pedidosUsuario, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+
+            return;
+        } else if ($_POST['accion'] == "obtener_usuario_carrito") {
+
+            //Comprobamos si el usuario ha iniciado sesión y que tipo de usuario és
+            if (isset($_SESSION['usuario_id'])) {
+                // El usuario ha iniciado sesión
+                $usuario_id = $_SESSION['usuario_id'];
+
+                //Obtenemos el usuario
+                $usuario = UsuarioDAO::getUser($usuario_id);
+
+                if ($usuario instanceof Administrador) {
+                    $admin = [
+                        'mensaje' => 'No puedes acumular puntos de fidelidad cómo administrador'
+                    ];
+
+                    //El administrador no puede tener puntos de fidelidad
+                    echo json_encode($admin, JSON_UNESCAPED_UNICODE);
+                    return;
+                } else {
+
+                    $puntosUsuario = [
+                        'usuario_id' => $usuario_id,
+                        'puntos_fidelidad' => (int) $usuario->getPuntos_fidelidad()
+                    ];
+
+                    //Devolvemos a JS los puntos del usuario
+                    echo json_encode($puntosUsuario, JSON_UNESCAPED_UNICODE);
+
+                    return;
+                }
+            } else {
+                $sinUsuario = [
+                    'mensaje' => 'Has de iniciar sesión para canjear tus puntos.'
+                ];
+
+                //El usuario no ha realizado ningún pedido
+                echo json_encode($sinUsuario, JSON_UNESCAPED_UNICODE);
                 return;
             }
 

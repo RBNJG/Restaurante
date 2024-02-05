@@ -18,6 +18,25 @@
     background-color: #D9D9D9;
 }
 
+.contenedor-puntos {
+    border-left: 1px solid #D9D9D9;
+    border-right: 1px solid #D9D9D9;
+    border-bottom: 1px solid #D9D9D9;
+}
+
+.input-puntos{
+    width: 4rem;
+    border: #666666 1px solid;
+    border-radius: 4px;
+}
+
+#asignar-puntos {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 1s, max-height 2s;
+}
+
 /* IMAGENES */
 .img-basura {
     height: 1.5rem;
@@ -25,7 +44,7 @@
     margin-bottom: 0.1rem;
 }
 
-.pagos{
+.pagos {
     width: 90%;
     height: auto;
 }
@@ -42,7 +61,7 @@
     cursor: pointer;
 }
 
-.cartel-cheque:hover h3{
+.cartel-cheque:hover h3 {
     text-decoration: underline;
 }
 
@@ -96,7 +115,7 @@
 }
 
 @media (max-width: 575.98px) {
-    
+
     .text-cheque {
         font-size: 0.75rem;
     }
@@ -109,4 +128,4 @@
     .text-pago {
         font-size: 0.58rem;
     }
- }
+}
