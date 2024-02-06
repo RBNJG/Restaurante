@@ -25,12 +25,19 @@
 }
 
 .input-puntos{
-    width: 4rem;
+    width: 3rem;
     border: #666666 1px solid;
     border-radius: 4px;
 }
 
 #asignar-puntos {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 1s, max-height 2s;
+}
+
+#descuento-aplicado{
     display: none;
     opacity: 0;
     max-height: 0;

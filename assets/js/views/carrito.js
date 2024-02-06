@@ -360,7 +360,7 @@ function eliminarProducto(carrito, pos) {
 }
 
 //Función para obtener los costes del pedido
-function getCoste(carrito) {
+function getCoste(carrito, descuento) {
     let subtotal = 0;
 
     carrito.forEach(producto => {
@@ -378,8 +378,14 @@ function getCoste(carrito) {
     }
 
     let divTotal = document.getElementById('total');
-    if (divTotal) {
+    if (divTotal && descuento === undefined) {
         divTotal.textContent = `${(subtotal + costeEnvioGlobal).toFixed(2)} €`;
+    } else {
+        if ((subtotal + costeEnvioGlobal - descuento) <= 0) {
+            divTotal.textContent = `0.00 €`;
+        } else {
+            divTotal.textContent = `${(subtotal + costeEnvioGlobal - descuento).toFixed(2)} €`;
+        }
     }
 
     let puntosFidelidad = document.getElementById('puntos-generados');
@@ -413,19 +419,44 @@ document.addEventListener('DOMContentLoaded', function () {
             // Manejar clic en sumar
             const pos = parseInt(event.target.closest('button').id.split('-')[1]);
             modificarCantidad(carritoGlobal, pos, 1);
+
+            const valorInput = document.getElementById('puntos-aplicados').value;
+            //Actualizamos el coste total
+            getCoste(carritoGlobal, valorInput);
         } else if (event.target.matches('.restar, .restar *')) {
             // Manejar clic en restar
             const pos = parseInt(event.target.closest('button').id.split('-')[1]);
             modificarCantidad(carritoGlobal, pos, -1);
+
+            const valorInput = document.getElementById('puntos-aplicados').value;
+            //Actualizamos el coste total
+            getCoste(carritoGlobal, valorInput);
         }
 
         if (event.target.matches('.contenedor-basura, .contenedor-basura *')) {
             // Manejar clic en eliminar
             const pos = parseInt(event.target.closest('button').id.split('-')[1]);
             eliminarProducto(carritoGlobal, pos);
+
+            const valorInput = document.getElementById('puntos-aplicados').value;
+            //Actualizamos el coste total
+            getCoste(carritoGlobal, valorInput);
         }
     });
+
+    // Agrega un manejador de eventos para el evento 'input'
+    document.getElementById('puntos-aplicados').addEventListener('input', function () {
+        const valorInput = document.getElementById('puntos-aplicados').value;
+
+        // Actualiza el contenido de texto de la etiqueta <p> con el valor del input
+        document.getElementById('descuento-precio').textContent = `${valorInput} €`;
+
+        //Actualizamos el coste total
+        getCoste(carritoGlobal, valorInput);
+    });
 });
+
+
 
 //Muestra u oculta la sección para aplicar puntos de fidelidad
 document.getElementById('aplicar-puntos').addEventListener('click', function () {
@@ -451,6 +482,21 @@ document.getElementById('aplicar-puntos').addEventListener('click', function () 
         puntos.style.maxHeight = "0";
         setTimeout(function () {
             puntos.style.display = "none";
+        }, 500);
+    }
+
+    var descuento = document.getElementById('descuento-aplicado');
+    if (descuento.style.display === "none") {
+        descuento.style.display = "block";
+        setTimeout(function () {
+            descuento.style.opacity = 1;
+            descuento.style.maxHeight = "300px";
+        }, 10);
+    } else {
+        descuento.style.opacity = 0;
+        descuento.style.maxHeight = "0";
+        setTimeout(function () {
+            descuento.style.display = "none";
         }, 500);
     }
 });

@@ -37,23 +37,27 @@
                 </div>
                 <div id="asignar-puntos" class="p-3 contenedor-puntos">
                     <div class="d-flex justify-content-between">
-                        <p class="text">Puntos acumulados: </p>
+                        <p class="text">Puntos acumulados</p>
                         <p id="puntos-acumulados" class="text"></p>
                     </div>
-                    <div>
+                    <div class="d-flex justify-content-between">
                         <p class="mb-1 text">Aplica tus puntos</p>
                         <input id="puntos-aplicados" type="number" value="0" class="ps-1 text input-puntos">
                     </div>
                 </div>
                 <hr class="w-100 mb-0 mt-4 linea-carrito">
-                <div class="px-3 borde-fino">
-                    <div class="d-flex justify-content-between pt-3">
-                        <p class="mb-2 text-cheque">Subtotal</p>
-                        <p id="subtotal" class="mb-2 text-cheque"></p>
-                    </div>
+                <div class="p-3 borde-fino">
                     <div class="d-flex justify-content-between">
-                        <p class="text">Gastos de envío estimados</p>
-                        <p id="coste-envio" class="text"></p>
+                        <p class="mb-0 text-cheque">Subtotal</p>
+                        <p id="subtotal" class="mb-0 text-cheque"></p>
+                    </div>
+                    <div class="d-flex justify-content-between mt-3">
+                        <p class="mb-0 text">Gastos de envío estimados</p>
+                        <p id="coste-envio" class="mb-0 text"></p>
+                    </div>
+                    <div id="descuento-aplicado" class="mt-3 d-flex justify-content-between">
+                        <p class="mb-0 text">Descuento aplicado</p>
+                        <p id="descuento-precio" class="mb-0 text">0 €</p>
                     </div>
                 </div>
                 <div class="py-2 px-3 fondo-gris">
