@@ -42,7 +42,7 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <p class="mb-1 text">Aplica tus puntos</p>
-                        <input id="puntos-aplicados" type="number" value="0" class="ps-1 text input-puntos">
+                        <input id="puntos-aplicados" type="number" min="0" value="0" class="ps-1 text input-puntos">
                     </div>
                 </div>
                 <hr class="w-100 mb-0 mt-4 linea-carrito">
@@ -67,12 +67,15 @@
                     </div>
                     <p class="text">Impuestos incluidos</p>
                     <p id="puntos-generados" class="text"></p>
-                    <form action=<?php if (!isset($_SESSION['usuario_id'])) {
+                    <form id="compra" action=<?php if (!isset($_SESSION['usuario_id'])) {
                                         echo url . "?controller=Login";
                                     } else {
                                         echo url . "?controller=Carrito&action=compra";
                                     } ?> method='post'>
-                        <input name="carrito" value="<?= $_SESSION['carrito'] ?>" hidden>
+                        <input name="descuento" id="descuentoJS" value="0" hidden>
+                        <input name="coste_total" id="coste_totalJS" hidden>
+                        <input name="puntos_generados" id="puntos_generadosJS" hidden>
+                        <input name="propina" id="propinaJS" hidden>
                         <button class="btn-compra mb-3">Continuar</button>
                     </form>
                     <p class="mb-2 text-pago">Pago 100% seguro</p>

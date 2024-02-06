@@ -130,13 +130,13 @@ class PedidoDAO
         return $pedidos;
     }
 
-    public static function newPedido($usuario_id, $fecha, $coste_total, $estado)
+    public static function newPedido($usuario_id, $fecha, $coste_total, $estado, $descuento_aplicado, $propina)
     {
 
         $connection = DataBase::connect();
 
         // Preparar la consulta
-        $query = "INSERT INTO pedido (usuario_id,fecha,coste_total,estado) VALUES (?,?,?,?)";
+        $query = "INSERT INTO pedido (usuario_id,fecha,coste_total,estado,descuento_aplicado,propina) VALUES (?,?,?,?,?,?)";
         $stmt = $connection->prepare($query);
 
         // Comprobar si la preparación de la sentencia ha sido correcta
@@ -145,7 +145,7 @@ class PedidoDAO
         }
 
         // Enlazar los parámetros
-        $stmt->bind_param("isds", $usuario_id, $fecha, $coste_total, $estado);
+        $stmt->bind_param("isdsdd", $usuario_id, $fecha, $coste_total, $estado, $descuento_aplicado, $propina);
 
         // Ejecutar la consulta
         if (!$stmt->execute()) {

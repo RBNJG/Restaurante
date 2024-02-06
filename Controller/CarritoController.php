@@ -72,12 +72,19 @@ class CarritoController
 
 
         $carrito = $_SESSION['carrito'];
+        $descuento_aplicado = $_POST['descuento'];
+        $coste_total = $_POST['coste_total'];
+        $puntos_generados = $_POST['puntos_generados'];
+        $propina = 0;
         
-        $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,Calculadora::total($carrito),"En preparación");
+        $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,$coste_total,"En preparación",$descuento_aplicado, $propina);
 
         //Sumamos puntos de fidelidad al usuario, 1 punto por cada 10€ gastados
         $usuario = UsuarioDAO::getUser($_SESSION['usuario_id']);
-        $usuario->sumarPuntos(floor(Calculadora::total($carrito)/10));
+
+        //Primero restamos los puntos de fidelidad utilizados y luego sumamos los generados
+        $usuario->sumarPuntos(-$descuento_aplicado);
+        $usuario->sumarPuntos($puntos_generados);
         UsuarioDAO::SavePoints($usuario->getPuntos_fidelidad(), $_SESSION['usuario_id']);
 
         foreach($carrito as $producto){

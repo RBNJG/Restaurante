@@ -1,4 +1,7 @@
 let carritoGlobal;
+let costeTotal = 0;
+let descuentoPuntos = 0;
+let puntosFidelidad = 0;
 let costeEnvioGlobal = 0;
 let usuario_idGlobal;
 let mensajeUsuario = "";
@@ -59,7 +62,7 @@ function mostrarPuntos($puntosUsuario) {
 
     inputPuntosAplicados.max = puntosUsuario;
 
-    //Nos asguramos de que el usuario no ponga valores negativos o mayores a la cantidad de puntos acumulados
+    //Nos aseguramos de que el usuario no ponga valores negativos o mayores a la cantidad de puntos acumulados
     inputPuntosAplicados.addEventListener('input', function () {
         const valorActual = parseInt(inputPuntosAplicados.value, 10);
         if (valorActual < 0) {
@@ -72,8 +75,7 @@ function mostrarPuntos($puntosUsuario) {
 
 //Función para calcular los puntos de fidelidad que generará la compra
 function calcularPuntosFidelidad($valorCompra) {
-    let puntosFidelidad;
-
+    
     puntosFidelidad = Math.trunc($valorCompra / 10);
 
     return puntosFidelidad;
@@ -362,6 +364,7 @@ function eliminarProducto(carrito, pos) {
 //Función para obtener los costes del pedido
 function getCoste(carrito, descuento) {
     let subtotal = 0;
+    descuentoPuntos = descuento;
 
     carrito.forEach(producto => {
         let precio = producto.producto.coste_base;
@@ -379,12 +382,16 @@ function getCoste(carrito, descuento) {
 
     let divTotal = document.getElementById('total');
     if (divTotal && descuento === undefined) {
-        divTotal.textContent = `${(subtotal + costeEnvioGlobal).toFixed(2)} €`;
+        costeTotal = (subtotal + costeEnvioGlobal).toFixed(2);
+        divTotal.textContent = `${costeTotal} €`;
     } else {
         if ((subtotal + costeEnvioGlobal - descuento) <= 0) {
-            divTotal.textContent = `0.00 €`;
+            costeTotal = 0;
+            divTotal.textContent = `${costeTotal} €`;
+            
         } else {
-            divTotal.textContent = `${(subtotal + costeEnvioGlobal - descuento).toFixed(2)} €`;
+            costeTotal = (subtotal + costeEnvioGlobal - descuento).toFixed(2);
+            divTotal.textContent = `${costeTotal} €`;
         }
     }
 
@@ -453,6 +460,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //Actualizamos el coste total
         getCoste(carritoGlobal, valorInput);
+    });
+
+    //Antes de enviar el formulario con los datos del pedido, asignamos el valor a los elementos ocultos
+    var formulario = document.getElementById('compra');
+    formulario.addEventListener('submit', function() {
+
+        //Asignamos los valores a los inputs
+        document.getElementById('descuentoJS').value = descuentoPuntos;
+        document.getElementById('coste_totalJS').value = costeTotal;
+        document.getElementById('puntos_generadosJS').value = puntosFidelidad;
+
     });
 });
 
