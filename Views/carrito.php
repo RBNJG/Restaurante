@@ -68,14 +68,14 @@
                     <p class="text">Impuestos incluidos</p>
                     <p id="puntos-generados" class="text"></p>
                     <form id="compra" action=<?php if (!isset($_SESSION['usuario_id'])) {
-                                        echo url . "?controller=Login";
-                                    } else {
-                                        echo url . "?controller=Carrito&action=compra";
-                                    } ?> method='post'>
+                                                    echo url . "?controller=Login";
+                                                } else {
+                                                    echo url . "?controller=Carrito&action=compra";
+                                                } ?> method='post'>
                         <input name="descuento" id="descuentoJS" value="0" hidden>
                         <input name="coste_total" id="coste_totalJS" hidden>
                         <input name="puntos_generados" id="puntos_generadosJS" hidden>
-                        <input name="propina" id="propinaJS" hidden>
+                        <input name="propina" id="propina" hidden>
                         <button class="btn-compra mb-3">Continuar</button>
                     </form>
                     <p class="mb-2 text-pago">Pago 100% seguro</p>
@@ -83,6 +83,15 @@
                         <img src="assets/images/carrito/pago.svg" alt="métodos de pago" class="mt-2 mb-3 pagos">
                     </picture>
                 </div>
+            </div>
+        </div>
+        <!-- Popup para la propina -->
+        <div id="popupPropina" class="popup">
+            <div class="contenedor_popup">
+                <h2>¿Quieres dejar una propina?</h2>
+                <input type="number" id="inputPropina" placeholder="Ingresa un monto">
+                <button id="btnAceptarPropina">Aceptar</button>
+                <button id="btnCancelarPropina">Cancelar</button>
             </div>
         </div>
     </section>

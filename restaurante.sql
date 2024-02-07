@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-01-2024 a las 09:39:25
+-- Tiempo de generación: 06-02-2024 a las 18:36:30
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -78,8 +78,47 @@ INSERT INTO `detalles_pedido` (`detalle_pedido_id`, `pedido_id`, `producto_id`, 
 (31, 21, 5, 1, 12.50),
 (32, 21, 3, 1, 7.50),
 (33, 22, 5, 1, 12.50),
-(34, 22, 3, 1, 7.50),
-(35, 22, 18, 1, 10.75);
+(34, 22, 3, 2, 15.00),
+(35, 22, 18, 1, 10.75),
+(39, 25, 3, 1, 7.50),
+(40, 25, 4, 1, 13.50),
+(41, 26, 38, 1, 12.00),
+(42, 27, 3, 1, 7.50),
+(43, 28, 3, 1, 7.50),
+(44, 29, 3, 7, 52.50),
+(45, 30, 5, 1, 12.50);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `opiniones`
+--
+
+CREATE TABLE `opiniones` (
+  `opinion_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `opinion` varchar(1000) NOT NULL,
+  `estrellas` int(1) NOT NULL,
+  `util_si` int(11) NOT NULL,
+  `util_no` int(11) NOT NULL,
+  `fecha` date NOT NULL,
+  `pedido_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `opiniones`
+--
+
+INSERT INTO `opiniones` (`opinion_id`, `usuario_id`, `opinion`, `estrellas`, `util_si`, `util_no`, `fecha`, `pedido_id`) VALUES
+(1, 12, 'Comida rica y casera, nada mal.', 4, 2, 0, '2024-01-08', 25),
+(2, 15, 'Todo perfecto', 5, 1, 0, '2024-01-04', 13),
+(3, 16, 'Fatal, la comida estaba fría y sosa.', 1, 0, 0, '2023-03-22', 11),
+(4, 18, 'La comida buenísima, pero demasiado caro.', 3, 0, 0, '2023-05-17', 22),
+(5, 19, 'Lo único que puedo salvar son las croquetas, el resto mal.', 2, 0, 0, '2023-09-21', 12),
+(6, 15, 'Increíble, repetiré seguro!!!', 5, 0, 1, '2024-01-22', 14),
+(7, 17, 'Bastante bueno', 4, 0, 0, '2023-11-14', 21),
+(8, 18, 'Esta vez la comida estaba mejor, pero me sigue pareciendo algo caro.', 4, 0, 0, '2023-12-06', 15),
+(19, 12, '4 estrellas', 4, 0, 0, '2024-01-29', 21);
 
 -- --------------------------------------------------------
 
@@ -92,22 +131,30 @@ CREATE TABLE `pedido` (
   `usuario_id` int(11) NOT NULL,
   `fecha` datetime NOT NULL,
   `coste_total` decimal(10,2) NOT NULL,
-  `estado` varchar(20) NOT NULL
+  `estado` varchar(20) NOT NULL,
+  `descuento_aplicado` int(11) NOT NULL,
+  `propina` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`pedido_id`, `usuario_id`, `fecha`, `coste_total`, `estado`) VALUES
-(11, 12, '2023-12-15 16:47:52', 21.50, 'En preparación'),
-(12, 12, '2023-12-15 17:06:17', 49.90, 'Entregado'),
-(13, 12, '2024-01-03 19:34:15', 15.50, 'En preparación'),
-(14, 12, '2024-01-03 19:39:08', 24.50, 'En preparación'),
-(15, 12, '2024-01-04 18:05:37', 29.86, 'En preparación'),
-(20, 12, '2024-01-06 20:12:34', 15.50, 'En preparación'),
-(21, 12, '2024-01-07 17:49:41', 23.00, 'En preparación'),
-(22, 12, '2024-01-07 17:58:18', 33.75, 'En preparación');
+INSERT INTO `pedido` (`pedido_id`, `usuario_id`, `fecha`, `coste_total`, `estado`, `descuento_aplicado`, `propina`) VALUES
+(11, 12, '2023-12-15 16:47:52', 21.50, 'En preparación', 0, 0),
+(12, 12, '2023-12-15 17:06:17', 49.90, 'Entregado', 0, 0),
+(13, 12, '2024-01-03 19:34:15', 15.50, 'En preparación', 0, 0),
+(14, 12, '2024-01-03 19:39:08', 24.50, 'En preparación', 0, 0),
+(15, 12, '2024-01-04 18:05:37', 29.86, 'En preparación', 0, 0),
+(20, 12, '2024-01-06 20:12:34', 15.50, 'En preparación', 0, 0),
+(21, 12, '2024-01-07 17:49:41', 23.00, 'En preparación', 0, 0),
+(22, 12, '2024-01-07 17:58:18', 41.25, 'Entregado', 0, 0),
+(25, 12, '2024-01-10 17:09:37', 21.00, 'En preparación', 0, 0),
+(26, 12, '2024-01-10 17:14:13', 12.00, 'En preparación', 0, 0),
+(27, 12, '2024-01-12 17:18:03', 7.50, 'En preparación', 0, 0),
+(28, 12, '2024-02-06 16:25:21', 54.00, 'En preparación', 0, 0),
+(29, 12, '2024-02-06 16:30:58', 47.50, 'En preparación', 5, 0),
+(30, 12, '2024-02-06 16:36:04', 5.50, 'En preparación', 10, 0);
 
 -- --------------------------------------------------------
 
@@ -209,8 +256,13 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario_id`, `rol_id`, `nombre`, `apellidos`, `direccion`, `email`, `telefono`, `password`, `puntos_fidelidad`, `area_responsable`) VALUES
-(12, 2, 'Pedro', 'Martínez ', 'Calle random, 3', '1@1.com', 650333123, '$2y$10$liw75m3rzLGigFWPfDAjO.7VfsdMmEA.Y9upAtkgd2GdpX9B3Hyee', 20, NULL),
-(14, 1, 'Rubén', 'Jordán García', 'Pepepepe', 'admin@admin.com', 123456789, '$2y$10$Q74lHMIGxpyCix/0w04/u.BH/HGG7DrzMk1hu5UXxoVVGp/DXzcue', NULL, 'Administración');
+(12, 2, 'Maria', 'Martínez ', 'Calle random, 3', '1@1.com', 650333123, '$2y$10$liw75m3rzLGigFWPfDAjO.7VfsdMmEA.Y9upAtkgd2GdpX9B3Hyee', 30, NULL),
+(14, 1, 'Rubén', 'Jordán García', 'Pepepepe', 'admin@admin.com', 123456789, '$2y$10$Q74lHMIGxpyCix/0w04/u.BH/HGG7DrzMk1hu5UXxoVVGp/DXzcue', NULL, 'Administración'),
+(15, 2, 'David', 'Serrano', 'Calle pamplinas nº2', '3@3.com', 234324, '$2y$10$eSslxqZa14Mj.bwX17RepuCUGY47HVYl30f9A77xNfzVO4leBmaoW', NULL, NULL),
+(16, 2, 'Adeliz', 'Frías Sevilla', 'Ctra. Beas-Cortijos Nuevos, 44\r\n26513 Ausejo', 'AdelizFriasSevilla@superrito.com', 610750376, '', NULL, NULL),
+(17, 2, 'Noe', 'Carrera Lugo', 'Castelao, 69\r\n49190 Morales del Vino', 'NoeCarreraLugo@gustr.com', 660134548, '', NULL, NULL),
+(18, 2, 'Elda', 'Castellanos Barela', 'Rua da Rapina, 78\r\n37478 Dios le Guarde', 'EldaCastellanosBarela@superrito.com', 684665497, '', NULL, NULL),
+(19, 2, 'Brandon', 'Collazo Bahena', 'Ctra. de Siles, 66\r\n27630 O Páramo', 'BrandonCollazoBahena@gustr.com', 755868065, '', NULL, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -227,6 +279,12 @@ ALTER TABLE `categoria`
 --
 ALTER TABLE `detalles_pedido`
   ADD PRIMARY KEY (`detalle_pedido_id`);
+
+--
+-- Indices de la tabla `opiniones`
+--
+ALTER TABLE `opiniones`
+  ADD PRIMARY KEY (`opinion_id`);
 
 --
 -- Indices de la tabla `pedido`
@@ -266,19 +324,25 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `detalles_pedido`
 --
 ALTER TABLE `detalles_pedido`
-  MODIFY `detalle_pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `detalle_pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT de la tabla `opiniones`
+--
+ALTER TABLE `opiniones`
+  MODIFY `opinion_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `pedido_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `producto_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
@@ -290,7 +354,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `usuario_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

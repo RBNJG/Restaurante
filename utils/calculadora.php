@@ -1,7 +1,7 @@
 <?php
 include_once 'Model/Carrito.php';
-include_once 'Model/producto.php';
-include_once 'Model/productoDAO.php';
+include_once 'Model/Producto.php';
+include_once 'Model/ProductoDAO.php';
 
 class Calculadora
 {
