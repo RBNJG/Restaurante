@@ -8,6 +8,8 @@ class Pedido{
     private $fecha;
     private $coste_total;
     private $estado;
+    private $descuento_aplicado;
+    private $propina;
 
     public function __construct(){}
 
@@ -108,6 +110,46 @@ class Pedido{
     public function setEstado($estado)
     {
         $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of descuento_aplicado
+     */ 
+    public function getDescuento_aplicado()
+    {
+        return $this->descuento_aplicado;
+    }
+
+    /**
+     * Set the value of descuento_aplicado
+     *
+     * @return  self
+     */ 
+    public function setDescuento_aplicado($descuento_aplicado)
+    {
+        $this->descuento_aplicado = $descuento_aplicado;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of propina
+     */ 
+    public function getPropina()
+    {
+        return $this->propina;
+    }
+
+    /**
+     * Set the value of propina
+     *
+     * @return  self
+     */ 
+    public function setPropina($propina)
+    {
+        $this->propina = $propina;
 
         return $this;
     }

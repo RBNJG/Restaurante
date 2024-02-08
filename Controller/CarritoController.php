@@ -75,7 +75,7 @@ class CarritoController
         $descuento_aplicado = $_POST['descuento'];
         $coste_total = $_POST['coste_total'];
         $puntos_generados = $_POST['puntos_generados'];
-        $propina = 0;
+        $propina = $_POST['propina'];
         
         $pedidoId = PedidoDAO::newPedido($_SESSION['usuario_id'],$fechaActualString,$coste_total,"En preparación",$descuento_aplicado, $propina);
 

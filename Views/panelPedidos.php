@@ -129,6 +129,18 @@
                                                 <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y"); ?></p>
                                                 <p class="text"><b>Coste total : </b><?= $pedido->getCoste_total() ?> €</p>
                                                 <p class="text"><b>Estado : </b><?= $pedido->getEstado() ?></p>
+                                                <?php
+                                                if ($pedido->getDescuento_aplicado() != 0) {
+                                                ?>
+                                                    <p class="text"><b>Descuento aplicado : </b><?= $pedido->getDescuento_aplicado() ?> €</p>
+                                                <?php
+                                                }
+                                                if ($pedido->getPropina() != 0) {
+                                                ?>
+                                                    <p class="text"><b>Propina : </b><?= $pedido->getPropina() ?> €</p>
+                                                <?php
+                                                }
+                                                ?>
                                             </div>
                                             <div class="d-flex align-items-center me-4">
                                                 <input name="pedido" value="<?= $pedido->getPedido_id() ?>" hidden>

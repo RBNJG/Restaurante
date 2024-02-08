@@ -148,6 +148,18 @@ $carrito = $_SESSION['carrito'];
                                             <p class="text"><b>Fecha : </b><?= $fecha->format("d/m/Y"); ?></p>
                                             <p class="text"><b>Coste total : </b><?= $pedidosUser[0]->getCoste_total() ?> €</p>
                                             <p class="text"><b>Estado : </b><?= $pedidosUser[0]->getEstado() ?></p>
+                                            <?php
+                                            if ($pedidosUser[0]->getDescuento_aplicado() != 0) {
+                                            ?>
+                                                <p class="text"><b>Descuento aplicado : </b><?= $pedidosUser[0]->getDescuento_aplicado() ?> €</p>
+                                            <?php
+                                            }
+                                            if ($pedidosUser[0]->getPropina() != 0) {
+                                            ?>
+                                                <p class="text"><b>Propina : </b><?= $pedidosUser[0]->getPropina() ?> €</p>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                         <div class="d-flex align-items-center me-4">
                                             <input name="pedido" value="<?= $pedidosUser[0]->getPedido_id() ?>" hidden>

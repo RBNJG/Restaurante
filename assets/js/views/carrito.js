@@ -3,6 +3,7 @@ let costeTotal = 0;
 let descuentoPuntos = 0;
 let puntosFidelidad = 0;
 let costeEnvioGlobal = 0;
+let propina = 0;
 let usuario_idGlobal;
 let mensajeUsuario = "";
 let puntosUsuario = 0;
@@ -330,6 +331,7 @@ function modificarCantidad(carrito, pos, cambio) {
         });
 }
 
+//Función para eliminar un producto del carrito
 function eliminarProducto(carrito, pos) {
 
     //Preparamos los datos que enviaremos a la API
@@ -472,23 +474,39 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('coste_totalJS').value = costeTotal;
         document.getElementById('puntos_generadosJS').value = puntosFidelidad;
 
-        document.getElementById('popupPropina').style.display = 'block'; // Muestra el modal
+        document.getElementById('popupPropina').style.display = 'block'; // Muestra el popup
+        propina = ((3 * costeTotal)/100).toFixed(2);
+        document.getElementById('total-propina').textContent = `Propina total: ${propina} €`;
     });
+
+
+    document.getElementById('inputPropina').addEventListener('input', function(){
+        const porcentagePropina = document.getElementById('inputPropina').value;
+
+        propina = ((porcentagePropina * costeTotal)/100).toFixed(2);
+        // Actualiza el contenido de texto de la etiqueta <p> con el total de la propina
+        document.getElementById('total-propina').textContent = `Propina total: ${propina} €`;
+    })
 });
 
 //Manejamos el click en aceptar propina
 document.getElementById('btnAceptarPropina').addEventListener('click', function () {
-    const propina = document.getElementById('inputPropina').value; // Obtiene el valor de la propina
-    // Aquí puedes agregar el valor de la propina a un input oculto en tu formulario original si es necesario
-    document.getElementById('propina').value = propina; // Suponiendo que tienes un input oculto para la propina
+    //Igualamos el input oculto de propina al valor de la variable
+    document.getElementById('propina').value = propina; 
 
-    document.getElementById('popupPropina').style.display = 'none'; // Oculta el modal
-    document.getElementById('compra').submit(); // Envía el formulario
+    //Ocultamos el popup y enviamos el formulario
+    document.getElementById('popupPropina').style.display = 'none';
+    document.getElementById('compra').submit();
 });
 
 //Manejamos el clic en omitir propina
 document.getElementById('btnCancelarPropina').addEventListener('click', function () {
-    document.getElementById('popupPropina').style.display = 'none'; // Simplemente oculta el modal sin enviar el formulario
+    //Si se omite la propina igualamos el valor de propina a enviar al formulario a 0
+    document.getElementById('propina').value = 0;
+
+    //Ocultamos el popup y enviamos el formulario
+    document.getElementById('popupPropina').style.display = 'none';
+    document.getElementById('compra').submit();
 });
 
 

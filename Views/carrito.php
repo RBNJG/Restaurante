@@ -87,11 +87,17 @@
         </div>
         <!-- Popup para la propina -->
         <div id="popupPropina" class="popup">
-            <div class="contenedor_popup">
-                <h2>¿Quieres dejar una propina?</h2>
-                <input type="number" id="inputPropina" placeholder="Ingresa un monto">
-                <button id="btnAceptarPropina">Aceptar</button>
-                <button id="btnCancelarPropina">Cancelar</button>
+            <div class="d-flex flex-column align-items-center contenedor_popup">
+                <h2 class="mb-3">¿Quieres dejar una propina?</h2>
+                <div class="d-flex mb-3">
+                    <input type="number" id="inputPropina" min="1" max="100" value="3" class="text-h3 input-puntos">
+                    <p class="mb-0 text-h3">%</p>
+                    <p id="total-propina" class="ms-2 mb-0 text-h3"></p>
+                </div>
+                <div class="w-100 d-flex justify-content-center">
+                    <button id="btnAceptarPropina" class="me-2 btn-compra">Aceptar</button>
+                    <button id="btnCancelarPropina" class="ms-2 btn-eliminar">Omitir</button>
+                </div>
             </div>
         </div>
     </section>

@@ -60,10 +60,12 @@
 
 .contenedor_popup {
     background-color: #fefefe;
+    border-radius: 10px;
     margin: 5% auto;
-    padding: 20px;
+    padding: 2rem;
     border: 1px solid #888;
-    width: 80%;
+    width: fit-content;
+    max-width: 100%;
 }
 
 /* IMAGENES */
@@ -109,6 +111,15 @@
 /* FONDOS */
 .fondo-gris {
     background-color: #D9D9D9;
+}
+
+/* BOTONES */
+#btnAceptarPropina {
+    width: 25%;
+}
+
+#btnCancelarPropina {
+    width: 25%;
 }
 
 @media (max-width: 991.98px) {
