@@ -84,6 +84,7 @@ function calcularPuntosFidelidad($valorCompra) {
 
 //Función que genera el HTML de los productos del carrito
 function mostrarCarrito(carrito) {
+    document.getElementById('pago').style.display = 'block';
 
     if (carrito.length === 0) {
         const contenedorCarrito = document.getElementById('contenedor-carrito');
@@ -181,7 +182,7 @@ function mostrarCarrito(carrito) {
                 //Botón menos activo
                 const boton = document.createElement('button');
                 boton.className = 'restar';
-                boton.id = `sumar-${pos}`;
+                boton.id = `restar-${pos}`;
 
                 const picture = document.createElement('picture');
                 picture.className = 'd-flex align-items-center';
@@ -354,26 +355,26 @@ function eliminarProducto(carrito, pos) {
         .then(response => response.json())
         .then(data => {
             console.log('Respuesta del servidor:', data);
+            cargarCarrito();
         })
         .catch(error => {
             console.error('Error al enviar datos:', error);
         });
-
-    // Actualizar el carrito y la interfaz de usuario
-    cargarCarrito();
 }
 
 //Función para obtener los costes del pedido
 function getCoste(carrito, descuento) {
     let subtotal = 0;
-    descuentoPuntos = descuento;
-
+    if(descuento != undefined){
+        descuentoPuntos = descuento;
+    }
+    
     carrito.forEach(producto => {
         let precio = producto.producto.coste_base;
         let cantidad = producto.cantidad;
         let descuento = producto.producto.descuento;
 
-        let precioTotalProducto = precio * cantidad * (1 - descuento);
+        let precioTotalProducto = (precio * descuento) * cantidad;
         subtotal += precioTotalProducto;
     });
 
@@ -446,6 +447,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Manejar clic en eliminar
             const pos = parseInt(event.target.closest('button').id.split('-')[1]);
             eliminarProducto(carritoGlobal, pos);
+            console.log('producto eliminado');
 
             const valorInput = document.getElementById('puntos-aplicados').value;
             //Actualizamos el coste total
@@ -467,32 +469,75 @@ document.addEventListener('DOMContentLoaded', function () {
     //Antes de enviar el formulario con los datos del pedido, asignamos el valor a los elementos ocultos
     var formulario = document.getElementById('compra');
     formulario.addEventListener('submit', function (e) {
-        e.preventDefault(); // Previene el envío del formulario
+        //Comprobamos si el usuario está conectado para realizar el pago o redireccionarlo al login
+        if (mensajeUsuario === "") {
+            e.preventDefault(); // Previene el envío del formulario
 
-        //Asignamos los valores a los inputs
-        document.getElementById('descuentoJS').value = descuentoPuntos;
-        document.getElementById('coste_totalJS').value = costeTotal;
-        document.getElementById('puntos_generadosJS').value = puntosFidelidad;
+            //Asignamos los valores a los inputs
+            document.getElementById('descuentoJS').value = descuentoPuntos;
+            document.getElementById('coste_totalJS').value = costeTotal;
+            document.getElementById('puntos_generadosJS').value = puntosFidelidad;
 
-        document.getElementById('popupPropina').style.display = 'block'; // Muestra el popup
-        propina = ((3 * costeTotal)/100).toFixed(2);
-        document.getElementById('total-propina').textContent = `Propina total: ${propina} €`;
+            document.getElementById('popupPropina').style.display = 'block'; // Muestra el popup
+            propina = ((3 * costeTotal) / 100).toFixed(2);
+            document.getElementById('total-propina').textContent = `Propina total: ${propina} €`;
+        }
     });
 
+    //Evento de clic para el botón de cerrar
+    document.getElementById('cerrarPropina').addEventListener('click', function () {
+        document.getElementById('popupPropina').style.display = 'none';
+    });
 
-    document.getElementById('inputPropina').addEventListener('input', function(){
+    //Constantes de los botones para modificar el porcentaje de propina
+    const inputPropina = document.getElementById('inputPropina');
+    const btnRestar = document.getElementById('restar-porcentaje');
+    const btnSumar = document.getElementById('sumar-porcentaje');
+
+    //Función para actualizar el estado del botón restar
+    function actualizarBotonRestar() {
+        if (inputPropina.value <= 1) {
+            btnRestar.disabled = true;
+            btnRestar.className = 'restar-off';
+        } else {
+            btnRestar.disabled = false;
+            btnRestar.className = 'restar';
+        }
+    }
+
+    //Evento de clic para el botón restar
+    btnRestar.addEventListener('click', function () {
+        const valorActual = parseInt(inputPropina.value, 10);
+        if (valorActual > 1) {
+            inputPropina.value = valorActual - 1;
+        }
+        actualizarPropina();
+        actualizarBotonRestar();
+    });
+
+    //Evento de clic para el botón sumar
+    btnSumar.addEventListener('click', function () {
+        const valorActual = parseInt(inputPropina.value, 10);
+        if (valorActual < 100) {
+            inputPropina.value = valorActual + 1;
+        }
+        actualizarPropina();
+        actualizarBotonRestar();
+    });
+
+    function actualizarPropina() {
         const porcentagePropina = document.getElementById('inputPropina').value;
 
-        propina = ((porcentagePropina * costeTotal)/100).toFixed(2);
-        // Actualiza el contenido de texto de la etiqueta <p> con el total de la propina
+        propina = ((porcentagePropina * costeTotal) / 100).toFixed(2);
+        //Actualiza el contenido de texto de la etiqueta <p> con el total de la propina
         document.getElementById('total-propina').textContent = `Propina total: ${propina} €`;
-    })
+    }
 });
 
 //Manejamos el click en aceptar propina
 document.getElementById('btnAceptarPropina').addEventListener('click', function () {
     //Igualamos el input oculto de propina al valor de la variable
-    document.getElementById('propina').value = propina; 
+    document.getElementById('propina').value = propina;
 
     //Ocultamos el popup y enviamos el formulario
     document.getElementById('popupPropina').style.display = 'none';

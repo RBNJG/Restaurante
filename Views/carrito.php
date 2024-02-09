@@ -28,7 +28,7 @@
             <div id="productos-carrito" class="col-lg-9 col-md-8 col-6 px-0 mb-5">
 
             </div>
-            <div id="pago" class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5">
+            <div id="pago" class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5" style="display: none;">
                 <div id="aplicar-puntos" class="d-flex justify-content-between align-items-center py-4 px-3 cartel-cheque">
                     <h3 class="mb-0 text-cheque">Aplicar puntos fidelidad</h4>
                         <picture>
@@ -72,7 +72,7 @@
                                                 } else {
                                                     echo url . "?controller=Carrito&action=compra";
                                                 } ?> method='post'>
-                        <input name="descuento" id="descuentoJS" value="0" hidden>
+                        <input name="descuento" id="descuentoJS"  hidden>
                         <input name="coste_total" id="coste_totalJS" hidden>
                         <input name="puntos_generados" id="puntos_generadosJS" hidden>
                         <input name="propina" id="propina" hidden>
@@ -88,15 +88,34 @@
         <!-- Popup para la propina -->
         <div id="popupPropina" class="popup">
             <div class="d-flex flex-column align-items-center contenedor_popup">
-                <h2 class="mb-3">¿Quieres dejar una propina?</h2>
-                <div class="d-flex mb-3">
-                    <input type="number" id="inputPropina" min="1" max="100" value="3" class="text-h3 input-puntos">
-                    <p class="mb-0 text-h3">%</p>
-                    <p id="total-propina" class="ms-2 mb-0 text-h3"></p>
+                <div class="w-100 pe-2 pt-2 mb-2 d-flex justify-content-end" >
+                    <img id="cerrarPropina" src="assets/images/opiniones/cerrar.svg" alt="" class="cerrar" role="button">
                 </div>
-                <div class="w-100 d-flex justify-content-center">
-                    <button id="btnAceptarPropina" class="me-2 btn-compra">Aceptar</button>
-                    <button id="btnCancelarPropina" class="ms-2 btn-eliminar">Omitir</button>
+                <div class="px-4 pb-4">
+                    <h2 class="mb-4">¿Quieres dejar una propina?</h2>
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center mb-3">
+                            <p class="mb-0 text-h3">Porcentaje sobre el pedido:</p>
+                            <div class="ms-3 d-flex align-self-center altura-selector">
+                                <button class="restar" id="restar-porcentaje">
+                                    <picture class="d-flex align-items-center">
+                                        <img src="assets/images/carrito/menos.svg">
+                                    </picture>
+                                </button>
+                                <input type="number" id="inputPropina" min="1" max="100" value="3" class="mx-0 text-h3" readonly>
+                                <button class="sumar" id="sumar-porcentaje">
+                                    <picture class="d-flex align-items-center">
+                                        <img src="assets/images/carrito/mas.svg">
+                                    </picture>
+                                </button>
+                            </div>
+                        </div>
+                        <p id="total-propina" class="mb-3 text-h3"></p>
+                    </div>
+                    <div class="w-100 d-flex justify-content-center">
+                        <button id="btnAceptarPropina" class="me-2 btn-compra">Aceptar</button>
+                        <button id="btnCancelarPropina" class="ms-2 btn-eliminar">Omitir</button>
+                    </div>
                 </div>
             </div>
         </div>

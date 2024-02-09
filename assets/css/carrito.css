@@ -62,10 +62,18 @@
     background-color: #fefefe;
     border-radius: 10px;
     margin: 5% auto;
-    padding: 2rem;
     border: 1px solid #888;
     width: fit-content;
     max-width: 100%;
+}
+
+#inputPropina {
+    text-align: center;
+    width: 3rem;
+    border-top: 0.5px solid #333333;
+    border-bottom: 0.5px solid #333333;
+    border-left: none;
+    border-right: none;
 }
 
 /* IMAGENES */
@@ -77,6 +85,11 @@
 
 .pagos {
     width: 90%;
+    height: auto;
+}
+
+.cerrar {
+    width: 1rem;
     height: auto;
 }
 
@@ -120,6 +133,11 @@
 
 #btnCancelarPropina {
     width: 25%;
+}
+
+/* OCULTAR */
+.oculto {
+    display: none;
 }
 
 @media (max-width: 991.98px) {
