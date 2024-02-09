@@ -374,7 +374,12 @@ function getCoste(carrito, descuento) {
         let cantidad = producto.cantidad;
         let descuento = producto.producto.descuento;
 
-        let precioTotalProducto = (precio * descuento) * cantidad;
+        if(descuento === 0){
+            precioTotalProducto = precio * cantidad;          
+        }else{
+            precioTotalProducto = (precio * descuento) * cantidad;
+        }
+        
         subtotal += precioTotalProducto;
     });
 
