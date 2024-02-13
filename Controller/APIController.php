@@ -253,6 +253,32 @@ class APIController
             echo json_encode(["success" => "Carrito modificado con éxito"]);
 
             return;
+        } else if ($_POST['accion'] == "obtener_carta") {
+
+            //Recuperamos las opiniones
+            $productosDAO = ProductoDAO::getAllProducts();
+
+            foreach ($productosDAO as $producto) {
+
+                $productos[] = [
+                    'producto_id' => (int) $producto->getProducto_id(),
+                    'categoria_id' => (int) $producto->getCategoria_id(),
+                    'nombre_producto' => $producto->getNombre_producto(),
+                    'descripcion' => $producto->getDescripcion(),
+                    'coste_base' => floatval($producto->getCoste_base()),
+                    'imagen' => $producto->getImagen(),
+                    'descuento' => floatval($producto->getDescuento()),
+                    'envio_gratis' => (boolean) $producto->getEnvio_gratis(),
+                    'opiniones' => (int) $producto->getOpiniones(),
+                    'estrellas' => (int) $producto->getEstrellas()
+                ];
+            }
+
+
+            //Devolvemos a JS las opiniones en JSON
+            echo json_encode($productos, JSON_UNESCAPED_UNICODE);
+
+            return;
         } else {
             echo json_encode(["error" => "Acción no definida o no válida"]);
             return;

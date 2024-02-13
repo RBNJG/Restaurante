@@ -254,5 +254,5 @@
     </div>
     </div>
 </body>
-
+<script src="assets/js/views/carta.js"></script>
 </html>

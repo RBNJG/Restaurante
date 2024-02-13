@@ -13,16 +13,19 @@
     <title>Leroy Merlin</title>
 </head>
 
-<body>
+<body onload="mostrarQR('<?= $urlPedido ?>')">
     <div class="d-flex flex-column align-items-center mt-2 rellenar">
         <div class="d-flex flex-column align-items-center">
             <h2 class="text-h1">Pedido realizado con éxito</h2>
             <hr class="linea-carrito">
+            <img id="qr-pedido" src="" alt="" class="mb-2">
+            <p class="text-h3">Escanea éste código QR para acceder a los detalles de tu pedido</p>
             <form action=<?= url . "?controller=Home" ?> method='post' class="d-flex flex-column">
                 <button type="submit" class="mb-5 btn-compra">Continuar</button>
             </form>
         </div>
     </div>
 </body>
+<script src="assets/js/views/qr.js"></script>
 
 </html>

@@ -166,35 +166,35 @@
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
                                         <input type="checkbox" name="5estrellas" value="5">
                                         <div class="d-flex align-items-center ms-3 me-2">
-                                            <img src="assets/images/carta/5_estrellas.svg" alt="" class="estrella">
+                                            <img src="assets/images/carta/5_estrellas.svg" alt="" class="">
                                         </div>
                                         <p class="mb-0 text">5 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
                                         <input type="checkbox" name="4estrellas" value="4">
                                         <picture class="d-flex align-items-center ms-3 me-2">
-                                            <img src="assets/images/carta/4_estrellas.svg" alt="" class="estrella">
+                                            <img src="assets/images/carta/4_estrellas.svg" alt="" class="">
                                         </picture>
                                         <p class="mb-0 text">4 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
                                         <input type="checkbox" name="3estrellas" value="3">
                                         <picture class="d-flex align-items-center ms-3 me-2">
-                                            <img src="assets/images/carta/3_estrellas.svg" alt="" class="estrella">
+                                            <img src="assets/images/carta/3_estrellas.svg" alt="" class="">
                                         </picture>
                                         <p class="mb-0 text">3 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
                                         <input type="checkbox" name="2estrellas" value="2">
                                         <picture class="d-flex align-items-center ms-3 me-2">
-                                            <img src="assets/images/carta/2_estrellas.svg" alt="" class="estrella">
+                                            <img src="assets/images/carta/2_estrellas.svg" alt="" class="">
                                         </picture>
                                         <p class="mb-0 text">2 estrellas</p>
                                     </div>
                                     <div class="d-flex justify-content-start align-items-baseline my-3">
                                         <input type="checkbox" name="1estrella" value="1">
                                         <picture class="d-flex align-items-center ms-3 me-2">
-                                            <img src="assets/images/carta/1_estrella.svg" alt="" class="estrella">
+                                            <img src="assets/images/carta/1_estrella.svg" alt="" class="">
                                         </picture>
                                         <p class="mb-0 text">1 estrella</p>
                                     </div>
