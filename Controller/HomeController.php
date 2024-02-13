@@ -11,6 +11,10 @@ class HomeController
 
     public function index()
     {
+
+        $productos = ProductoDAO::getAllProducts();
+        $categorias = CategoriaDAO::getAllCategories();
+
         //Cabecera
         include_once 'Views/header.php';
         //Panel

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Descripció web">
+    <meta name="description" content="Página de restauración de Leroy Merlin">
     <meta name="keywords" content="Paraules clau">
     <meta name="author" content="Autor">
     <meta name="viewport" content="width=device-width, initial-scale=1">

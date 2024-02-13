@@ -12,6 +12,8 @@ class LoginController
 
     public function index()
     {
+        $carrito = $_SESSION['carrito'];
+
         //Cabecera
         include_once 'Views/header.php';
         //Panel
@@ -23,7 +25,6 @@ class LoginController
     //Función para comprovar si ya existe el usuario en la base de datos
     public function verificarMail()
     {
-        session_start();
 
         $mail = $_POST['mail'];
         echo $mail;
