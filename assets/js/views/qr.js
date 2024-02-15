@@ -1,8 +1,10 @@
 function generarUrlQR(datosPedido) {
+    //Construimos la URL para generar el código QR
     const baseUrl = "https://api.qrserver.com/v1/create-qr-code/";
-    const tamaño = "150x150"; // Puedes ajustar el tamaño aquí
-    const data = encodeURIComponent(datosPedido); // Asegúrate de codificar los datos del pedido
+    const tamaño = "150x150"; 
+    const data = encodeURIComponent(datosPedido); 
 
+    //Devolvemos la URL que genera el código QR
     return `${baseUrl}?size=${tamaño}&data=${data}`;
 }
 
@@ -11,7 +13,7 @@ function mostrarQR(datosPedido) {
     // Obtener el URL del código QR
     const urlQR = generarUrlQR(datosPedido);
 
-    // Crear un elemento de imagen para el código QR
+    //Asignamos al elemento de imagen la URL del código QR
     const imagenQR = document.getElementById("qr-pedido");
     imagenQR.src = urlQR;
     imagenQR.alt = "Código QR del Pedido";

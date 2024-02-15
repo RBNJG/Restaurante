@@ -15,9 +15,7 @@ class APIController
     {
 
         if ($_POST['accion'] == "buscar_opiniones") {
-            // Especificar el tipo de contenido para la respuesta
-            header('Content-Type: application/json');
-
+            
             //Recuperamos las opiniones
             $opinionesDAO = OpinionesDAO::getAllOpiniones();
 
@@ -258,25 +256,67 @@ class APIController
             //Recuperamos las opiniones
             $productosDAO = ProductoDAO::getAllProducts();
 
+            $precioMasBajo = ProductoDAO::getCheaperPrice();
+
             foreach ($productosDAO as $producto) {
+                $categoria = CategoriaDAO::getCategoryName($producto->getCategoria_id());
 
                 $productos[] = [
                     'producto_id' => (int) $producto->getProducto_id(),
-                    'categoria_id' => (int) $producto->getCategoria_id(),
+                    'categoria' => $categoria,
                     'nombre_producto' => $producto->getNombre_producto(),
                     'descripcion' => $producto->getDescripcion(),
                     'coste_base' => floatval($producto->getCoste_base()),
                     'imagen' => $producto->getImagen(),
                     'descuento' => floatval($producto->getDescuento()),
-                    'envio_gratis' => (boolean) $producto->getEnvio_gratis(),
+                    'envio_gratis' => (bool) $producto->getEnvio_gratis(),
                     'opiniones' => (int) $producto->getOpiniones(),
-                    'estrellas' => (int) $producto->getEstrellas()
+                    'estrellas' => (int) $producto->getEstrellas(),
+                    'precio_mas_bajo' => floatval($precioMasBajo)
                 ];
             }
 
 
             //Devolvemos a JS las opiniones en JSON
             echo json_encode($productos, JSON_UNESCAPED_UNICODE);
+
+            return;
+        } else if ($_POST['accion'] == "anadir_producto") {
+
+            $producto_id = $_POST['producto_id'];
+            $producto_existente = false;
+
+            //Buscamos el producto en el carrito 
+            foreach ($_SESSION['carrito'] as $pedido) {
+                if ($pedido->getProducto()->getProducto_id() == $producto_id) {
+                    //Buscamos el producto para asignar la cantidad
+                    $pedido->setCantidad($pedido->getCantidad() + 1);
+                    $producto_existente = true;
+
+                    //Después de encontrar el producto salimos del bucle
+                    break;
+                }
+            }
+
+            //Si el producto no está en el carrito lo añade
+            if (!$producto_existente) {
+                $pedido = new Carrito(ProductoDAO::getProduct($producto_id));
+                array_push($_SESSION['carrito'], $pedido);
+            }
+
+            $carritoParaJson = array_map(function ($pedido) {
+                return [
+                    'producto_id' => $pedido->getProducto()->getProducto_id(),
+                    'cantidad' => $pedido->getCantidad(),
+                ];
+            }, $_SESSION['carrito']);
+
+            $cookiesCarrito = json_encode($carritoParaJson);
+
+            //Guardamos el carrito en las cookies
+            setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
+
+            echo json_encode(["success" => "Carrito actualizado con éxito"]);
 
             return;
         } else {

@@ -93,7 +93,7 @@
     width: 100%;
 }
 
-.precio-bajo{
+.precio-bajo {
     width: 90%;
     height: auto;
 }
@@ -120,6 +120,19 @@
     background-color: #C1DE9B;
 }
 
+/* TRANSICIONES */
+.transicion {
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    overflow: hidden;
+    max-height: 500px;
+    opacity: 1;
+}
+
+.oculto {
+    max-height: 0 !important;
+    opacity: 0 !important;
+}
+
 @media (max-width: 991.98px) {
     .text-carta {
         font-size: 1.8rem;
@@ -129,7 +142,7 @@
         height: 5rem;
     }
 
-    .estrella{
+    .estrella {
         width: 4rem;
         height: auto;
     }
@@ -147,12 +160,12 @@
     .text-carta {
         font-size: 1.7rem;
     }
-    
+
     .fondo-carta {
         height: 4.5rem;
     }
 
-    .estrella{
+    .estrella {
         width: 3.2rem;
         height: auto;
     }
@@ -175,7 +188,7 @@
         height: 4rem;
     }
 
-    .estrella{
+    .estrella {
         width: 2.8rem;
         height: auto;
     }

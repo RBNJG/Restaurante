@@ -425,19 +425,19 @@ document.getElementById('borrar-todo').addEventListener('click', function (event
 document.getElementById('guardar-opinion').addEventListener('click', function (event) {
     event.preventDefault();
 
-    // Verificar si se ha seleccionado una calificación
+    //Verificamos si se ha seleccionado una calificación
     if (!estrellasGlobal || estrellasGlobal === 0) {
         notie.alert({
-            type: 'error', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+            type: 'error',
             text: 'Por favor, selecciona una valoración.'
         })
         return;
     }
 
-    // Verificar si se ha seleccionado una calificación
+    //Verificamos si se ha seleccionado una calificación
     if (document.getElementById('opinion').value == "") {
         notie.alert({
-            type: 'error', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+            type: 'error',
             text: 'Por favor, escribe tu opinión.'
         })
         return;
@@ -466,10 +466,10 @@ document.getElementById('guardar-opinion').addEventListener('click', function (e
         .then(response => response.json())
         .then(data => {
             notie.alert({
-                type: 'success', // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                type: 'success',
                 text: 'Opinión guardada con éxito.'
             })
-            // Llamar a cargarOpiniones sin filtros para restablecer la lista de opiniones
+            //Volvemos a cargar las opiniones y reiniciamos los filtros
             cargarOpiniones();
             resetearFormulario();
             console.log('Respuesta del servidor:', data);
@@ -489,20 +489,20 @@ document.getElementById('guardar-opinion').addEventListener('click', function (e
 
 //Función para resetear los valores del formulario
 function resetearFormulario() {
-    // Resetear el select de pedidos
+    //Resetear el select de pedidos
     let selectPedidos = document.getElementById('lista-pedidos');
     if (selectPedidos.options.length > 0) {
         selectPedidos.selectedIndex = 0;
     }
 
-    // Resetear las estrellas
+    //Resetear las estrellas
     let estrellas = document.querySelectorAll('#estrellas .estrella');
     estrellas.forEach(estrella => {
         estrella.classList.remove('resaltada', 'seleccionada');
     });
     estrellasGlobal = 0;
 
-    // Limpiar el textarea de la opinión
+    //Limpiar el textarea de la opinión
     document.getElementById('opinion').value = '';
 }
 
