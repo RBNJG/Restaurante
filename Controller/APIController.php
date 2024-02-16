@@ -166,9 +166,6 @@ class APIController
             return;
         } else if ($_POST['accion'] == "obtener_carrito") {
 
-            // Especificar el tipo de contenido para la respuesta
-            header('Content-Type: application/json');
-
             //Recuperamos el carrito
             $carrito = $_SESSION['carrito'];
 

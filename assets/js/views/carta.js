@@ -4,21 +4,33 @@ let filtro = false;
 
 //Función que carga el carrito
 function cargarCarta() {
-    fetch('http://www.leroymerlin.com/?controller=API&action=api', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: 'accion=obtener_carta'
-    })
-        .then(response => response.json())
-        .then(productos => {
-            localStorage.setItem('productos', JSON.stringify(productos));
-            productosGlobal = productos;
-            productosActuales = [...productosGlobal];
-            mostrarCarta(productos, filtro);
+    //Primero intentamos cargar los productos de localStorage para agilizar la carga
+    let productosLocalStorage = localStorage.getItem('productos');
+
+    if (productosLocalStorage) {
+        //Parseamos los productos y los usamos directamente
+        productosGlobal = JSON.parse(productosLocalStorage);
+        productosActuales = [...productosGlobal];
+        mostrarCarta(productosGlobal, filtro);
+    } else {
+        //Si no hay productos en localStorage, realizamos la solicitud al servidor
+        fetch('http://www.leroymerlin.com/?controller=API&action=api', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: 'accion=obtener_carta'
         })
-        .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(productos => {
+                //Guardamos los productos obtenidos en localStorage
+                localStorage.setItem('productos', JSON.stringify(productos));
+                productosGlobal = productos;
+                productosActuales = [...productosGlobal];
+                mostrarCarta(productos, filtro);
+            })
+            .catch(error => console.error('Error:', error));
+    }
 }
 
 //Función que genera la estructura del HTML de la carta
