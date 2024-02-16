@@ -1,4 +1,5 @@
 let productosGlobal = [];
+let productosActuales = [];
 let filtro = false;
 
 //Función que carga el carrito
@@ -12,7 +13,9 @@ function cargarCarta() {
     })
         .then(response => response.json())
         .then(productos => {
+            localStorage.setItem('productos', JSON.stringify(productos));
             productosGlobal = productos;
+            productosActuales = [...productosGlobal];
             mostrarCarta(productos, filtro);
         })
         .catch(error => console.error('Error:', error));
@@ -187,41 +190,10 @@ function aplicarFiltros() {
         productosFiltrados = productosFiltrados.filter(producto => producto.descuento > 0);
     }
 
+    productosActuales = productosFiltrados;
+    
     //Volvemos a mostrar los productos filtrados
     mostrarCarta(productosFiltrados, true);
-}
-
-function agruparPorCategoria(productos) {
-    return productos.reduce((grupos, producto) => {
-        const categoria = producto.categoria;
-        if (!grupos[categoria]) {
-            grupos[categoria] = [];
-        }
-        grupos[categoria].push(producto);
-        return grupos;
-    }, {});
-}
-
-function ordenarProductosPorGrupo(grupos, criterio) {
-    const gruposOrdenados = {};
-
-    Object.keys(grupos).forEach(categoria => {
-        gruposOrdenados[categoria] = grupos[categoria].sort((a, b) => {
-            switch (criterio) {
-                case 'menos_mas':
-                    return a.coste_base - b.coste_base;
-                case 'mas_menos':
-                    return b.coste_base - a.coste_base;
-                // Agrega más casos según los criterios de ordenación disponibles
-                case 'vendidos':
-                    return b.opiniones - a.opiniones;
-                default:
-                    return 0;
-            }
-        });
-    });
-
-    return gruposOrdenados;
 }
 
 //Listeners de los eventos de la página
@@ -308,16 +280,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.querySelector('input[name="minimo"]').value = null; // Ajusta según el valor por defecto
         document.querySelector('input[name="maximo"]').value = null; // Ajusta según el valor por defecto
 
-        //Volvemos a cargar la carta 
+        //Volvemos a cargar la carta  
         cargarCarta();
     });
 
     //Ordenación de los productos
     document.getElementById('select-filtro').addEventListener('change', function () {
         const seleccion = this.value;
-        let productosOrdenados = [...productosGlobal];
-
-        console.log("Antes de ordenar:", productosOrdenados.map(p => p.coste_base));
+        let productosOrdenados = productosActuales;
 
         switch (seleccion) {
             case 'menos_mas':
@@ -330,8 +300,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 productosOrdenados.sort((a, b) => b.opiniones - a.opiniones);
                 break;
         }
-
-        console.log("Antes de ordenar:", productosOrdenados.map(p => p.coste_base));
 
         //Mostramos la carta ordenada
         mostrarCarta(productosOrdenados, true);
