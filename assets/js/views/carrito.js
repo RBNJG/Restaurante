@@ -326,6 +326,9 @@ function modificarCantidad(carrito, pos, cambio) {
         .then(response => response.json())
         .then(data => {
             console.log('Respuesta del servidor:', data);
+            //Actualización del carrito
+            const contadorCarrito = document.getElementById('carrito-header');
+            contadorCarrito.textContent = "Carrito " + data.success;
         })
         .catch(error => {
             console.error('Error al enviar datos:', error);
@@ -356,6 +359,9 @@ function eliminarProducto(carrito, pos) {
         .then(data => {
             console.log('Respuesta del servidor:', data);
             cargarCarrito();
+            //Actualización del carrito
+            const contadorCarrito = document.getElementById('carrito-header');
+            contadorCarrito.textContent = "Carrito " + data.success;
         })
         .catch(error => {
             console.error('Error al enviar datos:', error);

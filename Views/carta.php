@@ -68,7 +68,7 @@
                     <h3 class="text-h2">Valoraciones de clientes</h4>
                         <hr class="linea-menos">
                 </div>
-                <form action=<?= url . "?controller=Carta&action=index" ?> method='post' class="d-flex flex-column">
+                <form id="filtros-carta" action=<?= url . "?controller=Carta&action=index" ?> method='post' class="d-flex flex-column">
                     <div id="valoraciones" class="ps-2">
                         <div class="d-flex justify-content-start align-items-baseline my-3">
                             <input type="checkbox" name="4estrellas" value="4" <?= $estrellas4 ? 'checked' : '' ?>>
@@ -133,19 +133,15 @@
 
                     <input type="number" name="filtro" value="1" hidden>
 
-                    <button type="submit" class="mt-4 align-self-center w-75 btn-compra text-h2">Aplicar</button>
-                    <a href="<?= url . "?controller=Carta" ?>" class="mt-3 align-self-center text">Restablecer</a>
+                    <button id="aplicar-filtros" type="button" class="mt-4 align-self-center w-75 btn-compra text-h2">Aplicar</button>
+                    <a role="button" id="restablecer-filtros" class="mt-3 align-self-center text">Restablecer</a>
                 </form>
             </div>
-            <div id="productos-carta" class="col-9 ps-5 pe-0 mt-2 mb-5">
+            <div class="col-9 ps-5 pe-0 mt-2 mb-5">
                 <div class="row">
                     <div class="d-flex justify-content-start align-items-center">
-                        <p class="my-0 text"><b><?php if ($productos == null) {
-                                                    echo "0";
-                                                } else {
-                                                    echo count($productos);
-                                                }  ?></b> producto(s) ordenado(s) por</p>
-                        <select name="" id="" class="ms-3 text select-filtro">
+                        <p class="my-0 text"><b id="contador-productos"></b> producto(s) ordenado(s) por</p>
+                        <select name="" id="select-filtro" class="ms-3 text select-filtro">
                             <option value="menos_mas">Precio: de menor a mayor</option>
                             <option value="mas_menos">Precio: de mayor a menor</option>
                             <option value="vendidos">Los más vendidos</option>
@@ -154,6 +150,9 @@
                             <img src="assets/images/carta/info.svg" alt="info" class="ms-3">
                         </picture>
                     </div>
+                </div>
+                <div id="productos-carta">
+
                 </div>
             </div>
         </div>

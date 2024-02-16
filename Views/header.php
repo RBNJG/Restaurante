@@ -88,16 +88,7 @@
         </nav>
         <hr class="my-0 linea-header">
     </header>
-    <script>
-        //Función para mostrar de forma dinámica la cantidad de productos en el carrito
-        function actualizarCantidadCarritoEnHeader(cantidad) {
-            const cantidadCarrito = document.getElementById('carrito-header');
-            if (cantidadCarrito) {
-                cantidadCarrito.textContent = 'Carrito ' + cantidad;
-            }
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

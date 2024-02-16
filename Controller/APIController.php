@@ -225,7 +225,9 @@ class APIController
             //Guardamos el carrito en las cookies
             setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
 
-            echo json_encode(["success" => "Carrito actualizado con éxito"]);
+            $cantidad = Calculadora::cantidadCarrito($_SESSION['carrito']);
+
+            echo json_encode(["success" => $cantidad]);
 
             return;
         } else if ($_POST['accion'] == "eliminar_producto_carrito") {
@@ -248,12 +250,14 @@ class APIController
             //Guardamos el carrito en las cookies
             setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
 
-            echo json_encode(["success" => "Carrito modificado con éxito"]);
+            $cantidad = Calculadora::cantidadCarrito($_SESSION['carrito']);
+
+            echo json_encode(["success" => $cantidad]);
 
             return;
         } else if ($_POST['accion'] == "obtener_carta") {
 
-            //Recuperamos las opiniones
+            //Recuperamos los productos
             $productosDAO = ProductoDAO::getAllProducts();
 
             $precioMasBajo = ProductoDAO::getCheaperPrice();
@@ -316,7 +320,9 @@ class APIController
             //Guardamos el carrito en las cookies
             setcookie('carrito', $cookiesCarrito, time() + (3600 * 48));
 
-            echo json_encode(["success" => "Carrito actualizado con éxito"]);
+            $cantidad = Calculadora::cantidadCarrito($_SESSION['carrito']);
+
+            echo json_encode(["success" => $cantidad]);
 
             return;
         } else {
