@@ -25,10 +25,10 @@
     </div>
     <section id="contenedor-carrito" class="container rellenar">
         <div class="row">
-            <div id="productos-carrito" class="col-lg-9 col-md-8 col-6 px-0 mb-5">
+            <div id="productos-carrito" class="col-12 col-md-8 col-lg-9 px-0 mb-5">
 
             </div>
-            <div id="pago" class="col-lg-3 col-md-4 col-6 ps-4 mt-2 mb-5" style="display: none;">
+            <div id="pago" class="col-12 col-md-4 col-lg-3 ps-4 mt-2 mb-5" style="display: none;">
                 <div id="aplicar-puntos" class="d-flex justify-content-between align-items-center py-4 px-3 cartel-cheque">
                     <h3 class="mb-0 text-cheque">Aplicar puntos fidelidad</h4>
                         <picture>

@@ -168,7 +168,7 @@
     transition: opacity 0.5s, max-height 0.5s ease-in-out;
 }
 
-.estrella {
+.estrella-opinion {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -181,16 +181,16 @@
     cursor: pointer;
 }
 
-.estrella svg {
+.estrella-opinion svg {
     width: 2.6rem;
     height: 2.6rem;
     display: block;
     margin: auto;
 }
 
-.estrella.resaltada,
-.estrella:hover,
-.estrella:active {
+.estrella-opinion.resaltada,
+.estrella-opinion:hover,
+.estrella-opinion:active {
     background-image: url(../images/opiniones/estrella_llena.svg);
 }
 
@@ -198,4 +198,166 @@
     border: 1px solid #000000;
     border-radius: 4px;
     height: 10rem;
+}
+
+@media (max-width: 991.98px) {
+    .panel-filtros {
+        width: 40%;
+    }
+
+    .select-filtro {
+        width: 14rem !important;
+    }
+
+    #filtrar.btn-compra,
+    #aplicar-filtros.btn-compra {
+        width: 7rem;
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
+    }
+
+    #borrar-todo.btn-anadir-carrito {
+        width: 7rem;
+        padding-top: 0.7rem;
+        padding-bottom: 0.7rem;
+    }
+
+    #busqueda.buscador-header {
+        width: 20rem;
+    }
+
+    .circulo-user-opiniones {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 20rem;
+    }
+
+    .boton-opiniones {
+        font-size: 0.875rem;
+        width: 4.5rem;
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem;
+        border: 2px solid #000000;
+    }
+
+    .img-estrellas {
+        height: 1.4rem;
+        width: auto;
+    }
+
+    .estrella-opinion {
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+    
+    .estrella-opinion svg {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .panel-filtros {
+        width: 60%;
+    }
+
+    .select-filtro {
+        width: 13rem !important;
+    }
+
+    #filtrar.btn-compra,
+    #aplicar-filtros.btn-compra {
+        width: 6.5rem;
+        padding-top: 0.65rem;
+        padding-bottom: 0.65rem;
+    }
+
+    #borrar-todo.btn-anadir-carrito {
+        width: 6.5rem;
+        padding-top: 0.65rem;
+        padding-bottom: 0.65rem;
+    }
+
+    #busqueda.buscador-header {
+        width: 18rem;
+    }
+
+    .circulo-user-opiniones {
+        display: none;
+    }
+
+    .boton-opiniones {
+        font-size: 0.85rem;
+        width: 4rem;
+        padding-top: 0.18rem;
+        padding-bottom: 0.18rem;
+    }
+
+    .img-estrellas {
+        height: 1.25rem;
+        width: auto;
+    }
+
+    .estrella-opinion {
+        width: 2.7rem;
+        height: 2.7rem;
+    }
+    
+    .estrella-opinion svg {
+        width: 2.4rem;
+        height: 2.4rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .panel-filtros {
+        width: 80%;
+    }
+
+    .select-filtro {
+        width: 13rem !important;
+    }
+
+    #filtrar.btn-compra,
+    #aplicar-filtros.btn-compra {
+        width: 6rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+    }
+
+    #borrar-todo.btn-anadir-carrito {
+        width: 6rem;
+        padding-top: 0.6rem;
+        padding-bottom: 0.6rem;
+    }
+
+    #busqueda.buscador-header {
+        width: 15rem;
+    }
+
+    .circulo-user-opiniones {
+        display: none;
+    }
+
+    .boton-opiniones {
+        font-size: 0.8rem;
+        width: 4rem;
+        padding-top: 0.15rem;
+        padding-bottom: 0.15rem;
+    }
+
+    .img-estrellas {
+        height: 1.1rem;
+        width: auto;
+    }
+
+    .estrella-opinion {
+        width: 2.6rem;
+        height: 2.6rem;
+    }
+    
+    .estrella-opinion svg {
+        width: 2.3rem;
+        height: 2.3rem;
+    }
 }

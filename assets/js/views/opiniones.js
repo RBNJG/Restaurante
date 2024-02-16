@@ -537,7 +537,7 @@ document.getElementById('nueva-opinion').addEventListener('click', function () {
 
 //Aspecto de las estrellas al insertar opinión
 document.addEventListener('DOMContentLoaded', function () {
-    let estrellas = document.querySelectorAll('.estrella-selector .estrella');
+    let estrellas = document.querySelectorAll('.estrella-opinion');
     let calificacionSeleccionada = 0;
 
     estrellas.forEach(function (estrella) {

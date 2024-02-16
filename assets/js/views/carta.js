@@ -191,7 +191,7 @@ function aplicarFiltros() {
     }
 
     productosActuales = productosFiltrados;
-    
+
     //Volvemos a mostrar los productos filtrados
     mostrarCarta(productosFiltrados, true);
 }
@@ -305,3 +305,31 @@ document.addEventListener('DOMContentLoaded', function () {
         mostrarCarta(productosOrdenados, true);
     });
 });
+
+//Definimos la mediaQuery para esconder los filtros en pantallas pequeñas
+const mediaQuery = window.matchMedia('(max-width: 768px)');
+
+//Con esta función escondemos los filtros en pantallas pequeñas
+function manejarCambioMediaQuery(e) {
+    const categorias = document.getElementById('categorias');
+    const valoraciones = document.getElementById('valoraciones');
+    const precio = document.getElementById('precio');
+
+    if (categorias && valoraciones && precio) {
+        //Si se cumple la mediaQuery aplicamos la clase
+        if (e.matches) {
+            categorias.classList.add('oculto');
+            valoraciones.classList.add('oculto');
+            precio.classList.add('oculto');
+        } else {
+            categorias.classList.remove('oculto');
+            valoraciones.classList.remove('oculto');
+            precio.classList.remove('oculto');
+        }
+    }
+}
+
+mediaQuery.addEventListener('change', manejarCambioMediaQuery);
+
+//Ejecutamos la función
+manejarCambioMediaQuery(mediaQuery);

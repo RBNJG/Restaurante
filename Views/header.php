@@ -30,7 +30,7 @@
                             <ul class="navbar-nav me-auto mb-lg-0">
                                 <li class="nav-item me-4">
                                     <a href="<?= url . "?controller=Carta" ?>" class="text-menu">
-                                        <div class="d-flex align-items-center ms-2">
+                                        <div class="d-flex align-items-center ms-2 espacio-menu">
                                             <img src="assets/images/header/carta.svg" alt="carta" class="me-2 imagen-carta">
                                             <p class="mb-0 text">Carta</p>
                                         </div>

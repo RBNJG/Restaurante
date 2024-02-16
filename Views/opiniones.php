@@ -41,11 +41,11 @@
                         <div class="d-flex align-items-center mb-3">
                             <label for="" class="me-2 text-h3">Puntuación</label>
                             <div id="estrellas" class="d-flex estrella-selector">
-                                <span class="estrella" data-valor="1"></span>
-                                <span class="estrella" data-valor="2"></span>
-                                <span class="estrella" data-valor="3"></span>
-                                <span class="estrella" data-valor="4"></span>
-                                <span class="estrella" data-valor="5"></span>
+                                <span class="estrella-opinion" data-valor="1"></span>
+                                <span class="estrella-opinion" data-valor="2"></span>
+                                <span class="estrella-opinion" data-valor="3"></span>
+                                <span class="estrella-opinion" data-valor="4"></span>
+                                <span class="estrella-opinion" data-valor="5"></span>
                             </div>
                         </div>
                         <div class="d-flex flex-column mb-3">
@@ -117,14 +117,14 @@
                 </div>
             </section>
             <section class="row mb-4">
-                <div class="col-12 col-md-6 d-flex align-items-center">
+                <div class="col-3 col-md-6 d-flex align-items-center">
                     <div>
                         <button id="filtrar" type="submit" class="d-flex justify-content-center align-items-center btn-compra text">Filtrar
                             <img src="assets/images/opiniones/filtro.svg" alt="" class="img-filtro">
                         </button>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 d-flex justify-content-end">
+                <div class="col-9 col-md-6 d-flex justify-content-end">
                     <div id="busqueda" class="d-flex align-items-center my-2 px-2 ms-2 buscador-header">
                         <form id="buscador" class="d-flex justify-content-between w-100" role="search">
                             <input id="texto-buscador" class="w-100 buscador text" type="search" placeholder="Buscar por palabras clave" aria-label="Search">

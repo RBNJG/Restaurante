@@ -41,7 +41,7 @@
     </div>
     <div class="container mt-4">
         <div class="row">
-            <div class="col-3 px-0 mb-5">
+            <div class="col-12 col-md-3 px-0 mb-5">
                 <div role="button" id="desplegable-categorias" class="d-flex align-items-center justify-content-between ps-2 pe-3 py-3 fondo-desplegable">
                     <h3 class="text-h2">Categorías</h4>
                         <hr class="linea-menos">
@@ -137,7 +137,7 @@
                     <a role="button" id="restablecer-filtros" class="mt-3 align-self-center text">Restablecer</a>
                 </form>
             </div>
-            <div class="col-9 ps-5 pe-0 mt-2 mb-5">
+            <div class="col-12 col-md-9 ps-5 pe-0 mt-2 mb-5">
                 <div class="row">
                     <div class="d-flex justify-content-start align-items-center">
                         <p class="my-0 text"><b id="contador-productos"></b> producto(s) ordenado(s) por</p>
