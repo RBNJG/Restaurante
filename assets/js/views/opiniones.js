@@ -2,6 +2,7 @@ let estrellasGlobal;
 let usuario_idGlobal;
 let mensajeUsuario = "";
 let totalOpiniones = [];
+let pedidosUsuario = [];
 
 //Función para obtener la información de las opiniones en JSON
 function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
@@ -49,27 +50,21 @@ function obtenerUsuario() {
         .catch(error => console.error('Error al obtener los datos:', error));
 }
 
-function actualizarSelectPedidos(pedidos) {
-     // Asumiendo que totalOpiniones ya está definido y lleno con las opiniones obtenidas previamente
-     if (!Array.isArray(totalOpiniones)) {
-        console.error('totalOpiniones no está definido o no es un array.');
-        return;
-    }
 
-    // Filtrar los pedidos para excluir aquellos que ya tienen opiniones
+//Actualizamos la lista de pedidos que puede seleccionar el usuario para dejar una opinión
+function actualizarSelectPedidos(pedidos) {
+    //Filtramos los pedidos para excluir aquellos que ya tienen opiniones
     let pedidosSinOpiniones = pedidos.pedidos_usuario.filter(pedido => 
         !totalOpiniones.some(opinion => opinion.pedido_id === pedido.pedido_id)
     );
 
-
-    console.log(pedidosSinOpiniones);
-    console.log(totalOpiniones);
-
-    // Seleccionar el elemento select de pedidos
+    //Seleccionar el elemento select de pedidos
     var selectPedidos = document.getElementById('lista-pedidos');
 
     //Eliminamos el contenido
     selectPedidos.innerHTML = '';
+
+    pedidosUsuario = pedidosSinOpiniones;
 
     //Agregamos cada pedido como opción del select
     pedidosSinOpiniones.forEach(function (pedido) {
@@ -82,19 +77,19 @@ function actualizarSelectPedidos(pedidos) {
 
 // Función para filtrar y ordenar opiniones
 function filtrarOpiniones(opiniones, orden, estrellasFiltradas, textoBusqueda) {
-    // Filtrar por estrellas, si se especifica
+    //Filtramos por estrellas, si se especifica
     if (estrellasFiltradas.length > 0) {
         opiniones = opiniones.filter(opinion => estrellasFiltradas.includes(opinion.estrellas));
     }
 
-    //Filtrar por texto de opinión
+    //Filtramos por texto de opinión
     if (textoBusqueda) {
         opiniones = opiniones.filter(opinion =>
             opinion.opinion.toLowerCase().includes(textoBusqueda.toLowerCase())
         );
     }
 
-    // Ordenar opiniones según el criterio
+    //Ordenamos opiniones según el criterio
     switch (orden) {
         case "mas_reciente":
             opiniones.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
@@ -527,6 +522,13 @@ document.getElementById('nueva-opinion').addEventListener('click', function () {
         notie.alert({
             type: 'error',
             text: mensajeUsuario
+        })
+
+        return;
+    }else if(pedidosUsuario.length === 0){
+        notie.alert({
+            type: 'error',
+            text: "Ya has opinado sobre todos tus pedidos"
         })
 
         return;
