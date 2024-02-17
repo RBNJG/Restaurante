@@ -17,7 +17,7 @@
     <title>Leroy Merlin</title>
 </head>
 
-<body onload="obtenerUsuario();cargarOpiniones()">
+<body onload="cargarOpiniones()">
     <main class="fondo-resenyas rellenar">
         <div class="container">
             <section class="mt-3 mb-3">

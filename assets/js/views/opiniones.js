@@ -1,6 +1,7 @@
 let estrellasGlobal;
 let usuario_idGlobal;
 let mensajeUsuario = "";
+let totalOpiniones = [];
 
 //Función para obtener la información de las opiniones en JSON
 function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
@@ -13,16 +14,19 @@ function cargarOpiniones(orden, estrellasFiltradas = [], textoBusqueda) {
     })
         .then(response => response.json())
         .then(opiniones => {
+            totalOpiniones = opiniones;
             let opinionesFiltradas = filtrarOpiniones(opiniones, orden, estrellasFiltradas, textoBusqueda);
             let paginas = paginarOpiniones(opinionesFiltradas, 3);
             informacionOpiniones(opiniones);
             mostrarOpiniones(paginas[0]);
             agregarControlesPaginacion(paginas);
             estiloPaginacion(0, paginas.length);
+            obtenerUsuario();
         })
         .catch(error => console.error('Error:', error));
 }
 
+//Función para obtener el usuario actual y sus pedidos
 function obtenerUsuario() {
     fetch('http://www.leroymerlin.com/?controller=API&action=api', {
         method: 'POST',
@@ -35,30 +39,40 @@ function obtenerUsuario() {
         .then(pedidos => {
             if (pedidos.error) {
                 console.error("Error:", pedidos.error);
-                //document.getElementById('nueva-opinion').style.display = 'none';
             } else if (pedidos.mensaje) {
-                //document.getElementById('nueva-opinion').style.display = 'block';
                 mensajeUsuario = pedidos.mensaje;
             } else {
-                //document.getElementById('nueva-opinion').style.display = 'block';
                 actualizarSelectPedidos(pedidos)
-                usuario_idGlobal = pedidos.usuario_id;
-                console.log("Usuario:", pedidos.usuario_id);
-                console.log("Pedidos:", pedidos.pedidos_usuario);
+                usuario_idGlobal = pedidos.usuario_id;   
             }
         })
         .catch(error => console.error('Error al obtener los datos:', error));
 }
 
 function actualizarSelectPedidos(pedidos) {
-    //Seleccionamos el select de pedidos
+     // Asumiendo que totalOpiniones ya está definido y lleno con las opiniones obtenidas previamente
+     if (!Array.isArray(totalOpiniones)) {
+        console.error('totalOpiniones no está definido o no es un array.');
+        return;
+    }
+
+    // Filtrar los pedidos para excluir aquellos que ya tienen opiniones
+    let pedidosSinOpiniones = pedidos.pedidos_usuario.filter(pedido => 
+        !totalOpiniones.some(opinion => opinion.pedido_id === pedido.pedido_id)
+    );
+
+
+    console.log(pedidosSinOpiniones);
+    console.log(totalOpiniones);
+
+    // Seleccionar el elemento select de pedidos
     var selectPedidos = document.getElementById('lista-pedidos');
 
     //Eliminamos el contenido
     selectPedidos.innerHTML = '';
 
     //Agregamos cada pedido como opción del select
-    pedidos.pedidos_usuario.forEach(function (pedido) {
+    pedidosSinOpiniones.forEach(function (pedido) {
         var opcion = document.createElement('option');
         opcion.textContent = 'Pedido nº' + pedido.pedido_id;
         opcion.value = pedido.pedido_id;
